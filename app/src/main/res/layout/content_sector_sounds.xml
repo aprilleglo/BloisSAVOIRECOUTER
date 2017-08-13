@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.aprille.bloissavoirecouter.SectorSoundsActivity"
+    tools:showIn="@layout/activity_sector_sounds">
+
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constaintLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/sectorImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/plan_title"
+                    tools:ignore="RtlHardcoded" />
+
+
+                <TextView
+                    android:id="@+id/tVSectorInfo"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginLeft="170dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="left"
+                    android:padding="4dp"
+                    android:text="@string/quadrantNum"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tVSectorDescr"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginTop="3dp"
+                    android:gravity="left"
+                    android:padding="2dp"
+                    android:text="centre ville, Le château de Blois, La gare de Blois - Chambord, La Maison de la Magie Robert-Houdin"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tVSectorInfo"
+                    android:layout_marginLeft="170dp" />
+
+                <TextView
+                    android:id="@+id/numQuadSoundTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Number of sounds"
+                    app:layout_constraintTop_toBottomOf="@+id/sectorImageView"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="15dp" />
+
+                <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+                    android:id="@+id/sound_realm_recycler_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sectorImageView"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="32dp"
+                    app:rrvGridLayoutSpanCount="2"
+                    app:rrvIsRefreshable="false"
+                    app:rrvLayoutType="Grid"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="15dp" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+</ScrollView>
+

@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Blois : Learn to Listen</string>
+    <string name="action_settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="addUserPhoto">Add New User Image</string>
+    <string name="addPhoto">Add Photo !</string>
+    <string name="takePhoto">Take photo from camera</string>
+    <string name="choosePhotoGallery">Choose from gallery</string>
+    <string name="name">Name</string>
+    <string name="about_you">About you...</string>
+    <string name="user_image">User Image</string>
+    <string name="namelabel">label name edit box</string>
+    <string name="aboutlabel">label about you edit box</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_activity_about">about project</string>
+
+    <string name="aboutParagraph2">Blois : Savoir Écouter est un projet hybride. La structure de bois et papier est réelle, la tablette tactile est intégrée et les applications mobiles fournies sont numériques. Dans cette œuvre participative, les Blésois peuvent ajouter au contenu du projet soit un dessin, soit une histoire écrite à la main, soit des contenus numériques (sons, images ou vidéos).</string>
+    <string name="about1Description">People interacting with the project Blois : Savoir Écouter</string>
+    <string name="about2Description">detailed view of the sculpture Blois : Savoir Écouter</string>
+    <string name="linkProject"><a href="http://http://blois.odeurdelacouleur.info">http://blois.odeurdelacouleur.info</a></string>
+    <string name="title_activity_thanks">Our Thanks</string>
+    <string name="title_activity_artist">About the Artist</string>
+    <string name="title_activity_people">People of Blois</string>
+    <string name="title_activity_legende">LegendeActivity</string>
+    <string name="title_activity_app">AppActivity</string>
+    <string name="title_activity_sound_list">SoundLIstActivity</string>
+    <string name="title_activity_sound">SoundActivity</string>
+    <string name="title_activity_sector_sounds">SectorSoundsActivity</string>
+
+
+    <!--mystrings-->
+    <string name="aboutDescription">About Project</string>
+    <string name="thanksDescription">thanks to our partners</string>
+    <string name="case1_Description">Sector 1</string>
+    <string name="case2_Description">Sector 2</string>
+    <string name="users_Description">people of Blois</string>
+    <string name="case3_Description">Sector 3</string>
+    <string name="case4_Description">Sector 4</string>
+    <string name="case5_Description">Sector 5</string>
+    <string name="case6_Description">Sector 6</string>
+    <string name="case7_Description">Sector 7</string>
+    <string name="case8_Description">Sector 8</string>
+    <string name="case9_Description">Sector 9</string>
+    <string name="case10_Description">Sector 10</string>
+    <string name="case11_Description">Sector 11</string>
+    <string name="case12_Description">Sector 12</string>
+    <string name="case13_Description">Sector 13</string>
+    <string name="case14_Description">Sector 14</string>
+    <string name="case15_Description">Sector 15</string>
+    <string name="legend_Description">The legend of map</string>
+    <string name="application_Description">The application itself</string>
+    <!--mystrings-->
+
+    <string name="aboutParagraph1">Ce projet est né du désir de comprendre l’espace urbain dans un contexte sculptural. Mon objet est de créer un travail qui est un stimulant de l’engagement personnel avec l’espace urbain et des logiques socio-spatiales des individus et des communautés qu’ils composent. La démarche que j’ai adoptée pour réaliser l’oeuvre s’intègre dans une logique de long terme,
+    dans la mesure où je souhaite cibler une grande variété de publics.</string>
+
+
+    <string name="quadrantNum">This must change</string>
+
+</resources>

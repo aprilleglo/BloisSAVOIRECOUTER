@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="68dp"
+    android:background="#000000"
+    tools:context="net.aprille.bloissavoirecouter.PlanActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:background="#000000"
+
+        android:stretchColumns="4" >
+        <!-- row 1-->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row1">
+
+            <ImageButton
+                android:layout_column="0"
+                app:srcCompat="@drawable/plan_title"
+                android:id="@+id/imageButtonTitle"
+
+                android:contentDescription="@string/aboutDescription"
+                android:nextFocusForward="@+id/imageButtonThanks"
+                android:nextFocusRight="@+id/imageButtonThanks"
+                android:nextFocusDown="@+id/imageButtonPeople"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="5dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClickAbout" />
+
+            <ImageButton
+                android:layout_column="1"
+                app:srcCompat="@drawable/plan_left_top"
+                android:id="@+id/imageButtonThanks"
+
+                android:contentDescription="@string/thanksDescription"
+                android:nextFocusForward="@+id/imageButtonPeople"
+                android:nextFocusLeft="@+id/imageButtonTitle"
+                android:nextFocusRight="@+id/imageButtonCase1"
+                android:nextFocusDown="@+id/imageButtonCase3"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="5dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClickThanks"/>
+
+            <ImageButton
+                android:layout_column="2"
+                app:srcCompat="@drawable/plan_1"
+                android:id="@+id/imageButtonCase1"
+
+                android:contentDescription="@string/case1_Description"
+                android:nextFocusForward="@+id/imageButtonCase2"
+                android:nextFocusLeft="@+id/imageButtonThanks"
+                android:nextFocusRight="@+id/imageButtonCase2"
+                android:nextFocusDown="@+id/imageButtonCase4"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="5dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick1"/>
+
+            <ImageButton
+                android:layout_column="3"
+                app:srcCompat="@drawable/plan_2"
+                android:id="@+id/imageButtonCase2"
+
+                android:contentDescription="@string/case2_Description"
+                android:nextFocusForward="@+id/imageButtonCase3"
+                android:nextFocusLeft="@+id/imageButtonCase1"
+                android:nextFocusDown="@+id/imageButtonCase5"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="5dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick2"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row2" >
+
+            <ImageButton
+                android:layout_column="0"
+                app:srcCompat="@drawable/plan_secondrow_left"
+                android:id="@+id/imageButtonPeople"
+
+                android:contentDescription="@string/users_Description"
+                android:nextFocusForward="@id/imageButtonCase1"
+                android:nextFocusRight="@id/imageButtonCase3"
+                android:nextFocusUp="@id/imageButtonTitle"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClickPeople"/>
+
+            <ImageButton
+                android:layout_column="1"
+                app:srcCompat="@drawable/plan_3"
+                android:id="@+id/imageButtonCase3"
+
+                android:contentDescription="@string/case3_Description"
+                android:nextFocusForward="@id/imageButtonCase4"
+                android:nextFocusLeft="@id/imageButtonPeople"
+                android:nextFocusRight="@id/imageButtonCase4"
+                android:nextFocusUp="@id/imageButtonThanks"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick3"/>
+
+            <ImageButton
+                android:layout_column="2"
+                app:srcCompat="@drawable/plan_4"
+                android:id="@+id/imageButtonCase4"
+
+                android:contentDescription="@string/case4_Description"
+                android:nextFocusForward="@id/imageButtonCase5"
+                android:nextFocusLeft="@id/imageButtonCase3"
+                android:nextFocusRight="@id/imageButtonCase5"
+                android:nextFocusUp="@id/imageButtonCase2"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick4"/>
+
+            <ImageButton
+                android:layout_column="3"
+                app:srcCompat="@drawable/plan_5"
+                android:id="@+id/imageButtonCase5"
+
+                android:contentDescription="@string/case5_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick5"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row3" >
+
+            <ImageButton
+                android:layout_column="0"
+                app:srcCompat="@drawable/plan_6"
+                android:id="@+id/imageButtonCase6"
+
+                android:contentDescription="@string/case6_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick6"/>
+
+            <ImageButton
+                android:layout_column="1"
+                app:srcCompat="@drawable/plan_7"
+                android:id="@+id/imageButtonCase7"
+
+                android:contentDescription="@string/case7_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick7"/>
+
+            <ImageButton
+                android:layout_column="2"
+                app:srcCompat="@drawable/plan_8"
+                android:id="@+id/imageButton12"
+
+                android:contentDescription="@string/case8_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick8"/>
+
+            <ImageButton
+                android:layout_column="3"
+                app:srcCompat="@drawable/plan_9"
+                android:id="@+id/imageButtonCase9"
+
+                android:contentDescription="@string/case9_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick9"/>
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row4" >
+
+            <ImageButton
+                android:layout_column="0"
+                app:srcCompat="@drawable/plan_10"
+                android:id="@+id/imageButtonCase10"
+
+                android:contentDescription="@string/case10_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick10"/>
+
+            <ImageButton
+                android:layout_column="1"
+                app:srcCompat="@drawable/plan_11"
+                android:id="@+id/imageButtonCase11"
+
+                android:contentDescription="@string/case11_Description"
+
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick11"/>
+
+            <ImageButton
+                android:layout_column="2"
+                app:srcCompat="@drawable/plan_12"
+                android:id="@+id/imageButtonCase12"
+
+                android:contentDescription="@string/case12_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick12"/>
+
+            <ImageButton
+                android:layout_column="3"
+                app:srcCompat="@drawable/plan_13"
+                android:id="@+id/imageButton17"
+
+                android:contentDescription="@string/case13_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick13"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row5">
+
+            <ImageButton
+                android:layout_column="0"
+                app:srcCompat="@drawable/plan_14"
+                android:id="@+id/imageButton18"
+
+                android:contentDescription="@string/case14_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick14"/>
+
+            <ImageButton
+                android:layout_column="1"
+                app:srcCompat="@drawable/plan_15"
+                android:id="@+id/imageButtonCase15"
+
+                android:contentDescription="@string/case15_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClick15"/>
+
+            <ImageButton
+                android:layout_column="2"
+                app:srcCompat="@drawable/plan_quote"
+                android:id="@+id/imageButtonlegende"
+
+                android:contentDescription="@string/legend_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClickLegende" />
+
+            <ImageButton
+                android:layout_column="3"
+                app:srcCompat="@drawable/plan_ipad_square"
+                android:id="@+id/imageButtonAppImage"
+
+                android:contentDescription="@string/application_Description"
+
+                android:scaleType="fitStart"
+                android:layout_weight="0.25"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:adjustViewBounds="true"
+                android:onClick="buttonClickApp"/>
+
+
+
+        </TableRow>
+
+    </TableLayout>
+
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:onClick="buttonClickAbout"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/title_home" />
+
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+
