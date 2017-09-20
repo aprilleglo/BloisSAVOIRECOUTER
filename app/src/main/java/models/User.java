@@ -31,6 +31,8 @@ public class User extends RealmObject {
 
     private boolean PrimaryUserBoolean;
 
+    private boolean permissionGranted;
+
     private RealmList<Sound> userSounds;
 
 
@@ -102,5 +104,13 @@ public class User extends RealmObject {
 
     public void setPrimaryUserBoolean(boolean primaryUserBoolean) {
         PrimaryUserBoolean = primaryUserBoolean;
+    }
+
+    public boolean isPermissionGranted() {
+        return permissionGranted;
+    }
+
+    public void setPermissionGranted(boolean permissionGranted) {
+        this.permissionGranted = permissionGranted;
     }
 }

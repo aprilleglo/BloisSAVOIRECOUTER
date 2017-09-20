@@ -1,5 +1,6 @@
 package net.aprille.bloissavoirecouter;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,11 +28,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import helperfunctions.Util;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import models.AppSpecificDetails;
 import models.User;
-import helperfunctions.Util;
 
 public class StartupActivity extends AppCompatActivity {
 
@@ -36,12 +40,41 @@ public class StartupActivity extends AppCompatActivity {
     final Context context = this;
     Realm realm;
     ImageView viewImage;
+    int permissionCheckStorage;
+    int permissionCheckCamera;
+    int permissionCheckMicrophone;
+
+
+    public File BloisUserDir;
+    public File BloisSoundDir;
+    public File BloisDir;
+    public String BloisUserDirPath;
+    public String DirectoryFinal;
+
+
+    /**
+     * Id to identify a camera permission request.
+     */
+    private static final int REQUEST_CAMERA = 0;
+
+    /**
+     * Id to identify a contacts permission request.
+     */
+    private static final int REQUEST_STORAGE = 1;
+
+    /**
+     * Id to identify a contacts permission request.
+     */
+    private static final int REQUEST_MICROPHONE = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startup);
-        viewImage = (ImageView)findViewById(R.id.primaryUserImageView);
+
+        BloisUserDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/users");
+        BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
+
 
 //        not for production because deletes WHOLE REALM IF PROBLEM !!!!
 
@@ -54,6 +87,35 @@ public class StartupActivity extends AppCompatActivity {
             realm = Realm.getDefaultInstance();
         }
 
+        // Assume check permissions for camera and storage
+        permissionCheckCamera = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+        Log.w("myApp", "permissionCheck " + permissionCheckCamera );
+
+        permissionCheckStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.w("myApp", "permissionCheckStorage " + permissionCheckStorage );
+
+
+//        if (permissionCheckCamera == -1) {
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+//                REQUEST_CAMERA);
+//            permissionCheckCamera = ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.CAMERA);
+//            Log.w("myApp", "permissionCheck value after request" + permissionCheckCamera );
+//
+//        }
+
+        if (permissionCheckStorage == -1) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_STORAGE);
+            permissionCheckStorage = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            Log.w("myApp", "permissionCheckStorage value after request" + permissionCheckStorage);
+        }
+
+        setContentView(R.layout.activity_startup);
+        viewImage = (ImageView)findViewById(R.id.primaryUserImageView);
 
 
     }
@@ -67,8 +129,11 @@ public class StartupActivity extends AppCompatActivity {
         }
     }
 
+
+
     public void buttonClickSave(View v)
     {
+
         setupPrimaryUser();
         Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
         startActivity(intent);
@@ -77,7 +142,20 @@ public class StartupActivity extends AppCompatActivity {
 
     public void buttonClickAddPhoto(View v)
     {
-        selectImage();
+        if (permissionCheckCamera == -1) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CAMERA);
+            permissionCheckCamera = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA);
+            Log.w("myApp", "permissionCheck value after request" + permissionCheckCamera );
+
+        }
+        if ((permissionCheckCamera == -1) && (permissionCheckStorage == 0)) {
+            selectImageNoCamera();
+        } else {
+            selectImage();
+        }
+
 
     }
 
@@ -96,8 +174,9 @@ public class StartupActivity extends AppCompatActivity {
         } else {
             newPrimaryKey = Util.getCurrDateString().trim();
             Log.w("myApp", "newPrimaryKey" + newPrimaryKey);
+            boolean didSaveUserFile = saveUserImageFile(newPrimaryKey);
 
-            if ( saveUserImageFile(newPrimaryKey) ){
+            if ( didSaveUserFile ) {
 
                 // saveUserImageFile returned a true and save primary image file
                 String userImagefileName = newPrimaryKey +".jpg";
@@ -116,6 +195,9 @@ public class StartupActivity extends AppCompatActivity {
                 newPrimaryUser.setUserPhoto(userImagefileName);
                 newPrimaryUser.setPrimaryUserBoolean(true);
                 realm.commitTransaction();
+
+            } else {
+                Log.w("myApp", "newPrimaryKey didn't work" + newPrimaryKey);
 
             }
 
@@ -146,7 +228,12 @@ public class StartupActivity extends AppCompatActivity {
                 {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    Uri photoURI = FileProvider.getUriForFile(context,
+                            BuildConfig.APPLICATION_ID + ".provider",
+                            f);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoURI));
                     startActivityForResult(intent, 1);
                 }
                 else if (options[item].equals(choosePhotoDialog))
@@ -162,6 +249,34 @@ public class StartupActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
+    private void selectImageNoCamera() {
+
+        final String addPhotoDialogTitle = getString(R.string.addPhoto);
+        final String choosePhotoDialog = getString(R.string.choosePhotoGallery);
+        final String cancelDialog = getString(R.string.cancel);
+
+        final CharSequence[] options = { choosePhotoDialog, cancelDialog };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(addPhotoDialogTitle);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals(choosePhotoDialog))
+                {
+                    Intent intent = new   Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, 2);
+
+                }
+                else if (options[item].equals(cancelDialog)) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -226,17 +341,30 @@ public class StartupActivity extends AppCompatActivity {
         File BloisUserDir;
         viewImage.buildDrawingCache();
         Bitmap bitmap = viewImage.getDrawingCache();
-
+        Log.w("myApp", "inside saveUserImageFile" + imgFileName);
         BloisUserDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/users");
+        if(BloisUserDir.exists() && BloisUserDir.isDirectory()) {
+            Log.w("myApp", "directory exist"  );
+        } else {
+            Log.w("myApp", "directory does't exist"  );
+            BloisUserDir.mkdirs();
+
+        }
+
         Log.w("myApp", "path of image from BloisUserDir " + BloisUserDir );
         String filename = imgFileName + ".jpg";
-
+        Log.w("myApp", "external storage is writable"  );
         if ( Util.isExternalStorageWritable() ) {
             Log.w("myApp", "external storage is writable"  );
         } else {
             Log.w("myApp", "bummer external storage IS NOT writable"  );
         }
         File file = new File(BloisUserDir, filename);
+        if(file.exists() ) {
+            Log.w("myApp", "file exist"  );
+        } else {
+            Log.w("myApp", "file  doesn exist"  );
+        }
         Log.w("myApp", "AbsolutePath from file " + file.getAbsolutePath() );
 
         try {
@@ -248,12 +376,12 @@ public class StartupActivity extends AppCompatActivity {
             Log.w("myApp", "Success we seem to have written the primary user! "  );
         }
         catch (FileNotFoundException e) {
-            Log.w("myApp", "IOException " + file.getAbsolutePath() );
+            Log.w("myApp", "IOException FileNotFoundException" + file.getAbsolutePath() );
             e.printStackTrace();
             return false;
         }
         catch (IOException e) {
-            Log.w("myApp", "IOException " + file.getAbsolutePath() );
+            Log.w("myApp", "IOException catch " + file.getAbsolutePath() );
             e.printStackTrace();
             return false;
         }

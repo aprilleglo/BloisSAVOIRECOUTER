@@ -21,13 +21,15 @@ public class Location extends RealmObject {
 
     private String locationAddress;
 
-    private long longitiude;
+    private Double longitiude;
 
-    private long latitude;
+    private Double latitude;
 
     private Quadrant locationQuad;
 
     private int locationNumSounds;
+
+    private String locationPhotoURL;
 
     private RealmList<Sound> locationSounds;
 
@@ -56,19 +58,19 @@ public class Location extends RealmObject {
 
     public void setLocationAddress(String locationAddress) {this.locationAddress = locationAddress;}
 
-    public long getLongitiude() {
+    public Double getLongitiude() {
         return longitiude;
     }
 
-    public void setLongitiude(long longitiude) {
+    public void setLongitiude(Double longitiude) {
         this.longitiude = longitiude;
     }
 
-    public long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) { this.latitude = latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
     public Quadrant getLocationQuad() {
         return locationQuad;
@@ -76,6 +78,14 @@ public class Location extends RealmObject {
 
     public void setLocationQuad(Quadrant locationQuad) {
         this.locationQuad = locationQuad;
+    }
+
+    public String getLocationPhotoURL() {
+        return locationPhotoURL;
+    }
+
+    public void setLocationPhotoURL(String locationPhotoURL) {
+        this.locationPhotoURL = locationPhotoURL;
     }
 
     public RealmList<Sound> getLocationSounds() { return locationSounds; }

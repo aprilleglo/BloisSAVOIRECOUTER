@@ -1,6 +1,14 @@
 package net.aprille.bloissavoirecouter;
 
 import android.app.Application;
+import android.content.Context;
+import android.os.Build;
+import android.os.StrictMode;
+
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+
+import java.lang.reflect.Method;
 
 import io.realm.Realm;
 
@@ -9,10 +17,33 @@ import io.realm.Realm;
  */
 
 public class myApplication extends Application {
+
+
+    public static RefWatcher getRefWatcher(Context context) {
+        myApplication application = (myApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
+    private RefWatcher refWatcher;
+
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         // Initialize Realm. Should only be done once when the application starts.
         Realm.init(this);
+        if(Build.VERSION.SDK_INT>=24){
+            try{
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
 
     }
 

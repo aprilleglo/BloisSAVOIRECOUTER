@@ -18,6 +18,13 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible">
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guidelineBottomSector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_end="10dp" />
+
                 <ImageView
                     android:id="@+id/sectorImageView"
                     android:layout_width="150dp"
@@ -44,13 +51,28 @@
                     android:layout_marginTop="6dp"
                     android:gravity="left"
                     android:padding="4dp"
-                    android:text="@string/quadrantNum"
+                    android:text="this"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/numQuadSoundTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_of_sounds"
+                    android:layout_marginLeft="210dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAccentDark"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tVSectorInfo"
+                    app:layout_constraintTop_toTopOf="@+id/tVSectorInfo"
+                    app:layout_constraintLeft_toLeftOf="@+id/tVSectorInfo"
+                    app:layout_constraintRight_toRightOf="@+id/tVSectorInfo"
+                    android:layout_marginRight="0dp" />
 
                 <TextView
                     android:id="@+id/tVSectorDescr"
@@ -71,37 +93,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/tVSectorInfo"
                     android:layout_marginLeft="170dp" />
 
-                <TextView
-                    android:id="@+id/numQuadSoundTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Number of sounds"
-                    app:layout_constraintTop_toBottomOf="@+id/sectorImageView"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
 
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="15dp" />
 
                 <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
                     android:id="@+id/sound_realm_recycler_view"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineBottomSector"
                     app:layout_constraintTop_toBottomOf="@+id/sectorImageView"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="32dp"
-                    app:rrvGridLayoutSpanCount="2"
-                    app:rrvIsRefreshable="false"
+                    android:layout_marginTop="16dp"
+                    app:rrvIsRefreshable="true"
                     app:rrvLayoutType="Grid"
                     android:layout_marginStart="8dp"
+                    app:rrvGridLayoutItemWidth="380dp"
                     android:layout_marginEnd="15dp" />
 
 

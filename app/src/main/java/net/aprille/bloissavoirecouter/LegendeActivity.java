@@ -1,5 +1,6 @@
 package net.aprille.bloissavoirecouter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,4 +28,34 @@ public class LegendeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void buttonClickGeoCodedPlan (View v)
+    {
+
+        Intent intent = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
+        intent.putExtra("placeID", "8FV3H8QQ+7V33");
+        startActivity(intent);
+    }
+
+
+
+    public void buttonClickExploreParcours(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), PlaceSoundsActivity.class);
+        intent.putExtra("locationID", "8FV3H8Q7+8CR9");
+        startActivity(intent);
+    }
+
+    public void buttonClickExploreKeyword(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), PlaceSoundsActivity.class);
+        intent.putExtra("locationID", "8FV3H8Q7+8CR9");
+        startActivity(intent);
+    }
+
+    public void buttonClickAddKeyword(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), PlaceSoundsActivity.class);
+        intent.putExtra("locationID", "8FV3H8Q7+8CR9");
+        startActivity(intent);
+    }
 }

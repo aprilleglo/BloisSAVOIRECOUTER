@@ -2,13 +2,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.aprille.bloissavoirecouter">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Required to show current location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Required OpenGL ES 2.0. for Maps V2 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- <meta-data -->
+    <!-- android:name="com.google.android.gms.version" -->
+    <!-- android:value="@integer/google_play_services_version" /> -->
+    <!-- <meta-data -->
+    <!-- android:name="com.google.android.geo.API_KEY" -->
+    <!-- android:value="@string/google_maps_key" /> -->
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".PlanActivity"
             android:label="@string/app_name"
@@ -75,7 +109,61 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
         </activity>
-        <activity android:name=".AddSoundActivity"></activity>
+        <activity
+            android:name=".AddSoundActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="add sound"
+            android:parentActivityName=".SectorSoundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".AddLocationMapsActivity"
+            android:label="@string/title_activity_add_location_maps" />
+        <activity android:name=".AddPlaceActivity" />
+        <activity
+            android:name=".ZDetailSoundActivity"
+            android:label="@string/title_activity_zdetail_sound"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddLocationActivity"
+            android:label="@string/title_activity_add_location"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PeopleDetailActivity"
+            android:label="@string/title_activity_people_detail"
+            android:parentActivityName=".PeopleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.PeopleActivity" />
+        </activity>
+        <activity android:name=".UserSoundsActivity" />
+        <activity
+            android:name=".PlaceSoundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddSound2Activity"
+            android:label="@string/title_activity_add_sound2"
+            android:parentActivityName=".SectorSoundsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.SectorSoundsActivity" />
+        </activity>
     </application>
 
 </manifest>

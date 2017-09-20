@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,6 +31,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
+import io.realm.Sort;
 import models.Quadrant;
 import models.Sound;
 import models.User;
@@ -70,6 +72,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
     public String thisSoundImageFilePath;
     public String thisIconThumbFilePath;
     boolean isLandscape;
+    Context context = this;
 
 
     @Override
@@ -81,7 +84,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
         nSounds = (RealmRecyclerView) findViewById(R.id.sound_realm_recycler_view);
 
-//      get intent
+        //      get intent
         sector = 16;
         sectorId = "16";
         Intent i = getIntent();
@@ -112,7 +115,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
         sectorQuadSoundList = sectorQuadrant.getQuadSounds();
 
-        sectoQuadSound =  sectorQuadSoundList.where().findAll();
+        sectoQuadSound =  sectorQuadSoundList.where().findAllSorted("soundLikes", Sort.DESCENDING);
 
 
         sounds = realm.where(Sound.class).findAll();
@@ -125,7 +128,6 @@ public class SectorSoundsActivity extends AppCompatActivity {
             Log.w("myApp", "num of users for realm "+ String.valueOf(users.size()));
             Log.w("myApp", "num_of_Sounds for all sounds "+ String.valueOf(sounds.size()));
 
-
         }
 
 
@@ -135,19 +137,63 @@ public class SectorSoundsActivity extends AppCompatActivity {
                 tvSector.setText(sectorQuadrant.getQuadTitle());
                 TextView descTextView = (TextView) findViewById(R.id.tVSectorDescr);
                 descTextView.setText(sectorQuadrant.getQuadDesc());
+                TextView numSoundsTextView = (TextView) findViewById(R.id.numQuadSoundTextView);
+
+                String nString = getString(R.string.number_of_sounds);
+                Log.w("myApp", "sectorQuadSoundList "+ String.valueOf(sectorQuadSoundList.size()));
+                numSoundsTextView.setText(nString + " " + String.valueOf(num_of_Sounds) );
+                Log.w("myApp", "getString(R.string.number_of_sounds) "+ String.valueOf(num_of_Sounds));
+                Log.w("myApp", "nString "+ nString);
                 ImageView quadImageView = (ImageView) findViewById(R.id.sectorImageView);
 
+                switch (sectorId ){
+                    case "1" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_1));
+                        break;
+                    case "2" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_2));
+                        break;
+                    case "3" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_3));
+                        break;
+                    case "4" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_4));
+                        break;
+                    case "5" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_5));
+                        break;
+                    case "6" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_6));
+                        break;
+                    case "7" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_7));
+                        break;
+                    case "8" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_8));
+                        break;
+                    case "9" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_9));
+                        break;
+                    case "10" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_10));
+                        break;
+                    case "11" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_11));
+                        break;
+                    case "12" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_12));
+                        break;
+                    case "13" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_13));
+                        break;
+                    case "14" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_14));
+                        break;
+                    case "15" :
+                        quadImageView.setImageDrawable(ContextCompat.getDrawable(SectorSoundsActivity.this, R.drawable.plan_15));
+                        break;
+                }
 
-
-                my_image = sectorQuadrant.getQuadPhoto();
-                Log.w("myApp", my_image);
-//                num_of_Sounds = sectorQuadrant.quadSounds().count();
-                int id = getResources().getIdentifier("net.aprille.fixingconstraintview:drawable/" + my_image, null, null);
-
-
-
-//set the image to the imageView
-                quadImageView.setImageResource(id);
 
             } else {
                 sectorTitle = "here is something from the else clause...";
@@ -156,17 +202,22 @@ public class SectorSoundsActivity extends AppCompatActivity {
             }
 
 
-
-//
-
 //       my edits for showing sector number
 
 
 
-//       adding and
+//       adding inflating realmrecycleviewer
 
         if (sectoQuadSound != null) {
             mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    //Do the work after completion of audio
+                    mediaPlayer.reset();
+                }
+            });
+
             SoundRecyclerViewAdapter soundAdapter = new SoundRecyclerViewAdapter(getBaseContext(), sectoQuadSound, true, false);
             nSounds.setAdapter(soundAdapter);
 
@@ -179,6 +230,10 @@ public class SectorSoundsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), AddSoundActivity.class);
+                intent.putExtra("sectorNum", sector);
+                startActivity(intent);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -188,6 +243,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -228,7 +285,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
             private TextView mTitle;
             private TextView mLikes;
             private LinearLayout mLikePress;
-            private ImageButton mButton_plays;
+            private ImageButton mMore;
+            private ImageView mButton_plays;
             File thisSoundFileNamePath;
             public IMyViewHolderClicks mListener;
 
@@ -238,12 +296,20 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
                 Log.e("myApp ", "ViewHolder "   );
                 mImage = (ImageView) container.findViewById(R.id.sound_image);
+
+                mButton_plays = (ImageView) container.findViewById(R.id.play_pause);
+
+
                 this.mTitle = (TextView) container.findViewById(R.id.sound_title);
                 mIconLike = (ImageView) container.findViewById(R.id.icon_likes);
                 mLikePress = (LinearLayout)  container.findViewById(R.id.likes_press);
                 mLikes = (TextView) container.findViewById(R.id.sound_likes);
+                mMore = (ImageButton) container.findViewById(R.id.moreInfo);
                 mImage.setOnClickListener(this);
+                mButton_plays.setOnClickListener(this);
                 mLikePress.setOnClickListener(this);
+                mMore.setOnClickListener(this);
+
 
             }
 
@@ -255,8 +321,11 @@ public class SectorSoundsActivity extends AppCompatActivity {
                 thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
                 thisSoundUri = Uri.parse(thisSoundFileString);
                 Log.e("myApp :: ", " onclick " + getAdapterPosition() );
-                if (v instanceof ImageView){
-                    Log.e("myApp ", "onplay inside onclick " + getAdapterPosition() );
+
+
+                if (v.getClass().getName().equalsIgnoreCase("android.widget.ImageView")) {
+                    Log.e("myApp", "imageview "+v.toString());  // case for playing sound
+                    Log.e("myApp", "onplay inside onclick " + thisSound.getSoundName()) ;
 
                     thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
 
@@ -264,26 +333,43 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
+                        mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    }  else  {
+                        try {
+//                            mediaPlayer.reset();
+                            mediaPlayer.setDataSource(getContext(), thisSoundUri);
+                            mediaPlayer.prepare();
+                            mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        mediaPlayer.start();
+
                     }
 
-                    try {
-                        mediaPlayer.setDataSource(getContext(), thisSoundUri);
-                        mediaPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                } else if (v.getClass().getName().equalsIgnoreCase("android.widget.ImageButton")) {
+                    Log.e("myApp", "imagebutton " +v.toString()); // case for opening new ZDetailSound activity
+                    Log.e("myApp ", "more inside onclick " + getAdapterPosition() );
+                    Log.e("myApp ", "the sector id " + sectorId);
+                    Log.e("myApp ", "the sound id " + thisSound.getSoundID() );
 
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
                     }
 
-                    mediaPlayer.start();
+                    Intent intent = new Intent(v.getContext(), ZDetailSoundActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("callingtype", "SECTOR");
+                    extras.putString("callingId", sectorId);
+                    extras.putString("soundID", thisSound.getSoundID());
+                    intent.putExtras(extras);
+                    startActivity(intent);
 
-                    Log.e("myApp", "onplay inside onclick " + thisSound.getSoundName()) ;
-                    //           mListener.onPlay((ImageView)v);
-                } else {
-                    Log.e("myApp: ", "onlike inside onclick " +""  );
-
- //                   Sound realmSound = realm.where(Sound.class).equalTo("SoundID", thisSound.getSoundID()).findFirst();
-
-
+                } else if(v instanceof LinearLayout){
+                    Log.e("myApp", "LinearLayout " +v.toString()); // case for adding to likes
                     realm = Realm.getDefaultInstance();
                     realm.beginTransaction();
                     thisSound.setSoundLikes(thisSound.getSoundLikes()+1);
@@ -291,6 +377,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     Log.e("myApp:: ", "onlike inside onclick " + thisSound.getSoundLikes() );
 
                 }
+
             }
 
 
@@ -311,26 +398,34 @@ public class SectorSoundsActivity extends AppCompatActivity {
         public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
             final Sound sound = realmResults.get(position);
 
+
+
             thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
             Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
+            Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
+            Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
+
+
+
             Picasso.with(viewHolder.mImage.getContext())
                     .load(new File(thisSoundImageFilePath))
                     .resize(120, 120)
                     .centerCrop()
-                    .placeholder(R.drawable.people_placeholder)
+                    .placeholder(R.drawable.sound_defaul_image)
                     .into(viewHolder.mImage);
 
+            viewHolder.mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             viewHolder.mTitle.setText(sound.getSoundName());
-            thisIconThumbFilePath = BloisDir + "/ic_thump_up.png";
-            Picasso.with(viewHolder.mIconLike.getContext())
-                    .load(new File(thisIconThumbFilePath))
-                    .resize(24, 24)
-                    .into(viewHolder.mIconLike);
+
+            viewHolder.mIconLike.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+
+            viewHolder.mMore.setImageResource(R.drawable.ic_more_horiz_black_24dp);
+
+
             viewHolder.mLikes.setText(String.valueOf(sound.getSoundLikes()));
 
-
         }
-    }
+    }  // ends Adapter
 
 
 

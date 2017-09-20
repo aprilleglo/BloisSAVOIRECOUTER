@@ -36,6 +36,8 @@ public class AppSpecificDetails extends RealmObject {
 
     private String passwordWP;
 
+    private boolean readPrivacyStatement;
+
     private boolean sharing;
 
     private boolean developing;
@@ -146,6 +148,14 @@ public class AppSpecificDetails extends RealmObject {
 
     public void setDeveloping(boolean developing) {
         this.developing = developing;
+    }
+
+    public boolean isReadPrivacyStatement() {
+        return readPrivacyStatement;
+    }
+
+    public void setReadPrivacyStatement(boolean readPrivacyStatement) {
+        this.readPrivacyStatement = readPrivacyStatement;
     }
 }
 

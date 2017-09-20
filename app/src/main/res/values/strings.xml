@@ -58,7 +58,30 @@
     <string name="aboutParagraph1">Ce projet est né du désir de comprendre l’espace urbain dans un contexte sculptural. Mon objet est de créer un travail qui est un stimulant de l’engagement personnel avec l’espace urbain et des logiques socio-spatiales des individus et des communautés qu’ils composent. La démarche que j’ai adoptée pour réaliser l’oeuvre s’intègre dans une logique de long terme,
     dans la mesure où je souhaite cibler une grande variété de publics.</string>
 
+    <string name="sound_image">Sound Image</string>
+    <string name="aboutsoundlabel">Sound description</string>
 
     <string name="quadrantNum">This must change</string>
+    <string name="number_of_sounds">Number of sounds</string>
+    <string name="title_activity_add_location_maps">Add Location</string>
+    <string name="title_activity_add_place">AddPlaceActivity</string>
+    <string name="title_activity_zdetail_sound">ZDetailSoundActivity</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
+    <string name="title_activity_people_detail">PeopleDetailActivity</string>
+    <string name="sharing">Sharing</string>
+    <string name="emailText">I would like to share this sound and I have read and understand the privacy policy of this application.</string>
+    <string name="soundData">sound data</string>
+    <string name="userData">User Data</string>
+    <string name="locData">Location Data</string>
+
+    <string name="search_hint">search....</string>
+    <string name="record">Record</string>
+    <string name="add_place_information">Add Place Information</string>
+    <string name="finish_recording">Finish Recording</string>
+    <string name="place_name">Place Name</string>
+    <string name="place_address">Place Address</string>
+    <string name="longitude_and_latitude">Longitude and Latitude</string>
+    <string name="title_activity_add_sound2">Add Sound</string>
+    <string name="describe_the_sound">describe the sound...</string>
 
 </resources>

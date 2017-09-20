@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.aprille.bloissavoirecouter.ZDetailSoundActivity"
+    tools:showIn="@layout/activity_zdetail_sound">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftMiddleSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomMiddleSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3quaterSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.67"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1quaterSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02"/>
+
+    <ImageButton
+        android:id="@+id/playButtonSoundDetail"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tVsoundNameSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
+        app:srcCompat="@drawable/ic_play_arrow_black_24dp"
+        android:drawableTint="@color/white"
+        android:scaleType="fitCenter"
+        android:onClick="buttonClickPlaySoundDetail"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.20" />
+
+    <ImageView
+        android:id="@+id/iVQuadPhotoSoundDetail"
+        android:drawable="@drawable/plan_1"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:layout_constraintTop_toBottomOf="@+id/playButtonSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/tVQuadNameSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="some  sound name"
+        app:layout_constraintLeft_toLeftOf="@+id/iVQuadPhotoSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
+        app:layout_constraintTop_toBottomOf="@+id/iVQuadPhotoSoundDetail" />
+
+
+
+    <TextView
+        android:id="@+id/tVsoundNameSoundDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="some  sound name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/playButtonSoundDetail"
+        app:layout_constraintBottom_toBottomOf="@+id/tVsoundDiscSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"/>
+
+    <TextView
+        android:id="@+id/tVsoundDiscSoundDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="some  sound name"
+        app:layout_constraintTop_toBottomOf="@+id/tVsoundNameSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1quaterSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.20999998" />
+
+
+
+    <ImageView
+        android:id="@+id/soundImageViewSoundDetail"
+        android:contentDescription="@string/sound_image"
+        android:drawable="@drawable/sound_defaul_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintTop_toBottomOf="@+id/guideline1quaterSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/changeimageSoundButtonSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail" />
+
+
+    <ImageButton
+        android:id="@+id/changeimageSoundButtonSoundDetail"
+        android:contentDescription="@string/addUserPhoto"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/soundImageViewSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3quaterSoundDetail"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+        android:tint="?colorAccent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="32dp"
+        android:scaleType="fitCenter"
+        android:onClick="buttonClickAddSoundPhoto" />
+
+
+    <ImageButton
+        android:id="@+id/showUserButtonSoundDetail"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:contentDescription="See more about this user"
+        app:srcCompat="@drawable/user_default_image"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3quaterSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        android:onClick="buttonClickShowUserInfo"
+        app:layout_constraintVertical_bias="0.38" />
+
+
+
+    <TextView
+        android:id="@+id/tvUserSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/showUserButtonSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddressSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        android:text="This sound was recorded by"
+        android:textSize="13sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tvUserNameSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserDecrSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        android:text="User Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tvUserDecrSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressSoundDetail"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomMiddleSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        android:text="User details"/>
+
+    <ImageButton
+        android:id="@+id/addPlaceButtonSoundDetail"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:contentDescription="Add Place Information"
+        app:srcCompat="@drawable/map_add_icon3_512"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3quaterSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvPlaceSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightSoundDetail"
+        android:onClick="buttonClickAddPlaceInfo"/>
+
+
+
+    <TextView
+        android:id="@+id/tvPlaceSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/addPlaceButtonSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddressSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightSoundDetail"
+        android:text="Place Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPlaceAddressSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceSoundDetail"
+        app:layout_constraintBottom_toTopOf="@+id/tvPlaceLongLatSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightSoundDetail"
+        android:textColor="@color/black"
+        android:text="Place Address"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tvPlaceLongLatSoundDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressSoundDetail"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomMiddleSoundDetail"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleSoundDetail"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightSoundDetail"
+        android:text="Longitude and Latitude"
+        android:textSize="12sp"/>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

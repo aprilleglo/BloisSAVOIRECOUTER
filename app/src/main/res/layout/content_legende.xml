@@ -8,4 +8,122 @@
     tools:context="net.aprille.bloissavoirecouter.LegendeActivity"
     tools:showIn="@layout/activity_legende">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineQuaterLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHalfLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3QuaterLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/explorePlanButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterLeg"
+        android:drawableLeft="@drawable/map_icon3_512"
+        android:text="Explore by Geocoding"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickGeoCodedPlan"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/exploreParcoursButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineQuaterLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfLeg"
+        android:drawableLeft="@drawable/parcours_512"
+        android:padding="8dp"
+        android:text="Explore Walking Tours"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickExploreParcours"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/exploreKeyWordButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHalfLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline3QuaterLeg"
+        android:drawableLeft="@drawable/parcours_add_512"
+        android:padding="8dp"
+        android:text="Explore by Keyword"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickExploreKeyword"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/addKeywordButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guideline3QuaterLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomLeg"
+        android:drawableLeft="@drawable/map_add_icon3_512"
+        android:padding="8dp"
+        android:text="Add New Keyword"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickAddKeyword"/>
+
 </android.support.constraint.ConstraintLayout>

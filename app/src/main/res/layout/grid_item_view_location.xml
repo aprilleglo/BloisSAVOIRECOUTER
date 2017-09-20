@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+
+
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftGridItemLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="5dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="5dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineMiddleGridItemLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="110dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="110dp" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineRightGridItemLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="5dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="310dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineTopGridItemLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="5dp"
+            tools:layout_editor_absoluteY="5dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomGridItemLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="5dp"
+            tools:layout_editor_absoluteY="105dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/tvPlaceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btGetPlace"
+            android:text="Place Name"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemLocation"
+            app:layout_constraintRight_toRightOf="@+id/guidelineRightGridItemLocation"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopGridItemLocation"
+            app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddressItem"
+            app:layout_constraintVertical_bias="0.35000002" />
+
+
+
+        <TextView
+            android:id="@+id/tvPlaceAddressItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place Address"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemLocation"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceName"
+            app:layout_constraintBottom_toTopOf="@+id/tvPlaceLongLatItem" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tvPlaceIDItem"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/tvPlaceAddress"-->
+            <!--android:text="Place ID"-->
+            <!--android:textSize="14sp"-->
+            <!--app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemLocation"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressItem"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/tvPlaceLongLatItem" />-->
+
+
+        <TextView
+            android:id="@+id/tvPlaceLongLatItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPlaceID"
+            android:text="Longitude and Latitude"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemLocation"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressItem"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomGridItemLocation" />
+
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/ibEditPlaceName"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:background="@android:color/white"-->
+            <!--app:srcCompat="@drawable/ic_edit_location_black_24dp"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--app:layout_constraintRight_toRightOf="@+id/guidelineRightGridItemLocation"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomGridItemLocation" />-->
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftGridItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="5dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="5dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineMiddleGridItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="110dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="110dp" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineRightGridItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="10dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="310dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineTopGridItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="5dp"
+            tools:layout_editor_absoluteY="5dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomGridItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="5dp"
+            tools:layout_editor_absoluteY="105dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+
+        <ImageView
+            android:id="@+id/iV_user_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopGridItemUser"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemUser"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItemUser" />
+
+
+
+        <TextView
+            android:id="@+id/user_name_grid"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopGridItemUser"
+            app:layout_constraintBottom_toTopOf="@+id/num_sounds_press"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItemUser"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightGridItemUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textStyle="bold"
+             />
+
+        <LinearLayout
+            android:id="@+id/num_sounds_press"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItemUser"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItemUser"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
+
+
+            <ImageView
+                android:id="@+id/icon_sounds"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
+                app:srcCompat="@drawable/ic_library_music_black_24dp" />
+
+
+            <TextView
+                android:id="@+id/sound_number_for_user"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorAccent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/moreInfoUser"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/white"
+            app:srcCompat="@drawable/ic_more_horiz_black_24dp"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightGridItemUser"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItemUser" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</LinearLayout>

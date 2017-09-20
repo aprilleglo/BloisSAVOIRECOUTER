@@ -44,6 +44,9 @@ public class Sound extends RealmObject {
     @LinkingObjects("quadSounds")
     private final RealmResults<Quadrant> soundQuad = null;
 
+    @LinkingObjects("locationSounds")
+    private final RealmResults<Location> soundLocation = null;
+
     private RealmList<Keyword> keywords;
 
     //  getters and setters
@@ -138,7 +141,9 @@ public class Sound extends RealmObject {
         return soundQuad;
     }
 
-
+    public RealmResults<Location> getSoundLocation() {
+        return soundLocation;
+    }
 
     public RealmList<Keyword> getKeywords() {
         return keywords;
