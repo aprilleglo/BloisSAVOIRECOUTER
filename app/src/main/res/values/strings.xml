@@ -8,7 +8,7 @@
     <string name="takePhoto">Take photo from camera</string>
     <string name="choosePhotoGallery">Choose from gallery</string>
     <string name="name">Name</string>
-    <string name="about_you">About you...</string>
+    <string name="about_you">About you…</string>
     <string name="user_image">User Image</string>
     <string name="namelabel">label name edit box</string>
     <string name="aboutlabel">label about you edit box</string>
@@ -82,6 +82,28 @@
     <string name="place_address">Place Address</string>
     <string name="longitude_and_latitude">Longitude and Latitude</string>
     <string name="title_activity_add_sound2">Add Sound</string>
-    <string name="describe_the_sound">describe the sound...</string>
+    <string name="describe_the_sound">describe the sound…</string>
+    <string name="title_activity_privacy">PrivacyActivity</string>
+    <string name="title_activity_search_sounds">SearchSoundsActivity</string>
+    <string name="title_activity_walks">WalksActivity</string>
+    <string name="project_map_of_blois">Project Map of Blois</string>
+    <string name="search_by_keyword">Search by Keyword</string>
+    <string name="explore_by_geocoding">Explore by Geocoding</string>
+    <string name="explore_by_people">Explore by People</string>
+    <string name="explore_walking_tous">Explore Walking Tous</string>
+    <string name="privacy_setting">Privacy Setting</string>
+    <string name="share_your_sound">Share your sound</string>
+    <string name="this_primary_user">this Primary User</string>
+    <string name="play_sound">play sound</string>
+    <string name="detail_map_of_blois">detail map of Blois</string>
+    <string name="see_more_about_this_user">See more about this user</string>
+    <string name="this_sound_was_recorded_by">This sound was recorded by</string>
+    <string name="user_name">User Name</string>
+    <string name="user_details">User details</string>
+    <string name="record_button">record button</string>
+    <string name="application_tour">Application Tour</string>
+    <string name="click_for_more_details_about_sound">click for more details about sound</string>
+    <string name="setting_and_privacy">Setting and Privacy</string>
+    <string name="LongLat">LongLat</string>
 
 </resources>

@@ -69,8 +69,8 @@
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterLeg"
         android:drawableLeft="@drawable/map_icon3_512"
-        android:text="Explore by Geocoding"
-        android:textSize="24dp"
+        android:text="@string/explore_by_geocoding"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickGeoCodedPlan"/>
@@ -86,8 +86,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfLeg"
         android:drawableLeft="@drawable/parcours_512"
         android:padding="8dp"
-        android:text="Explore Walking Tours"
-        android:textSize="24dp"
+        android:text="@string/explore_walking_tous"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickExploreParcours"/>
@@ -101,29 +101,14 @@
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
         app:layout_constraintBottom_toBottomOf="@+id/guideline3QuaterLeg"
-        android:drawableLeft="@drawable/parcours_add_512"
+        android:drawableLeft="@drawable/keyword_icon2_512"
         android:padding="8dp"
-        android:text="Explore by Keyword"
-        android:textSize="24dp"
+        android:text="@string/search_by_keyword"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickExploreKeyword"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/addKeywordButton"
-        android:layout_width="0dp"
-        android:layout_height="124dp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toTopOf="@+id/guideline3QuaterLeg"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
-        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomLeg"
-        android:drawableLeft="@drawable/map_add_icon3_512"
-        android:padding="8dp"
-        android:text="Add New Keyword"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:onClick="buttonClickAddKeyword"/>
+
 
 </android.support.constraint.ConstraintLayout>

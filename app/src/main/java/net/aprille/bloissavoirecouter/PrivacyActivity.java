@@ -3,18 +3,19 @@ package net.aprille.bloissavoirecouter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class ThanksActivity extends AppCompatActivity {
+public class PrivacyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thanks);
+        setContentView(R.layout.activity_privacy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -22,17 +23,10 @@ public class ThanksActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"aprile@aprille.net"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_SUBJECT,
-                        "Subjet"); // Email 's Subject
-                Email.putExtra(Intent.EXTRA_TEXT, "Bonjour Aprille Glover" + "");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-
     }
 
     @Override
@@ -62,7 +56,6 @@ public class ThanksActivity extends AppCompatActivity {
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
                 startActivity(intentSearch);
                 return true;
-
 
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
@@ -104,5 +97,6 @@ public class ThanksActivity extends AppCompatActivity {
         }
 
     }
+
 
 }

@@ -32,6 +32,7 @@ public class PlanActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
 //        not for production because deletes WHOLE REALM IF PROBLEM !!!!
 
         try {
@@ -119,7 +120,7 @@ public class PlanActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_plan2, menu);
         return true;
     }
 
@@ -130,12 +131,53 @@ public class PlanActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.explore_keyword:
+                // User chose search by keyword
+                Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
+                startActivity(intentSearch);
+                return true;
+
+            case R.id.explore_geocoding:
+                // User chose the "Favorite" action, mark the current item
+
+                Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
+                intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
+                startActivity(intentGeo);
+
+                return true;
+
+
+            case R.id.explore_people:
+                // User chose the "Favorite" action, mark the current item
+
+                Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
+                startActivity(intentPeople);
+                return true;
+
+            case R.id.action_walks:
+                // User chose the "Favorite" action, mark the current item
+
+                Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
+                startActivity(intentWalks);
+                return true;
+
+            case R.id.action_privacy:
+                // User chose the "Favorite" action, mark the current item
+
+                Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
+                startActivity(intentPrivacy);
+                return true;
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
     public void buttonClickAbout(View v)

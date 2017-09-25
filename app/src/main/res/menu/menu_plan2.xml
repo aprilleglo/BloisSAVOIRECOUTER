@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="net.aprille.bloissavoirecouter.PlanActivity">
 
-    <item
-        android:id="@+id/action_plan"
-        android:orderInCategory="100"
-        android:title="@string/project_map_of_blois"
-        android:icon="@drawable/ic_home_black_24dp"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/explore_keyword"

@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05"
+        app:layout_constraintGuide_percent="0.03"
         />
 
     <android.support.v7.widget.AppCompatButton
@@ -75,6 +75,7 @@
         android:id="@+id/recordButton1"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:contentDescription="@string/record_button"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintTop_toTopOf="@+id/finshRecordButton"
         app:layout_constraintBottom_toBottomOf="@+id/finshRecordButton"

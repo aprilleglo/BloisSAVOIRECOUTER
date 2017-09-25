@@ -46,6 +46,7 @@
         android:id="@+id/p_sound_ImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/sound_image"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopPSound"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
         app:layout_constraintRight_toLeftOf="@+id/p_sound_PlaceName"
@@ -62,7 +63,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:gravity="left"
-        android:text="this Primary User"
+        android:text="@string/this_primary_user"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
@@ -113,7 +114,6 @@
         app:rrvIsRefreshable="true"
         app:rrvLayoutType="Grid"
         android:layout_marginStart="8dp"
-        app:rrvGridLayoutItemWidth="320dp"
         android:layout_marginEnd="15dp"/>
 
 

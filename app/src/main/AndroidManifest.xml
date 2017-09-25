@@ -132,8 +132,11 @@
 
         <activity
             android:name=".AddLocationMapsActivity"
-            android:label="@string/title_activity_add_location_maps" />
-        <activity android:name=".AddPlaceActivity" />
+            android:label="@string/title_activity_add_location_maps"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddPlaceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ZDetailSoundActivity"
             android:label="@string/title_activity_zdetail_sound"
@@ -149,21 +152,27 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:value="net.aprille.bloissavoirecouter.PeopleActivity" />
         </activity>
-        <activity android:name=".UserSoundsActivity" />
+        <activity
+            android:name=".UserSoundsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlaceSoundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddSound2Activity"
-            android:label="@string/title_activity_add_sound2"
-            android:parentActivityName=".SectorSoundsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.aprille.bloissavoirecouter.SectorSoundsActivity" />
-        </activity>
+            android:name=".PrivacyActivity"
+            android:label="@string/title_activity_privacy"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WalksActivity"
+            android:label="@string/title_activity_walks"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SearchSoundsActivity"
+            android:label="@string/title_activity_search_sounds"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -5,9 +5,8 @@
     <!--Floating action button-->
     <dimen name="design_fab_image_size">36dp</dimen>
 
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
-
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
 
 
 </resources>
