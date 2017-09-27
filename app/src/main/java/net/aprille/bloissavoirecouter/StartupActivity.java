@@ -22,17 +22,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import helperfunctions.CSVFile;
 import helperfunctions.Util;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import models.AppSpecificDetails;
+import models.Location;
+import models.Quadrant;
+import models.Sound;
 import models.User;
+
+import static helperfunctions.Util.getCurrDateString;
 
 public class StartupActivity extends AppCompatActivity {
 
@@ -86,6 +95,14 @@ public class StartupActivity extends AppCompatActivity {
             Realm.setDefaultConfiguration(config);
             realm = Realm.getDefaultInstance();
         }
+
+        // Setup Database
+        initializeSectors();
+        addUserFromFile();
+        addPlaceFromFile();
+        addSoundsFromFile();
+
+
 
         // Assume check permissions for camera and storage
         permissionCheckCamera = ContextCompat.checkSelfPermission(this,
@@ -172,7 +189,7 @@ public class StartupActivity extends AppCompatActivity {
             Toast.makeText(this, "You did not enter a value!", Toast.LENGTH_LONG).show();
             return;
         } else {
-            newPrimaryKey = Util.getCurrDateString().trim();
+            newPrimaryKey = getCurrDateString().trim();
             Log.w("myApp", "newPrimaryKey" + newPrimaryKey);
             boolean didSaveUserFile = saveUserImageFile(newPrimaryKey);
 
@@ -387,6 +404,300 @@ public class StartupActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    // Add Data
+    public void initializeSectors() {
+
+        Quadrant tryQuad  = realm.where(Quadrant.class).findFirst();
+
+
+        if (tryQuad == null) {
+
+            realm.beginTransaction();
+            Quadrant quadrant1 = realm.createObject(Quadrant.class, "1");
+            quadrant1.setQuadTitle("Case 1");
+            quadrant1.setQuadDesc("zone commercial et industrial");
+            quadrant1.setQuadPhoto("plan_1");
+            quadrant1.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant2 = realm.createObject(Quadrant.class, "2");
+            quadrant2.setQuadTitle("Case 2");
+            quadrant2.setQuadDesc("zone commercial et industrial");
+            quadrant2.setQuadPhoto("plan_2");
+            quadrant2.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant3 = realm.createObject(Quadrant.class, "3");
+            quadrant3.setQuadTitle("Case 3");
+            quadrant3.setQuadDesc("Médiathèque Maurice-Genevoix, Espace Mirabeau");
+            quadrant3.setQuadPhoto("plan_3");
+            quadrant3.setQuadPhotoDesc("détail du plan de Blois");
+
+
+            Quadrant quadrant4 = realm.createObject(Quadrant.class, "4");
+            quadrant4.setQuadTitle("Case 4");
+            quadrant4.setQuadDesc("Maison de Bégon, l'APF 41");
+            quadrant4.setQuadPhoto("plan_4");
+            quadrant4.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant5 = realm.createObject(Quadrant.class, "5");
+            quadrant5.setQuadTitle("Case 5");
+            quadrant5.setQuadDesc("Sector Provinces, Cantre Hôpitalier de Blois");
+            quadrant5.setQuadPhoto("plan_5");
+            quadrant5.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant6 = realm.createObject(Quadrant.class, "6");
+            quadrant6.setQuadTitle("Case 6");
+            quadrant6.setQuadDesc("Fôret de Blois, chêne « les jumelles » ");
+            quadrant6.setQuadPhoto("plan_6");
+            quadrant6.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant7 = realm.createObject(Quadrant.class, "7");
+            quadrant7.setQuadTitle("Case 7");
+            quadrant7.setQuadDesc("Sector Quinière");
+            quadrant7.setQuadPhoto("plan_7");
+            quadrant7.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant8 = realm.createObject(Quadrant.class, "8");
+            quadrant8.setQuadTitle("Case 8");
+            quadrant8.setQuadDesc("Sector Centre Ville, Château royal de Blois, Maison de la magie, et La gare");
+            quadrant8.setQuadPhoto("plan_8");
+            quadrant8.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant9 = realm.createObject(Quadrant.class, "9");
+            quadrant9.setQuadTitle("Case 9");
+            quadrant9.setQuadDesc("Sector Vienne, Port de la Creusille, et l'hôtel de ville");
+            quadrant8.setQuadPhoto("plan_9");
+            quadrant8.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant10 = realm.createObject(Quadrant.class, "10");
+            quadrant10.setQuadTitle("Case 10");
+            quadrant10.setQuadDesc("Fôret de Blois");
+            quadrant10.setQuadPhoto("plan_10");
+            quadrant10.setQuadPhotoDesc("détail du plan de Blois");
+
+
+            Quadrant quadrant11 = realm.createObject(Quadrant.class, "11");
+            quadrant11.setQuadTitle("Case 11");
+            quadrant11.setQuadDesc("Sector Les Granges");
+            quadrant11.setQuadPhoto("plan_11");
+            quadrant11.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant12 = realm.createObject(Quadrant.class, "12");
+            quadrant12.setQuadTitle("Case 12");
+            quadrant12.setQuadDesc("quartier de Bas Riveiere, Lycée horticole de Blois");
+            quadrant12.setQuadPhoto("plan_12");
+            quadrant12.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant13 = realm.createObject(Quadrant.class, "13");
+            quadrant13.setQuadTitle("Case 13");
+            quadrant13.setQuadDesc("Sector Vienne (sud)");
+            quadrant13.setQuadPhoto("plan_13");
+            quadrant13.setQuadPhotoDesc("détail du plan de Blois");
+
+
+            Quadrant quadrant14 = realm.createObject(Quadrant.class, "14");
+            quadrant14.setQuadTitle("Case 14");
+            quadrant14.setQuadDesc("Fôret de Blois (sud)");
+            quadrant14.setQuadPhoto("plan_14");
+            quadrant14.setQuadPhotoDesc("détail du plan de Blois");
+
+            Quadrant quadrant15 = realm.createObject(Quadrant.class, "15");
+            quadrant15.setQuadTitle("Case 15");
+            quadrant15.setQuadDesc("Sector Les Granges (sud)");
+            quadrant15.setQuadPhoto("plan_15");
+            quadrant15.setQuadPhotoDesc("détail du plan de Blois");
+
+            realm.commitTransaction();
+
+
+        }
+
+
+    }
+
+
+    private void addUserFromFile() {
+
+        InputStream inputStream = getResources().openRawResource(R.raw.user);
+        CSVFile csvFileSound = new CSVFile(inputStream);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            int rowCount = 1;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split("\\|");
+
+                int len = row.length;
+                Log.w("myApp :: ", "Value length of row " + len );
+
+                User newUser  = realm.where(User.class).equalTo("userID", row[0]).findFirst();
+                if (newUser == null ){
+                    Log.w("myApp :: ", "Value length of row 0 " + row[0] );
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
+                    Log.w("myApp :: ", "Value length of row 2 " + row[2] );
+                    Log.w("myApp :: ", "Value length of row 3 " + row[3] );
+                    realm.beginTransaction();
+                    newUser = realm.createObject(User.class, row[0]);
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
+                    newUser.setUserName(row[1]);
+                    if (row[2] != null){
+                        newUser.setUserDesc(row[2]);
+                    }
+                    newUser.setTimeJoined(getCurrDateString());
+                    newUser.setUserPhoto(row[3]);
+                    newUser.setUserPhotoDesc(row[1]);
+                    newUser.setPrimaryUserBoolean(false);
+                    newUser.setNumUserSounds(0);
+                    realm.commitTransaction();
+
+                }
+
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
+
+    }
+
+    private void addPlaceFromFile() {
+
+        InputStream inputStream = getResources().openRawResource(R.raw.places);
+        CSVFile csvFileSound = new CSVFile(inputStream);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            int rowCount = 1;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split("\\|");
+
+                int len = row.length;
+                Log.w("myApp :: ", "Value length of row " + len );
+
+                Location newUPlace  = realm.where(Location.class).equalTo("locationID", row[0]).findFirst();
+                if (newUPlace == null ){
+                    Log.w("myApp :: ", "Value length of row 0 " + row[0] );
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
+                    Log.w("myApp :: ", "Value length of row 2 " + row[2] );
+                    Log.w("myApp :: ", "Value length of row 3 " + row[3] );
+                    realm.beginTransaction();
+                    newUPlace = realm.createObject(Location.class, row[0]);
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
+                    newUPlace.setLocationName(row[1]);
+                    newUPlace.setLocationAddress(row[2]);
+                    newUPlace.setLongitiude( Double.parseDouble(row[4]) );
+                    newUPlace.setLatitude( Double.parseDouble(row[3])  );
+                    newUPlace.setLocationNumSounds(0);
+                    newUPlace.setSharedLocation(true);
+                    newUPlace.setLocationSearchText(row[1] + " " + row[2] );
+                    realm.commitTransaction();
+
+                }
+
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
+
+    }
+
+
+    private void addSoundsFromFile() {
+
+        InputStream inputStreamSound = getResources().openRawResource(R.raw.sounds);
+        CSVFile csvFileSound = new CSVFile(inputStreamSound);
+
+        BufferedReader readerSound = new BufferedReader(new InputStreamReader(inputStreamSound));
+        try {
+            String csvLine;
+            int rowCount = 1;
+            while ((csvLine = readerSound.readLine()) != null) {
+                String[] row = csvLine.split("\\|");
+
+                int len = row.length;
+                Log.w("myApp :: ", "Value  of csvLine " + csvLine );
+                Log.w("myApp :: ", "Value length of row " + len );
+                Sound newSound = realm.where(Sound.class).equalTo("soundID", row[0]).findFirst();
+                Log.w("myApp :: ", "UserID " + row[8] );
+                User newUser  = realm.where(User.class).equalTo("userID", row[8]).findFirst();
+                Log.w("myApp :: ", "user " + newUser.getUserName() );
+                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[10]).findFirst();
+                Log.w("myApp :: ", "Quad " + newQuadrant.getQuadID() );
+
+                if ((newQuadrant != null ) && (newUser != null ) && (newSound == null) ){
+
+//                   0 soundID| 1 soundName| 2 soundAbout| 3 soundFile| 4 soundPhoto|5 soundQuadrant| 6 soundUserID| 7 soundUserName| 8 soundUserBio| 9 soundUserPhoto
+//                   0 soundID| 1 soundName|  | 2 soundFile| 3 soundPhoto|4 soundPhotoDesc|5 localizeMedia|6 createdByPrimaryUser| 7 soundLikes| 8 userID| 9 userName| 10 quadID| 11 locationID| 12 locationName
+
+                    Log.w("myApp :: ", "Value length of row 0 " + row[0] );
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
+                    Log.w("myApp :: ", "Value length of row 2 " + row[2] );
+                    Log.w("myApp :: ", "Value length of row 3 " + row[3] );
+                    Log.w("myApp :: ", "Value length of row 4 " + row[4] );
+                    Log.w("myApp :: ", "Value length of row 5 " + row[5] );
+                    Log.w("myApp :: ", "Value length of row 6 " + row[6] );
+                    Log.w("myApp :: ", "Value length of row 7 " + row[7] );
+                    Log.w("myApp :: ", "Value length of row 8 " + row[8] );
+                    Log.w("myApp :: ", "Value length of row 9 " + row[9] );
+                    Log.w("myApp :: ", "Value length of row 10 " + row[10] );
+                    Log.w("myApp :: ", "Value length of row 11 " + row[11] );
+                    realm.beginTransaction();
+                    Sound newSound1 = realm.createObject(Sound.class, row[0]);
+                    newSound1.setSoundName(row[1]);
+//                    newSound1.setSoundDesc(row[2]);
+                    newSound1.setSoundFile(row[2]);
+                    newSound1.setSoundPhoto(row[3]);
+                    newSound1.setSoundPhotoDesc( row[4]);
+                    newSound1.setTimeCreated(getCurrDateString());
+                    newSound1.setLocalizeMedia(false);
+                    newSound1.setCreatedByPrimaryUser(false);
+                    newSound1.setSoundSearchText(row[1] +" " + row[2] + " " + row[9] + " " + row[12] + " " + newUser.getUserDesc());
+                    newSound1.setSoundLikes( Integer.parseInt(row[7]) );
+                    Location newlocation = realm.where(Location.class).equalTo("locationID", row[11]).findFirst();
+                    if (newlocation  != null ) {
+                        newlocation.getLocationSounds().add(newSound1);
+                    }
+                    newUser.getUserSounds().add(newSound1);
+
+                    newQuadrant.getQuadSounds().add(newSound1);
+                    realm.commitTransaction();
+                }
+            }
+
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStreamSound.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
+
+    }
+
 
 
 

@@ -2,12 +2,12 @@ package net.aprille.bloissavoirecouter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -73,6 +73,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
     public String BloisSoundDirPath;
     public String thisSoundImageFilePath;
     public String thisIconThumbFilePath;
+
+    String BloisSoundWebUrl;
     boolean isLandscape;
     Context context = this;
 
@@ -109,6 +111,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
         BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
         BloisSoundDirPath = BloisSoundDir.toString();
         BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
+
+        BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
 
 
         Quadrant sectorQuadrant = realm.where(Quadrant.class).equalTo("quadID", sectorId).findFirst();
@@ -212,6 +216,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
         if (sectoQuadSound != null) {
             mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -236,8 +241,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddSoundActivity.class);
                 intent.putExtra("sectorNum", sector);
                 startActivity(intent);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
 
@@ -415,27 +419,59 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     Log.e("myApp", "imageview "+v.toString());  // case for playing sound
                     Log.e("myApp", "onplay inside onclick " + thisSound.getSoundName()) ;
 
-                    thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
 
-                    thisSoundUri = Uri.parse(thisSoundFileString);
+
+
                     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                         mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    }  else  {
-                        try {
-//                            mediaPlayer.reset();
-                            mediaPlayer.setDataSource(getContext(), thisSoundUri);
-                            mediaPlayer.prepare();
-                            mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } else {
+
+                        if (thisSound.isLocalizeMedia()) {
+                            Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
+
+                            thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                            thisSoundUri = Uri.parse(thisSoundFileString);
+                            try {
+                                mediaPlayer.setDataSource(getContext(), thisSoundUri);
+                                mediaPlayer.prepare();
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+
+                            }
+                            mediaPlayer.start();
+                        } else {     // not localized
+                            mediaPlayer.reset();
+                            Log.e("myApp", "onplay inside islocalized mediafalse " + thisSound.getSoundName()) ;
+                            Log.e("myApp", "onplay inside islocalized sounddesc " + thisSound.getSoundDesc()) ;
+                            Log.e("myApp", "onplay inside islocalized soundfile " + thisSound.getSoundFile()) ;
+                            thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
+                            Log.e("myApp", "theURl " + thisSoundFileString) ;
+                            //mp3 will be started after completion of preparing...
+
+                            try {
+                                mediaPlayer.setDataSource(thisSoundFileString);
+                                mediaPlayer.prepareAsync();
+                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                                    @Override
+                                    public void onPrepared(MediaPlayer mediaPlayer) {
+                                        mediaPlayer.start();
+                                    }
+
+                                });
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
 
                         }
 
-                        mediaPlayer.start();
-
                     }
+
 
                 } else if (v.getClass().getName().equalsIgnoreCase("android.widget.ImageButton")) {
                     Log.e("myApp", "imagebutton " +v.toString()); // case for opening new ZDetailSound activity
@@ -485,22 +521,31 @@ public class SectorSoundsActivity extends AppCompatActivity {
         @Override
         public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
             final Sound sound = realmResults.get(position);
+            if (sound.isLocalizeMedia()) {
+                thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+                Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(new File(thisSoundImageFilePath))
+                        .resize(120, 120)
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
 
 
+            } else {
+                thisSoundImageFilePath = BloisSoundWebUrl  + sound.getSoundPhoto();
+                Log.e("myApp :: ", "sound.getSoundPhoto() IN ONBIND " + thisSoundImageFilePath );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(thisSoundImageFilePath)
+                        .resize(120, 120)
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
 
-            thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
-            Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
-            Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
-            Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
+            }
 
-
-
-            Picasso.with(viewHolder.mImage.getContext())
-                    .load(new File(thisSoundImageFilePath))
-                    .resize(120, 120)
-                    .centerCrop()
-                    .placeholder(R.drawable.sound_defaul_image)
-                    .into(viewHolder.mImage);
 
             viewHolder.mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             viewHolder.mTitle.setText(sound.getSoundName());

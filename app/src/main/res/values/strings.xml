@@ -105,5 +105,14 @@
     <string name="click_for_more_details_about_sound">click for more details about sound</string>
     <string name="setting_and_privacy">Setting and Privacy</string>
     <string name="LongLat">LongLat</string>
+    <string name="more_about_this_user">more about this user</string>
+    <string name="get_new_place_from_map">Get New Place From Map</string>
+    <string name="place_id">Place ID</string>
+    <string name="connect_this_place_to_a_sound">Connect this place to a sound</string>
+    <string name="attribution">Attribution</string>
+    <string name="powered_by_google">powered by google</string>
+    <string name="images_of_project">images of project</string>
+    <string name="user">user</string>
+    <string name="people_using_the_application">people using the application</string>
 
 </resources>

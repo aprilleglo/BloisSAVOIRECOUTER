@@ -203,7 +203,7 @@ public class AppActivity extends AppCompatActivity {
 
             Log.e("myApp :: ", "checkUserID " + thesePlaces.get(i).getLocationID());
 
-            placeDataForExport = placeDataForExport + thesePlaces.get(i).getLocationID()+ "|" + thesePlaces.get(i).getLocationName() + "|" + thesePlaces.get(i).getLocationAddress()+ "|" +thesePlaces.get(i).getLongitiude() + "|" + thesePlaces.get(i).getLongitiude()+ "|" + thesePlaces.get(i).getLocationQuad()+ "|" + thesePlaces.get(i).getLocationNumSounds()+ "|" +thesePlaces.get(i).getLocationPhotoURL() + "\n";
+            placeDataForExport = placeDataForExport + thesePlaces.get(i).getLocationID()+ "|" + thesePlaces.get(i).getLocationName() + "|" + thesePlaces.get(i).getLocationAddress()+ "|" +thesePlaces.get(i).getLatitude() + "|" + thesePlaces.get(i).getLongitiude()+ "|" + thesePlaces.get(i).getLocationQuad()+ "|" + thesePlaces.get(i).getLocationNumSounds()+ "|" +thesePlaces.get(i).getLocationPhotoURL() + "\n";
 
         }
 

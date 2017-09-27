@@ -60,6 +60,8 @@ public class UserSoundsActivity extends AppCompatActivity {
     public String BloisSoundDirPath;
     public String thisSoundImageFilePath;
     public String thisIconThumbFilePath;
+
+    String BloisSoundWebUrl;
     boolean isLandscape;
     Context context = this;
 
@@ -97,6 +99,8 @@ public class UserSoundsActivity extends AppCompatActivity {
         BloisSoundDirPath = BloisSoundDir.toString();
         BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
 
+        BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
+
         // get the user for this instanciation
 
         User_for_Sounds = realm.where(User.class).equalTo("userID", soundsUserID).findFirst();
@@ -107,15 +111,28 @@ public class UserSoundsActivity extends AppCompatActivity {
             Log.w("myApp", "num_of_Sounds "+ String.valueOf(num_of_Sounds));
 
             ImageView iVprimaryUserImageView = (ImageView) findViewById(R.id.u_sound_ImageView);
-            String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
-            Log.e("myApp :: ", "BloisUerDirPath with primary " + thisUserImageFilePath );
 
-            Picasso.with(this)
-                    .load(new File(thisUserImageFilePath))
-                    .resize(150, 150)
-                    .centerCrop()
-                    .placeholder(R.drawable.user_default_image)
-                    .into(iVprimaryUserImageView);
+            if (User_for_Sounds.isPrimaryUserBoolean()) {
+                String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
+                Log.e("myApp :: ", "BloisUerDirPath with primary " + thisUserImageFilePath );
+                Picasso.with(this)
+                        .load(new File(thisUserImageFilePath))
+                        .resize(150, 150)
+                        .centerCrop()
+                        .placeholder(R.drawable.user_default_image)
+                        .into(iVprimaryUserImageView);
+
+            } else {
+                String thisUserImageFilePath = BloisSoundWebUrl  + User_for_Sounds.getUserPhoto();
+                Picasso.with(this)
+                        .load(thisUserImageFilePath)
+                        .resize(150, 150)
+                        .centerCrop()
+                        .placeholder(R.drawable.user_default_image)
+                        .into(iVprimaryUserImageView);
+
+            }
+
 
             TextView tvUserName = (TextView) findViewById(R.id.u_sound_UserName);
             tvUserName.setText(User_for_Sounds.getUserName());
@@ -326,25 +343,53 @@ public class UserSoundsActivity extends AppCompatActivity {
                     Log.e("myApp", "imageview "+v.toString());  // case for playing sound
                     Log.e("myApp", "onplay inside onclick " + thisSound.getSoundName()) ;
 
-                    thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
-
-                    thisSoundUri = Uri.parse(thisSoundFileString);
                     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                         mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    }  else  {
-                        try {
-//                            mediaPlayer.reset();
-                            mediaPlayer.setDataSource(getContext(), thisSoundUri);
-                            mediaPlayer.prepare();
-                            mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } else {
+
+                        if (thisSound.isLocalizeMedia()) {
+                            Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
+
+                            thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                            thisSoundUri = Uri.parse(thisSoundFileString);
+                            try {
+                                mediaPlayer.setDataSource(getContext(), thisSoundUri);
+                                mediaPlayer.prepare();
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+
+                            }
+                            mediaPlayer.start();
+                        } else {     // not localized
+                            mediaPlayer.reset();
+                            Log.e("myApp", "onplay inside islocalized mediafalse " + thisSound.getSoundName()) ;
+                            Log.e("myApp", "onplay inside islocalized sounddesc " + thisSound.getSoundDesc()) ;
+                            Log.e("myApp", "onplay inside islocalized soundfile " + thisSound.getSoundFile()) ;
+                            thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
+                            Log.e("myApp", "theURl " + thisSoundFileString) ;
+                            //mp3 will be started after completion of preparing...
+
+                            try {
+                                mediaPlayer.setDataSource(thisSoundFileString);
+                                mediaPlayer.prepareAsync();
+                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                                    @Override
+                                    public void onPrepared(MediaPlayer mediaPlayer) {
+                                        mediaPlayer.start();
+                                    }
+
+                                });
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
 
                         }
-
-                        mediaPlayer.start();
 
                     }
 
@@ -404,14 +449,31 @@ public class UserSoundsActivity extends AppCompatActivity {
             Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
             Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
 
+            if (sound.isLocalizeMedia()) {
+                thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+                Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(new File(thisSoundImageFilePath))
+                        .resize(120, 120)
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
 
 
-            Picasso.with(viewHolder.mImage.getContext())
-                    .load(new File(thisSoundImageFilePath))
-                    .resize(120, 120)
-                    .centerCrop()
-                    .placeholder(R.drawable.sound_defaul_image)
-                    .into(viewHolder.mImage);
+            } else {
+                thisSoundImageFilePath = BloisSoundWebUrl  + sound.getSoundPhoto();
+                Log.e("myApp :: ", "sound.getSoundPhoto() IN ONBIND " + thisSoundImageFilePath );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(thisSoundImageFilePath)
+                        .resize(120, 120)
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
+
+            }
+
 
             viewHolder.mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             viewHolder.mTitle.setText(sound.getSoundName());

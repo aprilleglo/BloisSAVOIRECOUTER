@@ -2,6 +2,7 @@ package models;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,15 +36,31 @@ public class SoundSearchItemView extends LinearLayout {
         name.setText(sound.getSoundName());
 
         ImageView sImage = (ImageView) findViewById(R.id.sound_imageSoundSearch);
-        File BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
-        String BloisSoundDirPath = BloisSoundDir.toString();
-        String thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
-        Picasso.with(sImage.getContext())
-                .load(new File(thisSoundImageFilePath))
-                .resize(120, 120)
-                .centerCrop()
-                .placeholder(R.drawable.sound_defaul_image)
-                .into(sImage);
+
+        if (sound.isLocalizeMedia()) {
+            File BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
+            String BloisSoundDirPath = BloisSoundDir.toString();
+
+            String thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+               Picasso.with(sImage.getContext())
+                       .load(thisSoundImageFilePath)
+                       .resize(120, 120)
+                       .centerCrop()
+                       .placeholder(R.drawable.sound_defaul_image)
+                       .into(sImage);
+
+        } else {
+            String thisSoundImageFilePath = "http://savoir-ecouter.aprille.net/wp-content/uploads/"  + sound.getSoundPhoto();
+            Log.e("myApp :: ", "sound.getSoundPhoto() IN notlocal " + thisSoundImageFilePath );
+            Picasso.with(sImage.getContext())
+                    .load(thisSoundImageFilePath)
+                    .resize(120, 120)
+                    .centerCrop()
+                    .placeholder(R.drawable.sound_defaul_image)
+                    .into(sImage);
+
+        }
+
 
 
     }

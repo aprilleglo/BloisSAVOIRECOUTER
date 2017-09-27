@@ -36,6 +36,7 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
 import models.AppSpecificDetails;
+import models.Location;
 import models.Quadrant;
 import models.Sound;
 import models.User;
@@ -76,6 +77,7 @@ public class PeopleActivity extends AppCompatActivity {
     public String BloisSoundDirPath;
     public String thisSoundImageFilePath;
     public String thisIconThumbFilePath;
+    String BloisSoundWebUrl;
     boolean isLandscape;
     Context context = this;
 
@@ -103,6 +105,7 @@ public class PeopleActivity extends AppCompatActivity {
 
         BloisUserDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/users");
         BloisUserDirPath = BloisUserDir.toString();
+        BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
 
         AppSpecificDetails thisAppDetails = realm.where(AppSpecificDetails.class).findFirst();
         thisPrimaryId = thisAppDetails.getPrimaryUserID();
@@ -306,7 +309,8 @@ public class PeopleActivity extends AppCompatActivity {
                 uMore = (ImageView) container.findViewById(R.id.moreInfoUser);
                 uImage.setOnClickListener(this);
                 uSoundLibPress.setOnClickListener(this);
-
+                container.setOnClickListener(this);
+                uMore.setOnClickListener(this);
 
             }
 
@@ -318,16 +322,24 @@ public class PeopleActivity extends AppCompatActivity {
                 thisUserPhotoString = BloisUserDirPath + "/" + thisUser.getUserPhoto();
                 thisUserUri = Uri.parse(thisUserPhotoString);
                 Log.e("myApp :: ", " onclick " + getAdapterPosition() );
+                thisUserPhotoString = BloisUserDirPath + "/" + thisUser.getUserPhoto();
+
+                thisUserUri = Uri.parse(thisUserPhotoString);
+
+                Intent intent = new Intent(getApplicationContext(), UserSoundsActivity.class);
+                intent.putExtra("userID", thisUser.getUserID());
+                startActivity(intent);
+
                 if (v instanceof ImageView){
                     Log.e("myApp ", "onplay inside onclick " + getAdapterPosition() );
 
-                    thisUserPhotoString = BloisUserDirPath + "/" + thisUser.getUserPhoto();
-
-                    thisUserUri = Uri.parse(thisUserPhotoString);
-
-                    Intent intent = new Intent(getApplicationContext(), UserSoundsActivity.class);
-                    intent.putExtra("userID", thisUser.getUserID());
-                    startActivity(intent);
+//                    thisUserPhotoString = BloisUserDirPath + "/" + thisUser.getUserPhoto();
+//
+//                    thisUserUri = Uri.parse(thisUserPhotoString);
+//
+//                    Intent intent = new Intent(getApplicationContext(), UserSoundsActivity.class);
+//                    intent.putExtra("userID", thisUser.getUserID());
+//                    startActivity(intent);
 
 
 
@@ -361,15 +373,26 @@ public class PeopleActivity extends AppCompatActivity {
         public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
             final User user = realmResults.get(position);
 
-            thisSoundImageFilePath = BloisUserDirPath + "/" + user.getUserPhoto();
-            Log.e("myApp :: ", "BloisUserDirPath IN ONBIND " + thisSoundImageFilePath );
 
-            Picasso.with(viewHolder.uImage.getContext())
-                    .load(new File(thisSoundImageFilePath))
-                    .resize(120, 120)
-                    .centerCrop()
-                    .placeholder(R.drawable.sound_defaul_image)
-                    .into(viewHolder.uImage);
+            Log.e("myApp :: ", "BloisUserDirPath IN ONBIND " + thisSoundImageFilePath );
+            if (user.isPrimaryUserBoolean()) {
+                thisSoundImageFilePath = BloisUserDirPath + "/" + user.getUserPhoto();
+                Picasso.with(viewHolder.uImage.getContext())
+                        .load(new File(thisSoundImageFilePath))
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.uImage);
+            } else {
+                thisSoundImageFilePath = BloisSoundWebUrl + "/" + user.getUserPhoto();
+                Picasso.with(viewHolder.uImage.getContext())
+                        .load(thisSoundImageFilePath)
+                        .resize(150, 150)
+                        .centerCrop()
+                        .placeholder(R.drawable.user_default_image)
+                        .into(viewHolder.uImage);
+
+            }
+
 
             viewHolder.uTitle.setText(user.getUserName());
 
@@ -444,8 +467,6 @@ public class PeopleActivity extends AppCompatActivity {
 
                 }
 
-
-
             }
         }
         catch (IOException ex) {
@@ -459,21 +480,54 @@ public class PeopleActivity extends AppCompatActivity {
                 throw new RuntimeException("Error while closing input stream: "+e);
             }
         }
-//        List userList = csvFileUser.read();
-//
-//        int len = userList.size();
-//        Log.w("myApp :: ", "Value length of list " + len );
-//        for (int i = 0; i < len; ++i) {
-//            String[] thisUserRow = userList.get(i);
-//
-//            Log.w("myApp :: ", "Value  row 0 " + userList[i][1]);
-//       }
-//
-////        Log.w("myApp :: ", "Value  row 0 " + userList[0][1]);
-////        for (int i = 0; i < len; ++i) {
-////            Log.w("myApp :: ", "Value  row 0 " + userList[i][1]);
-////        }
 
+    }
+
+    private void addPlaceFromFile() {
+
+        InputStream inputStream = getResources().openRawResource(R.raw.places);
+        CSVFile csvFileSound = new CSVFile(inputStream);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            int rowCount = 1;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split("\\|");
+
+                int len = row.length;
+                Log.w("myApp :: ", "Value length of row " + len);
+
+                Location newUPlace = realm.where(Location.class).equalTo("locationID", row[0]).findFirst();
+                if (newUPlace == null) {
+                    Log.w("myApp :: ", "Value length of row 0 " + row[0]);
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1]);
+                    Log.w("myApp :: ", "Value length of row 2 " + row[2]);
+                    Log.w("myApp :: ", "Value length of row 3 " + row[3]);
+                    realm.beginTransaction();
+                    newUPlace = realm.createObject(Location.class, row[0]);
+                    Log.w("myApp :: ", "Value length of row 1 " + row[1]);
+                    newUPlace.setLocationName(row[1]);
+                    newUPlace.setLocationAddress(row[2]);
+                    newUPlace.setLongitiude(Double.parseDouble(row[4]));
+                    newUPlace.setLatitude(Double.parseDouble(row[3]));
+                    newUPlace.setLocationNumSounds(0);
+                    newUPlace.setSharedLocation(true);
+                    newUPlace.setLocationSearchText(row[1] + " " + row[2]);
+                    realm.commitTransaction();
+
+                }
+
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: " + ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: " + e);
+            }
+        }
     }
 
     private void addSoundsFromFile() {
@@ -492,13 +546,16 @@ public class PeopleActivity extends AppCompatActivity {
                 Log.w("myApp :: ", "Value  of csvLine " + csvLine );
                 Log.w("myApp :: ", "Value length of row " + len );
                 Sound newSound = realm.where(Sound.class).equalTo("soundID", row[0]).findFirst();
-                User newUser  = realm.where(User.class).equalTo("userID", row[6]).findFirst();
-                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[5]).findFirst();
+                Log.w("myApp :: ", "UserID " + row[8] );
+                User newUser  = realm.where(User.class).equalTo("userID", row[8]).findFirst();
+                Log.w("myApp :: ", "user " + newUser.getUserName() );
+                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[10]).findFirst();
+                Log.w("myApp :: ", "Quad " + newQuadrant.getQuadID() );
 
                 if ((newQuadrant != null ) && (newUser != null ) && (newSound == null) ){
 
-//                   0 soundID| 1 soundName| 2soundAbout| 3soundFile| 4soundPhoto|5 soundQuadrant|
-//                   6 soundUserID| 7 soundUserName| 8 soundUserBio| 9 soundUserPhoto
+//                   0 soundID| 1 soundName| 2 soundAbout| 3 soundFile| 4 soundPhoto|5 soundQuadrant| 6 soundUserID| 7 soundUserName| 8 soundUserBio| 9 soundUserPhoto
+//                   0 soundID| 1 soundName|  | 2 soundFile| 3 soundPhoto|4 soundPhotoDesc|5 localizeMedia|6 createdByPrimaryUser| 7 soundLikes| 8 userID| 9 userName| 10 quadID| 11 locationID| 12 locationName
 
                     Log.w("myApp :: ", "Value length of row 0 " + row[0] );
                     Log.w("myApp :: ", "Value length of row 1 " + row[1] );
@@ -506,19 +563,30 @@ public class PeopleActivity extends AppCompatActivity {
                     Log.w("myApp :: ", "Value length of row 3 " + row[3] );
                     Log.w("myApp :: ", "Value length of row 4 " + row[4] );
                     Log.w("myApp :: ", "Value length of row 5 " + row[5] );
-                    Log.w("myApp :: ", "Value length of row 5 " + row[6] );
+                    Log.w("myApp :: ", "Value length of row 6 " + row[6] );
+                    Log.w("myApp :: ", "Value length of row 7 " + row[7] );
+                    Log.w("myApp :: ", "Value length of row 8 " + row[8] );
+                    Log.w("myApp :: ", "Value length of row 9 " + row[9] );
+                    Log.w("myApp :: ", "Value length of row 10 " + row[10] );
+                    Log.w("myApp :: ", "Value length of row 11 " + row[11] );
                     realm.beginTransaction();
                     Sound newSound1 = realm.createObject(Sound.class, row[0]);
                     newSound1.setSoundName(row[1]);
-                    newSound1.setSoundDesc(row[2]);
-                    newSound1.setSoundFile(row[3]);
-                    newSound1.setSoundPhoto(row[4]);
+//                    newSound1.setSoundDesc(row[2]);
+                    newSound1.setSoundFile(row[2]);
+                    newSound1.setSoundPhoto(row[3]);
+                    newSound1.setSoundPhotoDesc( row[4]);
                     newSound1.setTimeCreated(getCurrDateString());
-                    newSound1.setLocalizeMedia(true);
+                    newSound1.setLocalizeMedia(false);
                     newSound1.setCreatedByPrimaryUser(false);
-                    newSound1.setSoundLikes(10);
-
+                    newSound1.setSoundSearchText(row[1] +" " + row[2] + " " + row[9] + " " + row[12] + " " + newUser.getUserDesc());
+                    newSound1.setSoundLikes( Integer.parseInt(row[7]) );
+                    Location newlocation = realm.where(Location.class).equalTo("locationID", row[11]).findFirst();
+                    if (newlocation  != null ) {
+                        newlocation.getLocationSounds().add(newSound1);
+                    }
                     newUser.getUserSounds().add(newSound1);
+
                     newQuadrant.getQuadSounds().add(newSound1);
                     realm.commitTransaction();
                 }

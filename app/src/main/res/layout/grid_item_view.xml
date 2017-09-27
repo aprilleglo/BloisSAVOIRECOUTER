@@ -76,26 +76,28 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopGridItem"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItem"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItem" />
 
     <ImageView
         android:id="@+id/play_pause"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomGridItem"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItem"
-        android:tint="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="@+id/sound_image"
+        app:layout_constraintBottom_toBottomOf="@+id/sound_image"
+        app:layout_constraintLeft_toLeftOf="@+id/sound_image"
+        app:layout_constraintRight_toRightOf="@+id/sound_image"
+        android:tint="@color/white"
         app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
 
-    <ImageView
-        android:id="@+id/pause_play"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomGridItem"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItem"
-        android:tint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_pause_black_24dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/pause_play"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomGridItem"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItem"-->
+        <!--android:tint="@color/colorAccent"-->
+        <!--app:srcCompat="@drawable/ic_pause_black_24dp" />ic_pause_black_24dp-->
 
     <TextView
         android:id="@+id/sound_title"
@@ -112,11 +114,10 @@
         android:id="@+id/likes_press"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddle2GridItem"
+        app:layout_constraintLeft_toLeftOf="@+id/sound_title"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItem"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        >
 
 
         <ImageView

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.aprille.bloissavoirecouter.PlaceSoundsActivity">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftPSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="10dp"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightPSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="10dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopPSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineMiddleVPSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="170dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomPSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="10dp" />
+
+    <ImageView
+        android:id="@+id/p_sound_ImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/sound_image"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopPSound"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
+        app:layout_constraintRight_toLeftOf="@+id/p_sound_PlaceName"
+        app:layout_constraintBottom_toTopOf="@+id/p_sound_realm_recycler_view"
+        android:layout_marginBottom="6dp"
+        app:srcCompat="@drawable/plan_title"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/p_sound_PlaceName"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="left"
+        android:text="@string/this_primary_user"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightPSound"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopPSound" />
+
+
+    <TextView
+        android:id="@+id/p_sound_PlaceAddress"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Robert-Houdin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintBottom_toTopOf="@+id/p_sound_numSound_TextView"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_PlaceName"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/p_sound_numSound_TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#f00"
+        android:text="@string/number_of_sounds"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMiddleVPSound"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_PlaceAddress"
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
+        android:layout_marginLeft="10dp"/>
+
+    <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+        android:id="@+id/p_sound_realm_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_ImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomPSound"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="15dp"
+        app:rrvIsRefreshable="true"
+        app:rrvLayoutType="Grid"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="15dp"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

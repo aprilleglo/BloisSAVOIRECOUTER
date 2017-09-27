@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -235,30 +236,52 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
             SoundviewImage = (ImageView) findViewById(R.id.soundImageViewSoundDetail);
 
-            thisSoundImageFilePath = BloisSoundDirPath + "/" + thisSound.getSoundPhoto();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    //Do the work after completion of audio
+                    mediaPlayer.reset();
+                }
+            });
+
+
+
             thisSoundFilePath =  BloisSoundDirPath + "/" + thisSound.getSoundFile();
             Log.e("myApp :: ", "BloisSoundDirPath " + thisSoundImageFilePath);
             Log.e("myApp :: ", "soundPhotofile name  " + thisSoundImageFilePath);
             Log.e("myApp :: ", "sound.getSound  " + thisSound.getSoundFile());
             Log.e("myApp :: ", "thisSound.getSoundDesc()  " + thisSound.getSoundDesc());
 
-            if ( thisSound.isLocalizeMedia() ) {
-
-                mediaPlayer = MediaPlayer.create(this, Uri.parse(thisSoundFilePath));
-
+            if (thisSound.isLocalizeMedia()) {
+                thisSoundImageFilePath = BloisSoundDirPath + "/" + thisSound.getSoundPhoto();
+                Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "sound.getSound IN ONBIND " + thisSound.getSoundFile() );
+                Picasso.with(getApplicationContext())
+                        .load(new File(thisSoundImageFilePath))
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(SoundviewImage);
 
 
             } else {
-
-                mediaPlayer = MediaPlayer.create(this, Uri.parse(thisSoundFilePath));
+                String BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
+                String thisSoundImageFilePath = BloisSoundWebUrl  + thisSound.getSoundPhoto();
+                Log.e("myApp :: ", "sound.getSoundPhoto() IN ONBIND " + thisSoundImageFilePath );
+                Picasso.with(getApplicationContext())
+                        .load(thisSoundImageFilePath)
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(SoundviewImage);
 
             }
 
 
-            Picasso.with(getApplicationContext())
-                    .load(new File(thisSoundImageFilePath))
-                    .placeholder(R.drawable.sound_defaul_image)
-                    .into(SoundviewImage);
+
+//            Picasso.with(getApplicationContext())
+//                    .load(new File(thisSoundImageFilePath))
+//                    .placeholder(R.drawable.sound_defaul_image)
+//                    .into(SoundviewImage);
 
 
             TextView tvSoundNameDetailTV = (TextView) findViewById(R.id.tVsoundNameSoundDetail);
@@ -280,8 +303,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
             TextView tvPlaceAddress = (TextView) findViewById(R.id.tvPlaceAddressSoundDetail);
             tvPlaceAddress.setText(thisPlace.getLocationAddress());
 
-            TextView tvPlaceLatLong = (TextView) findViewById(R.id.tvPlaceLongLatSoundDetail);
-            tvPlaceLatLong .setText(thisPlace.getLongitiude() + ", " + thisPlace.getLongitiude());
+
 
         }
 
@@ -301,7 +323,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                         .load(new File(thisUserImageFilePath))
                         .resize(96, 96)
                         .centerCrop()
-                        .placeholder(R.drawable.plan_1)
+                        .placeholder(R.drawable.user_default_image)
                         .into(iVuserImageView);
 
                 TextView tvUserSoundDetailTV = (TextView) findViewById(R.id.tvUserSoundDetail);
@@ -497,18 +519,61 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
     public void buttonClickPlaySoundDetail(View v) {
 
-        if (mediaPlayer.isPlaying() ) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
-    //        playButton.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
+            //        playButton.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
             playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
 
         } else {
-            mediaPlayer.start();
-            ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
-            playButton.setImageResource(R.drawable.ic_pause_black_24dp);
+
+            if (thisSound.isLocalizeMedia()) {
+                Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
+
+                String thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                Uri thisSoundUri = Uri.parse(thisSoundFileString);
+                try {
+                    mediaPlayer.setDataSource(this, thisSoundUri);
+                    mediaPlayer.prepare();
+                    ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
+                    playButton .setImageResource(R.drawable.ic_pause_black_24dp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+                mediaPlayer.start();
+            } else {     // not localized
+                mediaPlayer.reset();
+                Log.e("myApp", "onplay inside islocalized mediafalse " + thisSound.getSoundName()) ;
+                Log.e("myApp", "onplay inside islocalized sounddesc " + thisSound.getSoundDesc()) ;
+                Log.e("myApp", "onplay inside islocalized soundfile " + thisSound.getSoundFile()) ;
+                String BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
+                String thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
+                Log.e("myApp", "theURl " + thisSoundFileString) ;
+                //mp3 will be started after completion of preparing...
+
+                try {
+                    mediaPlayer.setDataSource(thisSoundFileString);
+                    mediaPlayer.prepareAsync();
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            mediaPlayer.start();
+                        }
+
+                    });
+                    ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
+                    playButton.setImageResource(R.drawable.ic_pause_black_24dp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
 
         }
+
 
 
 

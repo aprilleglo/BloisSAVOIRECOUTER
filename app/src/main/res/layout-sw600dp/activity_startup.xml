@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    tools:context="net.aprille.bloissavoirecouter.StartupActivity">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/signup_input_layout_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:paddingTop="8dp"
+        android:contentDescription="@string/namelabel"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/signup_input_layout_about"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRight"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <EditText
+            android:id="@+id/signup_input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/name"
+            android:hint="@string/name"
+            android:maxLines="1"
+            android:nextFocusDown="@+id/signup_input_about"
+            android:nextFocusForward="@+id/signup_input_about"
+            android:nextFocusRight="@+id/signup_input_about" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/signup_input_layout_about"
+        android:contentDescription="@string/aboutlabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@+id/signup_input_layout_name"
+        app:layout_constraintBottom_toTopOf="@+id/primaryUserImageView"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRight">
+
+        <EditText
+            android:id="@+id/signup_input_about"
+            android:contentDescription="@string/about_you"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:hint="@string/about_you" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <ImageView
+        android:id="@+id/primaryUserImageView"
+        android:contentDescription="@string/user_image"
+        app:srcCompat="@drawable/user_default_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintTop_toBottomOf="@+id/signup_input_layout_about"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRight" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:contentDescription="@string/addUserPhoto"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/primaryUserImageView"
+        app:layout_constraintRight_toRightOf="@+id/primaryUserImageView"
+        app:layout_constraintLeft_toLeftOf="@id/primaryUserImageView"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+        android:tint="?colorAccent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="buttonClickAddPhoto" />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@color/black"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRight"
+        android:onClick="buttonClickSave"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

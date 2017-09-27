@@ -35,6 +35,8 @@ public class Sound extends RealmObject {
 
     private boolean createdByPrimaryUser;
 
+    private String soundSearchText;
+
     @Index
     private int soundLikes = 10;
 
@@ -121,6 +123,14 @@ public class Sound extends RealmObject {
 
     public void setLocalizeMedia(boolean localizeMedia) {
         this.localizeMedia = localizeMedia;
+    }
+
+    public String getSoundSearchText() {
+        return soundSearchText;
+    }
+
+    public void setSoundSearchText(String soundSearchText) {
+        this.soundSearchText = soundSearchText;
     }
 
     public int getSoundLikes() {

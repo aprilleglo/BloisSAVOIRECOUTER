@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:SearchSounds="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="65dp"
+    tools:context="net.aprille.bloissavoirecouter.SearchSoundsActivity"
+    tools:showIn="@layout/activity_search_sounds">
+
+
+
+    <co.moonmonkeylabs.realmsearchview.RealmSearchView
+        android:id="@+id/sound_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        SearchSounds:rsvHint="@string/search_hint"
+        />
+
+</android.support.constraint.ConstraintLayout>
