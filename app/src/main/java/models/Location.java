@@ -31,10 +31,6 @@ public class Location extends RealmObject {
 
     private String locationPhotoURL;
 
-    private boolean sharedLocation;
-
-    private String locationSearchText;
-
     private RealmList<Sound> locationSounds;
 
 
@@ -102,26 +98,7 @@ public class Location extends RealmObject {
         return locationNumSounds;
     }
 
-
-    public String getLocationSearchText() {
-        return locationSearchText;
-    }
-
-    public void setLocationSearchText(String locationSearchText) {
-        this.locationSearchText = locationSearchText;
-    }
-
     public void setLocationNumSounds(int locationNumSounds) {
         this.locationNumSounds = locationNumSounds;
     }
-
-    public boolean isSharedLocation() {
-        return sharedLocation;
-    }
-
-    public void setSharedLocation(boolean sharedLocation) {
-        this.sharedLocation = sharedLocation;
-    }
-
-
 }
