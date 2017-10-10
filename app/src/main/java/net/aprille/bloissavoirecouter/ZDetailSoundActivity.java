@@ -72,6 +72,8 @@ public class ZDetailSoundActivity extends AppCompatActivity {
     Location thisPlace;
     User thisUser;
 
+    boolean isExhibition = true;
+
     ImageView SoundviewImage;
 
     String AudioSavePathInDevice = null;
@@ -246,6 +248,11 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                 }
             });
 
+            TextView tvUserDescPhotoDetail = (TextView) findViewById(R.id.tVQuadPhotoSoundInfo);
+            if (thisSound.getSoundPhotoDesc() != null) {
+                tvUserDescPhotoDetail.setText(thisSound.getSoundPhotoDesc());
+            }
+
 
 
             thisSoundFilePath =  BloisSoundDirPath + "/" + thisSound.getSoundFile();
@@ -253,17 +260,17 @@ public class ZDetailSoundActivity extends AppCompatActivity {
             Log.e("myApp :: ", "soundPhotofile name  " + thisSoundImageFilePath);
             Log.e("myApp :: ", "sound.getSound  " + thisSound.getSoundFile());
             Log.e("myApp :: ", "thisSound.getSoundDesc()  " + thisSound.getSoundDesc());
+            thisSoundImageFilePath = BloisSoundDirPath + "/" + thisSound.getSoundPhoto();
+            File thisUserImageFile = new File(thisSoundImageFilePath);
+            if (thisUserImageFile.exists()) {
 
-            if (thisSound.isLocalizeMedia()) {
-                thisSoundImageFilePath = BloisSoundDirPath + "/" + thisSound.getSoundPhoto();
                 Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
                 Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
                 Log.e("myApp :: ", "sound.getSound IN ONBIND " + thisSound.getSoundFile() );
                 Picasso.with(getApplicationContext())
-                        .load(new File(thisSoundImageFilePath))
+                        .load(thisUserImageFile)
                         .placeholder(R.drawable.sound_defaul_image)
                         .into(SoundviewImage);
-
 
             } else {
                 String BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
@@ -313,117 +320,77 @@ public class ZDetailSoundActivity extends AppCompatActivity {
             thisUser = thisSound.getSoundUser().first();
 
             if (thisUser != null) {
-
                 ImageButton iVuserImageView = (ImageButton) findViewById(R.id.showUserButtonSoundDetail);
                 String thisUserImageFilePath = BloisUserDirPath + "/" + thisUser.getUserPhoto();
-                Log.e("myApp :: ", "BloisUerDirPath with user " + thisUserImageFilePath);
-                Log.e("myApp :: ", "thisUser.getUserName() " + thisUser.getUserName());
+                File thisUserImageFile = new File(thisSoundImageFilePath);
+                if (thisUserImageFile.exists()) {
+                    Log.e("myApp :: ", "BloisUerDirPath with user " + thisUserImageFilePath);
+                    Log.e("myApp :: ", "thisUser.getUserName() " + thisUser.getUserName());
 
-                Picasso.with(this)
-                        .load(new File(thisUserImageFilePath))
-                        .resize(96, 96)
-                        .centerCrop()
-                        .placeholder(R.drawable.user_default_image)
-                        .into(iVuserImageView);
+                    Picasso.with(this)
+                            .load(new File(thisUserImageFilePath))
+                            .resize(96, 96)
+                            .centerCrop()
+                            .placeholder(R.drawable.user_default_image)
+                            .into(iVuserImageView);
+                } else {
 
-                TextView tvUserSoundDetailTV = (TextView) findViewById(R.id.tvUserSoundDetail);
+                    String BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
+
+                    String thisUserImageURLPath = BloisSoundWebUrl  + thisUser.getUserPhoto();
+                    Log.e("myApp :: ", "sound.getSoundPhoto() IN ONBIND " + thisSoundImageFilePath );
+                    Picasso.with(getApplicationContext())
+                            .load(thisUserImageURLPath)
+                            .placeholder(R.drawable.user_default_image)
+                            .into(iVuserImageView);
+
+                }
+
+//                ImageButton iVuserImageView = (ImageButton) findViewById(R.id.showUserButtonSoundDetail);
+//                String thisUserImageFilePath = BloisUserDirPath + "/" + thisUser.getUserPhoto();
+//                Log.e("myApp :: ", "BloisUerDirPath with user " + thisUserImageFilePath);
+//                Log.e("myApp :: ", "thisUser.getUserName() " + thisUser.getUserName());
+//
+//                Picasso.with(this)
+//                        .load(new File(thisUserImageFilePath))
+//                        .resize(96, 96)
+//                        .centerCrop()
+//                        .placeholder(R.drawable.user_default_image)
+//                        .into(iVuserImageView);
+
 
                 TextView tvUserNameSoundDetailTV = (TextView) findViewById(R.id.tvUserNameSoundDetail);
                 tvUserNameSoundDetailTV.setText(thisUser.getUserName());
 
-                TextView tvUserDescSoundDetail = (TextView) findViewById(R.id.tvUserDecrSoundDetail);
-                tvUserDescSoundDetail.setText(thisUser.getUserDesc());
-
 
             }
 
 
         }
 
-        if (Util.quadInfoExists(thisSound)) {
-
-            Quadrant thisQuad = thisSound.getSoundQuad().first();
-
-            if (thisQuad != null) {
-                ImageView quadImageView = (ImageView) findViewById(R.id.iVQuadPhotoSoundDetail);
-
-
-                TextView tvQuadName = (TextView) findViewById(R.id.tVQuadNameSoundDetail);
-                tvQuadName.setText(thisQuad.getQuadTitle());
-
-                String sectorID = thisQuad.getQuadID();
-
-                switch (sectorID) {
-
-                    case "1":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_1));
-                        break;
-                    case "2":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_2));
-                        break;
-                    case "3":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_3));
-                        break;
-                    case "4":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_4));
-                        break;
-                    case "5":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_5));
-                        break;
-                    case "6":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_6));
-                        break;
-                    case "7":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_7));
-                        break;
-                    case "8":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_8));
-                        break;
-                    case "9":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_9));
-                        break;
-                    case "10":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_10));
-                        break;
-                    case "11":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_11));
-                        break;
-                    case "12":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_12));
-                        break;
-                    case "13":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_13));
-                        break;
-                    case "14":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_14));
-                        break;
-                    case "15":
-                        quadImageView.setImageDrawable(ContextCompat.getDrawable(ZDetailSoundActivity.this, R.drawable.plan_15));
-                        break;
-                }
-
-            }
-
-
-        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (isExhibition) {
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                try {
-                    shareSoundContent();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Snackbar.make(view, "exception", Snackbar.LENGTH_LONG)
+                    try {
+                        shareSoundContent();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Snackbar.make(view, "exception", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    Snackbar.make(view, "Let's share", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-                Snackbar.make(view, "Let's share", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+            });
+        }
+
     }
 
 
@@ -436,6 +403,19 @@ public class ZDetailSoundActivity extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer.reset();
         }
+    }
+
+
+
+    public void buttonClickAddSoundPhoto(View v)
+    {
+        if ((permissionCheckCamera == -1) && (permissionCheckStorage == 0)) {
+            selectImageNoCamera();
+        } else {
+            selectImage();
+        }
+
+
     }
 
     @Override
@@ -527,7 +507,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
         } else {
 
-            if (thisSound.isLocalizeMedia()) {
+            if ( thisSound.isLocalizeMedia() )  {
                 Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
 
                 String thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
@@ -579,13 +559,13 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
     }
 
-    public void buttonClickBackToSectorSound(View v) {
-        Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
-  //      intent.putExtra("userID", thisUser.getUserID());
-        startActivity(intent);
-
-
-    }
+//    public void buttonClickBackToSectorSound(View v) {
+//        Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
+//  //      intent.putExtra("userID", thisUser.getUserID());
+//        startActivity(intent);
+//
+//
+//    }
 
 
     public void buttonClickShowUserInfo(View v) {
@@ -832,8 +812,8 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                         tVPLaceNameDetail.setText(newLocation.getLocationName());
                         TextView tvAddressSoundDetail =(TextView) findViewById(R.id.tvPlaceAddressSoundDetail);
                         tvAddressSoundDetail.setText(newLocation.getLocationAddress());
-                        TextView tvLongLatSoundDetail  =(TextView) findViewById(R.id.tvPlaceLongLatSoundDetail );
-                        tvLongLatSoundDetail.setText("LongLat "+ newLocation.getLongitiude().toString() +", "+ newLocation.getLatitude());
+//                        TextView tvLongLatSoundDetail  =(TextView) findViewById(R.id.tvPlaceLongLatSoundDetail );
+//                        tvLongLatSoundDetail.setText("LongLat "+ newLocation.getLongitiude().toString() +", "+ newLocation.getLatitude());
 
                     }
 
@@ -919,9 +899,6 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
     public void shareSoundContent() throws Exception {
-
-
-
 
         // get text data for  email
         String userDataForEmail = "Failed NO User Data !!!\n\n";

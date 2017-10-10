@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,8 @@ public class UserSoundsActivity extends AppCompatActivity {
     RealmConfiguration config;
 
     User User_for_Sounds;
+
+    boolean isExhibition = true;
 
     int num_of_Sounds;
 
@@ -112,7 +115,7 @@ public class UserSoundsActivity extends AppCompatActivity {
 
             ImageView iVprimaryUserImageView = (ImageView) findViewById(R.id.u_sound_ImageView);
 
-            if (User_for_Sounds.isPrimaryUserBoolean()) {
+            if (User_for_Sounds.isPrimaryUserBoolean() || isExhibition) {
                 String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
                 Log.e("myApp :: ", "BloisUerDirPath with primary " + thisUserImageFilePath );
                 Picasso.with(this)
@@ -138,6 +141,7 @@ public class UserSoundsActivity extends AppCompatActivity {
             tvUserName.setText(User_for_Sounds.getUserName());
             TextView tvUserDescTextView = (TextView) findViewById(R.id.u_sound_UserDescr);
             tvUserDescTextView.setText(User_for_Sounds.getUserDesc());
+            Linkify.addLinks(tvUserDescTextView, Linkify.ALL);
 
 
 

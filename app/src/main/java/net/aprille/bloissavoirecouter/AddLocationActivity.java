@@ -168,8 +168,7 @@ public class AddLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent i = new Intent(context, AddPlaceActivity.class);
-                Log.w("myApp", "b4 pressed - about to launch sub-activity");
+             Log.e("myApp", "b4 pressed - about to launch sub-activity");
                 // the results are called on widgetActivityCallback
 //                startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -182,8 +181,6 @@ public class AddLocationActivity extends AppCompatActivity {
                 } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
-
-
 
             }
         });

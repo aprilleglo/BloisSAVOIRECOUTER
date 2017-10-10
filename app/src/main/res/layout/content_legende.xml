@@ -62,7 +62,7 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/explorePlanButton"
         android:layout_width="0dp"
-        android:layout_height="124dp"
+        android:layout_height="89dp"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopLeg"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
@@ -70,24 +70,25 @@
         app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterLeg"
         android:drawableLeft="@drawable/map_icon3_512"
         android:text="@string/explore_by_geocoding"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:onClick="buttonClickGeoCodedPlan"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/exploreParcoursButton"
         android:layout_width="0dp"
-        android:layout_height="124dp"
+        android:layout_height="89dp"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintTop_toTopOf="@+id/guidelineQuaterLeg"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfLeg"
         android:drawableLeft="@drawable/parcours_512"
+        android:scaleType="centerCrop"
         android:padding="8dp"
         android:text="@string/explore_walking_tous"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickExploreParcours"/>
@@ -95,18 +96,19 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/exploreKeyWordButton"
         android:layout_width="0dp"
-        android:layout_height="124dp"
+        android:layout_height="89dp"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintTop_toTopOf="@+id/guidelineHalfLeg"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
         app:layout_constraintBottom_toBottomOf="@+id/guideline3QuaterLeg"
         android:drawableLeft="@drawable/keyword_icon2_512"
+        android:scaleType="centerCrop"
         android:padding="8dp"
         android:text="@string/search_by_keyword"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:onClick="buttonClickExploreKeyword"/>
 
 

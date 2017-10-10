@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import io.realm.Realm;
@@ -29,7 +32,16 @@ public class PlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float ratio = ((float)displayMetrics.heightPixels / (float)displayMetrics.widthPixels
+        );
+        if (ratio < 1.34 ) {
+            setContentView(R.layout.activity_plan_no_actionbar);
+        } else {
+            setContentView(R.layout.activity_plan);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,6 +54,7 @@ public class PlanActivity extends AppCompatActivity {
             Realm.init(getApplicationContext());
             RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
             Realm.setDefaultConfiguration(config);
+            Log.e("myApp", "inside catch for realm " );
             realm = Realm.getDefaultInstance();
         }
 //        just to get rid of primary user for testing !!!!
@@ -55,15 +68,11 @@ public class PlanActivity extends AppCompatActivity {
 //        RealmResults<Sound> deleteAllSounds = realm.where(Sound.class).findAll();
 //        deleteAllSounds.deleteAllFromRealm();
 //        realm.commitTransaction();
-//
+
 //        realm.beginTransaction();
 //        RealmResults<Location> deleteAllPlaces = realm.where(Location.class).findAll();
 //        deleteAllPlaces.deleteAllFromRealm();
 //        realm.commitTransaction();
-
-        initializeSectors();
-
-
 
 
         boolean isFirstRun = true;
@@ -71,7 +80,15 @@ public class PlanActivity extends AppCompatActivity {
         AppSpecificDetails thisAppDetails = realm.where(AppSpecificDetails.class).findFirst();
 
 
+
         if (thisAppDetails == null) {
+            LayoutInflater inflater = getLayoutInflater();
+            View toastLayout = inflater.inflate(R.layout.content_custom_toast, (ViewGroup) findViewById(R.id.llCustom));
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(toastLayout);
+            toast.show();
+            initializeSectors();
             startActivity(new Intent(PlanActivity.this, StartupActivity.class));
 
 

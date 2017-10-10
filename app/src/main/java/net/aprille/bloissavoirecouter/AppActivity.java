@@ -242,7 +242,7 @@ public class AppActivity extends AppCompatActivity {
                 loopQuadID = "FAILED no Quad";
             }
 
-           soundDataForExport = soundDataForExport  + theseSounds.get(i).getSoundID()+ "|" + theseSounds.get(i).getSoundName()+ "|" + theseSounds.get(i).getSoundFile()+ "|" + theseSounds.get(i).getSoundPhoto()+ "|" + theseSounds.get(i).getSoundPhotoDesc()+ "|" + String.valueOf(theseSounds.get(i).isLocalizeMedia() )+ "|" +String.valueOf(theseSounds.get(i).isCreatedByPrimaryUser() ) + "|" + String.valueOf(theseSounds.get(i).getSoundLikes() ) + "|" + loopUserID + "|" + loopUserName + "|" +  loopQuadID + "|" + loopPlaceID + "|" + loopPlaceName +"\n";
+           soundDataForExport = soundDataForExport  + theseSounds.get(i).getSoundID()+ "|" + theseSounds.get(i).getSoundName() + "|" + theseSounds.get(i).getSoundDesc() + "|" + theseSounds.get(i).getSoundFile()+ "|" + theseSounds.get(i).getSoundPhoto()+ "|" + theseSounds.get(i).getSoundPhotoDesc()+ "|" + String.valueOf(theseSounds.get(i).isLocalizeMedia() )+ "|" +String.valueOf(theseSounds.get(i).isCreatedByPrimaryUser() ) + "|" + String.valueOf(theseSounds.get(i).getSoundLikes() ) + "|" + loopUserID + "|" + loopUserName + "|" +  loopQuadID + "|" + loopPlaceID + "|" + loopPlaceName +"\n";
         }
 
         generateCSVOnSD(context, "soundExport.csv", soundDataForExport);

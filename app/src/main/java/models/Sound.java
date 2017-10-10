@@ -51,6 +51,8 @@ public class Sound extends RealmObject {
 
     private RealmList<Keyword> keywords;
 
+    private RealmList<OrderedWalkSound> orderedWalkSounds;
+
     //  getters and setters
 
     public String getSoundID() {
@@ -145,8 +147,6 @@ public class Sound extends RealmObject {
         return soundUser;
     }
 
-
-
     public RealmResults<Quadrant> getSoundQuad() {
         return soundQuad;
     }
@@ -163,5 +163,11 @@ public class Sound extends RealmObject {
         this.keywords = keywords;
     }
 
+    public RealmList<OrderedWalkSound> getOrderedWalkSounds() {
+        return orderedWalkSounds;
+    }
 
+    public void setOrderedWalkSounds(RealmList<OrderedWalkSound> orderedWalkSounds) {
+        this.orderedWalkSounds = orderedWalkSounds;
+    }
 }

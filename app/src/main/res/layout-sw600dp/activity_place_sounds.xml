@@ -91,7 +91,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#f00"
+        android:textColor="@color/black"
         android:text="@string/number_of_sounds"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineMiddleVPSound"
@@ -113,9 +113,9 @@
         android:layout_marginRight="15dp"
         app:rrvIsRefreshable="true"
         app:rrvLayoutType="Grid"
+        app:rrvGridLayoutItemWidth="380dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="15dp"/>
-
 
 
 </android.support.constraint.ConstraintLayout>

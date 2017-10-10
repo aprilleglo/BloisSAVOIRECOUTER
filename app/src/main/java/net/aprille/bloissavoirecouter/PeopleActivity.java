@@ -496,39 +496,43 @@ public class PeopleActivity extends AppCompatActivity {
                 String[] row = csvLine.split("\\|");
 
                 int len = row.length;
-                Log.w("myApp :: ", "Value length of row " + len);
+                Log.w("myApp :: ", "Value length of row " + len );
 
-                Location newUPlace = realm.where(Location.class).equalTo("locationID", row[0]).findFirst();
-                if (newUPlace == null) {
-                    Log.w("myApp :: ", "Value length of row 0 " + row[0]);
-                    Log.w("myApp :: ", "Value length of row 1 " + row[1]);
-                    Log.w("myApp :: ", "Value length of row 2 " + row[2]);
-                    Log.w("myApp :: ", "Value length of row 3 " + row[3]);
+                Location newUPlace  = realm.where(Location.class).equalTo("locationID", row[0]).findFirst();
+                if (newUPlace == null ){
+
                     realm.beginTransaction();
                     newUPlace = realm.createObject(Location.class, row[0]);
-                    Log.w("myApp :: ", "Value length of row 1 " + row[1]);
+                    Log.w("myApp :: ", "after create " + row[1] );
                     newUPlace.setLocationName(row[1]);
                     newUPlace.setLocationAddress(row[2]);
-                    newUPlace.setLongitiude(Double.parseDouble(row[4]));
-                    newUPlace.setLatitude(Double.parseDouble(row[3]));
+                    newUPlace.setLongitiude( Double.parseDouble(row[4]) );
+                    newUPlace.setLatitude( Double.parseDouble(row[3])  );
                     newUPlace.setLocationNumSounds(0);
                     newUPlace.setSharedLocation(true);
-                    newUPlace.setLocationSearchText(row[1] + " " + row[2]);
+                    newUPlace.setLocationSearchText(row[1] + " " + row[2] );
                     realm.commitTransaction();
 
+                } else {
+                    Log.w("myApp :: ", "place exists " + newUPlace.getLocationName() );
                 }
 
             }
-        } catch (IOException ex) {
-            throw new RuntimeException("Error in reading CSV file: " + ex);
-        } finally {
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
             try {
                 inputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException("Error while closing input stream: " + e);
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
             }
         }
+
     }
+
 
     private void addSoundsFromFile() {
 
@@ -541,54 +545,60 @@ public class PeopleActivity extends AppCompatActivity {
             int rowCount = 1;
             while ((csvLine = readerSound.readLine()) != null) {
                 String[] row = csvLine.split("\\|");
-
+                String locationAddress = " ";
                 int len = row.length;
                 Log.w("myApp :: ", "Value  of csvLine " + csvLine );
                 Log.w("myApp :: ", "Value length of row " + len );
                 Sound newSound = realm.where(Sound.class).equalTo("soundID", row[0]).findFirst();
                 Log.w("myApp :: ", "UserID " + row[8] );
-                User newUser  = realm.where(User.class).equalTo("userID", row[8]).findFirst();
-                Log.w("myApp :: ", "user " + newUser.getUserName() );
-                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[10]).findFirst();
-                Log.w("myApp :: ", "Quad " + newQuadrant.getQuadID() );
+                User newUser  = realm.where(User.class).equalTo("userID", row[9]).findFirst();
+       //         Log.w("myApp :: ", "user " + newUser.getUserName() );
+                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[11]).findFirst();
+       //         Log.w("myApp :: ", "Quad " + newQuadrant.getQuadID() );
 
                 if ((newQuadrant != null ) && (newUser != null ) && (newSound == null) ){
 
 //                   0 soundID| 1 soundName| 2 soundAbout| 3 soundFile| 4 soundPhoto|5 soundQuadrant| 6 soundUserID| 7 soundUserName| 8 soundUserBio| 9 soundUserPhoto
-//                   0 soundID| 1 soundName|  | 2 soundFile| 3 soundPhoto|4 soundPhotoDesc|5 localizeMedia|6 createdByPrimaryUser| 7 soundLikes| 8 userID| 9 userName| 10 quadID| 11 locationID| 12 locationName
+//                   0 soundID| 1 soundName| 2 soundAbout | 3 soundFile| 4 soundPhoto|5 soundPhotoDesc|6 localizeMedia|7 createdByPrimaryUser| 8 soundLikes| 9 userID| 10 userName| 11 quadID| 12 locationID| 13 locationName
 
-                    Log.w("myApp :: ", "Value length of row 0 " + row[0] );
-                    Log.w("myApp :: ", "Value length of row 1 " + row[1] );
-                    Log.w("myApp :: ", "Value length of row 2 " + row[2] );
-                    Log.w("myApp :: ", "Value length of row 3 " + row[3] );
-                    Log.w("myApp :: ", "Value length of row 4 " + row[4] );
-                    Log.w("myApp :: ", "Value length of row 5 " + row[5] );
-                    Log.w("myApp :: ", "Value length of row 6 " + row[6] );
-                    Log.w("myApp :: ", "Value length of row 7 " + row[7] );
-                    Log.w("myApp :: ", "Value length of row 8 " + row[8] );
-                    Log.w("myApp :: ", "Value length of row 9 " + row[9] );
-                    Log.w("myApp :: ", "Value length of row 10 " + row[10] );
-                    Log.w("myApp :: ", "Value length of row 11 " + row[11] );
+
                     realm.beginTransaction();
                     Sound newSound1 = realm.createObject(Sound.class, row[0]);
                     newSound1.setSoundName(row[1]);
-//                    newSound1.setSoundDesc(row[2]);
-                    newSound1.setSoundFile(row[2]);
-                    newSound1.setSoundPhoto(row[3]);
-                    newSound1.setSoundPhotoDesc( row[4]);
+                    newSound1.setSoundDesc(row[2]);
+                    newSound1.setSoundFile(row[3]);
+                    newSound1.setSoundPhoto(row[4]);
+                    newSound1.setSoundPhotoDesc( row[5]);
                     newSound1.setTimeCreated(getCurrDateString());
                     newSound1.setLocalizeMedia(false);
                     newSound1.setCreatedByPrimaryUser(false);
-                    newSound1.setSoundSearchText(row[1] +" " + row[2] + " " + row[9] + " " + row[12] + " " + newUser.getUserDesc());
-                    newSound1.setSoundLikes( Integer.parseInt(row[7]) );
-                    Location newlocation = realm.where(Location.class).equalTo("locationID", row[11]).findFirst();
+                    newSound1.setSoundLikes( Integer.parseInt(row[8]) );
+                    Location newlocation = realm.where(Location.class).equalTo("locationID", row[12]).findFirst();
                     if (newlocation  != null ) {
                         newlocation.getLocationSounds().add(newSound1);
+                        locationAddress = newlocation.getLocationAddress();
+                    } else {
+                        locationAddress = " ";
                     }
                     newUser.getUserSounds().add(newSound1);
 
                     newQuadrant.getQuadSounds().add(newSound1);
+                    String textForSearch = row[1] + " " + row[2] + " " + row[10] + " " + row[12] + " " + newUser.getUserDesc() + " " + locationAddress;
+                    newSound1.setSoundSearchText(textForSearch);
                     realm.commitTransaction();
+                } else {
+                    Log.e("myApp :: ", "problem with sound " + row[1]  );
+                    if (newQuadrant == null) {
+                        Log.e("myApp :: ", "quad is NULL! " + row[12]  );
+                        Log.e("myApp :: ", "null problem with sound " + row[1]  );
+                    }
+                    if (newUser == null) {
+                        Log.e("myApp :: ", "newUser is NULL! " + row[9]   );
+                        Log.e("myApp :: ", "null problem with sound " + row[1]  );
+                    }
+
+
+
                 }
             }
 

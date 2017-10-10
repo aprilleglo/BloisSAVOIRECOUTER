@@ -66,7 +66,7 @@
         app:layout_constraintRight_toRightOf="@+id/guidelineRightAddPlace"
         app:layout_constraintTop_toBottomOf="@+id/guidelineTopAddPlace"
         app:layout_constraintBottom_toTopOf="@+id/tvPlaceName"
-        android:text="Get New Place From Map"
+        android:text="@string/get_new_place_from_map"
         />
 
     <TextView
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btGetPlace"
         app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddress"
         android:layout_marginTop="8dp"
-        android:text="Place Name"
+        android:text="@string/place_name"
         android:textSize="16sp"
         android:textStyle="bold"
         />
@@ -91,7 +91,7 @@
         app:layout_constraintRight_toRightOf="@+id/guidelineRightAddPlace"
         app:layout_constraintTop_toBottomOf="@+id/tvPlaceName"
         app:layout_constraintBottom_toTopOf="@+id/tvPlaceLongLat"
-        android:text="Place Address"
+        android:text="@string/place_address"
         android:textSize="16sp"
         />
 
@@ -103,7 +103,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddPlace"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightAddPlace"
         app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddress"
-        android:text="Longitude and Latitude"
+        android:text="@string/longitude_and_latitude"
         android:textSize="16sp"
         />
 
@@ -118,7 +118,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineQuaterAddPlace"
         app:layout_constraintBottom_toTopOf="@+id/saveSoundButton"
         android:layout_centerHorizontal="true"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:onClick="buttonClickCancelPlace"
         />
 

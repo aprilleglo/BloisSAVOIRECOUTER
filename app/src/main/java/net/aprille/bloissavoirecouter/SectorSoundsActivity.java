@@ -53,6 +53,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
     int num_of_Sounds;
 
+    boolean isExhibition = true;
+
 
     RealmResults<Sound> sectoQuadSound;
     RealmList<Sound> sectorQuadSoundList;
@@ -234,16 +236,21 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (isExhibition) {
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), AddSoundActivity.class);
-                intent.putExtra("sectorNum", sector);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), AddSoundActivity.class);
+                    intent.putExtra("sectorNum", sector);
+                    startActivity(intent);
 
-            }
-        });
+                }
+            });
+        }
+
 
 
 
@@ -350,8 +357,8 @@ public class SectorSoundsActivity extends AppCompatActivity {
     }
 
     public interface IMyViewHolderClicks {
-        public void onLike(View caller);
-        public void onPlay(ImageView callerImage);
+        void onLike(View caller);
+        void onPlay(ImageView callerImage);
     }
 
     public class SoundRecyclerViewAdapter extends RealmBasedRecyclerViewAdapter<

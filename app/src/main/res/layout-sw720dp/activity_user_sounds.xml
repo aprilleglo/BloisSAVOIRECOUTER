@@ -45,7 +45,6 @@
         android:id="@+id/u_sound_ImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:contentDescription="@string/user"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopUSound"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftUSound"
         app:layout_constraintRight_toLeftOf="@+id/u_sound_UserName"

@@ -33,6 +33,8 @@ public class User extends RealmObject {
 
     private boolean permissionGranted;
 
+    private String userSearchString;
+
     private RealmList<Sound> userSounds;
 
 
@@ -112,5 +114,13 @@ public class User extends RealmObject {
 
     public void setPermissionGranted(boolean permissionGranted) {
         this.permissionGranted = permissionGranted;
+    }
+
+    public String getUserSearchString() {
+        return userSearchString;
+    }
+
+    public void setUserSearchString(String userSearchString) {
+        this.userSearchString = userSearchString;
     }
 }

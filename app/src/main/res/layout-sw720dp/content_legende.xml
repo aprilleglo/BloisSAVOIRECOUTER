@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.aprille.bloissavoirecouter.LegendeActivity"
+    tools:showIn="@layout/activity_legende">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineQuaterLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHalfLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3QuaterLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopLeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/explorePlanButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterLeg"
+        android:drawableLeft="@drawable/map_icon3_512"
+        android:text="@string/explore_by_geocoding"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickGeoCodedPlan"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/exploreParcoursButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineQuaterLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfLeg"
+        android:drawableLeft="@drawable/parcours_512"
+        android:padding="8dp"
+        android:text="@string/explore_walking_tous"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickExploreParcours"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/exploreKeyWordButton"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHalfLeg"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline3QuaterLeg"
+        android:drawableLeft="@drawable/keyword_icon2_512"
+        android:scaleType="centerCrop"
+        android:padding="8dp"
+        android:text="@string/search_by_keyword"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:onClick="buttonClickExploreKeyword"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

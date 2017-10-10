@@ -228,7 +228,7 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
                 String getID = String. valueOf(marker.getTag());
                 Location clickLocation = realm.where(Location.class).equalTo("locationID", getID ).findFirst();
 
-                if (clickLocation.getLocationSounds().size() > 2 ) {
+                if (clickLocation.getLocationSounds().size() > 1 ) {
                     Log.w("myApp", "Size Greater Than 1  " + clickLocation.getLocationSounds().size());
                     Intent intent = new Intent(getApplicationContext(), PlaceSoundsActivity.class);
                     intent.putExtra("locationID", clickLocation.getLocationID());

@@ -7,5 +7,5 @@
     android:layout_height="match_parent"
     map:cameraTargetLat="47.58866"
     map:cameraTargetLng="1.3350253"
-    map:cameraZoom="13"
+    map:cameraZoom="15"
     tools:context="net.aprille.bloissavoirecouter.AddLocationMapsActivity" />

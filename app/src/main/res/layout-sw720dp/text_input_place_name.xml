@@ -7,7 +7,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/place_name_imput"/>
+        android:id="@+id/place_name_imput"
+        android:hint="@string/place_name"
+        android:inputType="text"
+        />
 
 
 
