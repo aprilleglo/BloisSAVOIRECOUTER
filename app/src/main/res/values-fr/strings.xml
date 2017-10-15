@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Blois : Learn to Listen</string>
+    <string name="app_name">Blois : Savoir Écouter</string>
     <string name="about1Description">Les gens qui interagissent avec le projet Blois: ECOUTER Savoir</string>
     <string name="about2Description">Vue détaillée de la sculpture Blois: Savoir Écouter</string>
     <string name="aboutDescription">à propos Blois : Savoir Écouter</string>
@@ -18,7 +18,7 @@
     <string name="case10_Description">découvrir l\'application</string>
     <string name="choosePhotoGallery">choisir parmi la galerie</string>
     <string name="click_for_more_details_about_sound">cliquez pour plus de détails sur le son</string>
-    <string name="connect_this_place_to_a_sound">localiser un son</string>
+    <string name="connect_this_place_to_a_sound">Connectez ce lieu au son</string>
     <string name="describe_the_sound">décrivez le son …</string>
     <string name="detail_map_of_blois">détail: le plan de la ville de Blois</string>
     <string name="emailText">Je voudrais partager ce son. J\'ai lu et compris la politique de confidentialité de cette application.</string>
@@ -34,7 +34,7 @@
     <string name="more_about_this_user">les détails de l\'utilisateur</string>
     <string name="name">le nom</string>
     <string name="namelabel">le nom</string>
-    <string name="number_of_sounds">the Number of sounds</string>
+    <string name="number_of_sounds">"les sons : "</string>
     <string name="people_using_the_application">les personnes qui utilisent l\'application</string>
     <string name="place_address">l\'adresse</string>
     <string name="place_name">nom de lieu</string>
@@ -180,4 +180,38 @@
     <string name="privacyparagraph47">Les présentes CGU sont soumises à la loi française.</string>
     <string name="privacyparagraph48">Tout litige ou contestation relatif à l\'exécution ou à l\'interprétation du présent règlement qui n’aura pu être réglé à l\'amiable entre les parties sera soumis aux tribunaux compétents du ressort de la Cour d\'appel de Orléans.</string>
     <string name="privacyparagraph49">Fait à Lavardin, le 21 septembre 2017.</string>
+    <string name="aboutParagraph2">Blois : Savoir Écouter est un projet hybride. La structure de bois et papier est réelle, la tablette tactile est intégrée et les applications mobiles fournies sont numériques. Dans cette œuvre participative, les Blésois peuvent ajouter au contenu du projet soit un dessin, soit une histoire écrite à la main, soit des contenus numériques (sons, images ou vidéos).</string>
+    <string name="sound_user">"sons de l'utilisateur : "</string>
+    <string name="place_sounds">sons du lieu :</string>
+    <string name="no">no</string>
+    <string name="quadrantNum">This must change</string>
+    <string name="please_read_text">Lisez le texte SVP</string>
+    <string name="place_id">Lieu</string>
+    <string name="privacylast">privacyLast</string>
+    <string name="initializing_database_this_may_take_some_time">Initialisation de la base de données ... Cela peut prendre du temps.</string>
+    <string name="Init">Sector 11</string>
+    <string name="thanks_par1">L\'artiste aimerait remercier la ville de Blois, la Caisse des Dépôts et l\'association Odeur de la Couleur pour leur soutien technique et financier. Elle remercie en outre les partenaires institutionnels du projet (l\'association ALCV, l\'association APF, Centre Hospitalier de Blois, Espace Mirabeau, Espace Quinière, FabLab Robert-Houdin, le Lycée horticole de Blois, la Maison des Provinces, la Médiathèque Maurice-Genevoix, l\'Observatoire Loire, l\'EHPAD La Roselière et l\'Association Valentin Haüy)</string>
+    <string name="thanks_par2">Enfin, l\'artiste tient à remercier de tout cœur les centaines des Blésois qui ont généreusement donné leur temps et leur créativité à faire de ce projet une réussite.</string>
+    <string name="logo_of_caisse_des_depots">"logo de la Caisse des Dépôts "</string>
+    <string name="logo_of_the_association_odeur_de_la_couleur">logo de l\'association Odeur de la Couleur</string>
+    <string name="logo_of_the_city_of_blois">logo de la ville de Blois</string>
+    <string name="logo_ville">logo de ville de Blois</string>
+    <string name="thanks_par3">Le site internet du projet www.blois.odeurdelacouleur.info.  Ce projet est rendu possible par le soutien de la Caisse des Dépôts, http://www.caissedesdepots.fr</string>
+    <string name="the_present_general_conditions_of_use_hereinafter_referred_to_as"></string>
+    <string name="add_sound">ajouter du son</string>
+    <string name="add_sounds">ajouter du son</string>
+    <string name="title_activity_thank_you">Remerciements</string>
+    <string name="sound_description">description sonore</string>
+    <string name="privacylist5e" translatable="false">- si, pour une raison quelconque, la connexion devait être interrompue.</string>
+    <string name="Initializing">initialiser</string>
+    <string name="lets_share">Partageons</string>
+    <string name="logos_of_partner_organization">logos d\'organisations partenaires</string>
+    <string name="selected_place_name">Nom du lieu sélectionné</string>
+    <string name="select_mail_application_title">E-mail pour partager</string>
+    <string name="exception">exception</string>
+    <string name="number_of_places">nombre de places</string>
+    <string name="rec_finished">Enregistrement terminé</string>
+    <string name="edit">éditer</string>
+    <string name="connect_this_place_to_sound">connecter le lieu au son</string>
+    <string name="pick_from_google_map">choisir à partir de google map</string>
 </resources>

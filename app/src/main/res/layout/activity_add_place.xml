@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btGetPlace"
         android:layout_marginTop="16dp"
-        android:text="Place Name"
+        android:text="@string/place_name"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPlaceName"
-        android:text="Place Address"
+        android:text="@string/place_address"
         android:textSize="16sp" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPlaceAddress"
-        android:text="Place ID"
+        android:text="@string/place_id"
         android:textSize="16sp" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPlaceID"
-        android:text="Longitude and Latitude"
+        android:text="@string/longitude_and_latitude"
         android:textSize="16sp" />
 
     <Button
@@ -58,7 +58,7 @@
         android:layout_below="@+id/tvPlaceLongLat"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:onClick="buttonClickCancelPlace"/>
 
     <android.support.v7.widget.AppCompatButton
@@ -68,7 +68,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:text="Connect this place to a sound"
+        android:text="@string/connect_this_place_to_a_sound"
         android:layout_below="@+id/btCancelPlace"
         android:onClick="buttonClickSavePlace"
         />

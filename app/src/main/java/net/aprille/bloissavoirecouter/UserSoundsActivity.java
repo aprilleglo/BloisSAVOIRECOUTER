@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -115,7 +116,7 @@ public class UserSoundsActivity extends AppCompatActivity {
 
             ImageView iVprimaryUserImageView = (ImageView) findViewById(R.id.u_sound_ImageView);
 
-            if (User_for_Sounds.isPrimaryUserBoolean() || isExhibition) {
+            if (User_for_Sounds.isPrimaryUserBoolean() ) {
                 String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
                 Log.e("myApp :: ", "BloisUerDirPath with primary " + thisUserImageFilePath );
                 Picasso.with(this)
@@ -172,7 +173,7 @@ public class UserSoundsActivity extends AppCompatActivity {
             }
 
             TextView numSoundsPrimaryTextView = (TextView) findViewById(R.id.u_sound_numSound_TextView);
-            String nString = getString(R.string.number_of_sounds);
+            String nString = getString(R.string.sound_user);
 
             String makeNumSoundsString = String.valueOf(User_for_Sounds.getNumUserSounds());
             numSoundsPrimaryTextView.setText( nString + " " + makeNumSoundsString );
@@ -203,11 +204,27 @@ public class UserSoundsActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realm.close();
-        realm = null;
+        if (!realm.isClosed() ){
+            realm.close();
+            realm = null;
+        }
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 
@@ -462,6 +479,7 @@ public class UserSoundsActivity extends AppCompatActivity {
                         .load(new File(thisSoundImageFilePath))
                         .resize(120, 120)
                         .centerCrop()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .placeholder(R.drawable.sound_defaul_image)
                         .into(viewHolder.mImage);
 

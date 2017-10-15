@@ -13,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import helperfunctions.UpdateDataBase;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -42,6 +46,7 @@ public class PlanActivity extends AppCompatActivity {
             setContentView(R.layout.activity_plan);
         }
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,6 +62,10 @@ public class PlanActivity extends AppCompatActivity {
             Log.e("myApp", "inside catch for realm " );
             realm = Realm.getDefaultInstance();
         }
+        Log.e("myApp", "plan just before update");
+
+
+
 //        just to get rid of primary user for testing !!!!
 
 //        realm.beginTransaction();
@@ -95,6 +104,33 @@ public class PlanActivity extends AppCompatActivity {
         } else {
             Log.w("myApp", ".getPrimaryUserID " + thisAppDetails.getPrimaryUserID());
             Log.w("myApp", "getPrimaryUserName " + thisAppDetails.getPrimaryUserName());
+            Date currentTime = Calendar.getInstance().getTime();
+            if (thisAppDetails.getLastUpdated() != null) {
+
+                Date lastUpdatedTime = thisAppDetails.getLastUpdated();
+                long diff = currentTime.getTime() - lastUpdatedTime.getTime();
+                long seconds = diff / 1000;
+                long minutes = seconds / 60;
+                long hours = minutes / 60;
+                long days = hours / 24;
+                Log.e("myApp", "days " + String.valueOf(days));
+                Log.e("myApp", "hours " + String.valueOf(hours));
+                Log.e("myApp", "minutes " + String.valueOf(minutes));
+
+                if (days > 1) {
+                    UpdateDataBase upDateBase = new UpdateDataBase(this);
+                    upDateBase.execute();
+                }
+
+            } else {
+                realm.beginTransaction();
+                thisAppDetails.setFirstOpenedApp(currentTime);
+                realm.commitTransaction();
+            }
+
+
+
+
 
         }
         allSounds = realm.where(Sound.class).findAll();
@@ -200,7 +236,7 @@ public class PlanActivity extends AppCompatActivity {
 
     public void buttonClickThanks(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), ThanksActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class);
         startActivity(intent);
     }
 

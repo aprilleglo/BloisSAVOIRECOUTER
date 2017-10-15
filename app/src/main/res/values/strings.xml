@@ -21,7 +21,7 @@
     <string name="aboutParagraph2">Blois : Savoir Écouter est un projet hybride. La structure de bois et papier est réelle, la tablette tactile est intégrée et les applications mobiles fournies sont numériques. Dans cette œuvre participative, les Blésois peuvent ajouter au contenu du projet soit un dessin, soit une histoire écrite à la main, soit des contenus numériques (sons, images ou vidéos).</string>
     <string name="about1Description">People interacting with the project Blois : Savoir Écouter</string>
     <string name="about2Description">detailed view of the sculpture Blois : Savoir Écouter</string>
-    <string name="linkProject"><a href="http://http://blois.odeurdelacouleur.info">http://blois.odeurdelacouleur.info</a></string>
+    <string name="linkProject" translatable="false"><a href="http://http://blois.odeurdelacouleur.info">http://blois.odeurdelacouleur.info</a></string>
     <string name="title_activity_thanks">Our Thanks</string>
     <string name="title_activity_artist">About the Artist</string>
     <string name="title_activity_people">People of Blois</string>
@@ -35,22 +35,22 @@
     <!--mystrings-->
     <string name="aboutDescription">About Project</string>
     <string name="thanksDescription">sound data</string>
-    <string name="case1_Description">Sector 1</string>
-    <string name="case2_Description">Sector 2</string>
+    <string name="case1_Description" translatable="false">Sector 1</string>
+    <string name="case2_Description" translatable="false">Sector 2</string>
     <string name="users_Description">people of Blois</string>
-    <string name="case3_Description">Sector 3</string>
-    <string name="case4_Description">Sector 4</string>
-    <string name="case5_Description">Sector 5</string>
-    <string name="case6_Description">Sector 6</string>
-    <string name="case7_Description">Sector 7</string>
-    <string name="case8_Description">Sector 8</string>
-    <string name="case9_Description">Sector 9</string>
+    <string name="case3_Description" translatable="false">Sector 3</string>
+    <string name="case4_Description" translatable="false">Sector 4</string>
+    <string name="case5_Description" translatable="false">Sector 5</string>
+    <string name="case6_Description" translatable="false">Sector 6</string>
+    <string name="case7_Description" translatable="false">Sector 7</string>
+    <string name="case8_Description" translatable="false">Sector 8</string>
+    <string name="case9_Description" translatable="false">Sector 9</string>
     <string name="case10_Description">Application Tour</string>
-    <string name="case11_Description">Sector 11</string>
-    <string name="case12_Description">Sector 12</string>
-    <string name="case13_Description">Sector 13</string>
-    <string name="case14_Description">Sector 14</string>
-    <string name="case15_Description">Sector 15</string>
+    <string name="case11_Description" translatable="false">Sector 11</string>
+    <string name="case12_Description" translatable="false">Sector 12</string>
+    <string name="case13_Description" translatable="false">Sector 13</string>
+    <string name="case14_Description" translatable="false">Sector 14</string>
+    <string name="case15_Description" translatable="false">Sector 15</string>
     <string name="legend_Description">The legend of map</string>
     <string name="application_Description">The application itself</string>
     <!--mystrings-->
@@ -62,7 +62,7 @@
     <string name="aboutsoundlabel">Sound description</string>
 
     <string name="quadrantNum">This must change</string>
-    <string name="number_of_sounds">Number of sounds</string>
+    <string name="number_of_sounds">- Practical information;</string>
     <string name="title_activity_add_location_maps">Add Location</string>
     <string name="title_activity_add_place">AddPlaceActivity</string>
     <string name="title_activity_zdetail_sound">ZDetailSoundActivity</string>
@@ -74,11 +74,11 @@
     <string name="userData">User Data</string>
     <string name="locData">Location Data</string>
 
-    <string name="search_hint">search....</string>
+    <string name="search_hint">search…</string>
     <string name="record">Record</string>
     <string name="add_place_information">Add Place Information</string>
     <string name="finish_recording">Finish Recording</string>
-    <string name="place_name">Place Name</string>
+    <string name="place_name">place name</string>
     <string name="place_address">Place Address</string>
     <string name="longitude_and_latitude">Longitude and Latitude</string>
     <string name="title_activity_add_sound2">Add Sound</string>
@@ -104,7 +104,7 @@
     <string name="application_tour">Application Tour</string>
     <string name="click_for_more_details_about_sound">click for more details about sound</string>
     <string name="setting_and_privacy">Setting and Privacy</string>
-    <string name="LongLat">LongLat</string>
+    <string name="LongLat" translatable="false">LongLat</string>
     <string name="more_about_this_user">more about this user</string>
     <string name="get_new_place_from_map">Get New Place From Map</string>
     <string name="place_id">Place ID</string>
@@ -116,7 +116,7 @@
     <string name="people_using_the_application">people using the application</string>
     <string name="mobile_application_terms_and_conditions">Mobile Application Terms and Conditions</string>
     <string name="i_have_read_and_understand_the_condition_of_use">I have read and understand the condition of use</string>
-    <string name="the_present_general_conditions_of_use_hereinafter_referred_to_as">The present general conditions of use (hereinafter referred to as</string>
+    <string name="the_present_general_conditions_of_use_hereinafter_referred_to_as" translatable="false">The present general conditions of use (hereinafter referred to as</string>
     <string name="privacyparagraph2">By installing the Application on your terminal and / or by accessing the Application, as a visitor and / or user, you accept unconditionally and without reservation the entire UGS defined hereafter. If you do not wish to accept these Terms, we request that you do not access the Application. Any visit and / or use of the Application must be done in compliance with these GTC.</string>
     <string name="subhead1">Article 1. DEFINITIONS</string>
     <string name="paragraph3">Terms beginning with a capital letter within these Terms, whether used singly or in the plural, shall have the meanings given to them below:</string>
@@ -124,7 +124,7 @@
     <string name="no">no</string>
     <string name="please_read_the_condtions_of_use_agreement">I do not agree or have not read the terms of use</string>
     <string name="i_have_read_and_understand_condtions_of_use_agreement">I have read and understand Conditions of Use Agreement</string>
-    <string name="privacyparagraph4">\"Application\" means the software application \"Blois: Listening\" published and provided by the Artist, providing access to the Services, which is available free of charge from Apple\'s \"Apple Store\" and Google\'s \"Google Play Store\" to be downloaded by the User on his terminal Apple iOS and Android. The Application also includes Content, software, programs, tools (programming, navigation, ...), databases, operating systems, documentation and all other elements and services of which it is composed, updates and new versions that can be made to the Application by the Artist.</string>
+    <string name="privacyparagraph4">\"Application\" means the software application \"Blois: Listening\" published and provided by the Artist, providing access to the Services, which is available free of charge from Apple\'s \"Apple Store\" and Google\'s \"Google Play Store\" to be downloaded by the User on his terminal Apple iOS and Android. The Application also includes Content, software, programs, tools (programming, navigation, …), databases, operating systems, documentation and all other elements and services of which it is composed, updates and new versions that can be made to the Application by the Artist.</string>
     <string name="privacysubhead2">Article 2. PURPOSE OF THE APPLICATION</string>
     <string name="privacyparagraph5">\"Content\" means, without limitation, the structure of the Application, editorial content, drawings, illustrations, images, photographs, graphic charts, trademarks, logos, acronyms , audiovisual works, multimedia works, visual content, audio and sound content, and any other content within the Application and / or any other component of the Application.</string>
     <string name="privacyparagraph6">\"Services\" refers to the various features and services offered by the Application.</string>
@@ -144,7 +144,7 @@
     <string name="privacysubhead4">Article 4. GEOLOCATION</string>
     <string name="privacyparagraph3">Terms beginning with a capital letter within these Terms, whether used singly or in the plural, shall have the meanings given to them below:</string>
     <string name="privacysubhead1">Article 1. DEFINITIONS</string>
-    <string name="privacypar1">privacyPar1</string>
+    <string name="privacypar1" translatable="false">privacyPar1</string>
     <string name="privacyparagraph13">To access and use the Application, you must have a compatible phone or a mobile terminal and access to the Internet.</string>
     <string name="privacyparagraph14">The application can be downloaded free of charge from the \"Apple Store\" and \"Google Play Store\" platforms on the following mobile devices:</string>
     <string name="privacylist2b">- mobile phone with Android® OS 4.4 operating system up to OS 4.4.</string>
@@ -215,7 +215,31 @@
     <string name="privacyparagraph47">These GTC are subject to French law.</string>
     <string name="privacyparagraph48">Any dispute or dispute relating to the execution or interpretation of this by-law which can not be settled amicably between the parties will be submitted to the competent courts within the jurisdiction of the Court of Appeal of Orléans.</string>
     <string name="privacyparagraph49">Done at Lavardin, on 21 September 2017.</string>
-    <string name="Init">Initializing Database... This may take some time.</string>
+    <string name="Init">Initializing Database… This may take some time.</string>
     <string name="initializing_database_this_may_take_some_time">Initializing Database... This may take some time.</string>
+    <string name="sound_user">sounds of User :</string>
+    <string name="place_sounds">Place Sounds :</string>
+    <string name="logo_of_the_city_of_blois">Logo of the city of Blois</string>
+    <string name="thanks_par1">The artist would like to thank the city of Blois, the Caisse des Depots and the association Odeur de la Color for their technical and financial support. In addition, she would like to a special thanks the project\'s institutional partners (ALCV, the APF, the hospital center of Blois, the Espace Mirabeau, the Espace Quinière, FabLab Robert-Houdin, Lycée horticole public de Blois, the Maison des Provinces, the Médiathèque Maurice-Genevoix, the Observatoire Loire, EHPAD La Roselière and Association Valentin Haüy)</string>
+    <string name="thanks_par2">Finally, the artist would like to thank the hundreds of residents of Blois who generously gave the time and creativity to make this project a success.</string>
+    <string name="thanks_par3">The website is www.blois.odeurdelacouleur.info.  This project is made possible by the support of la Caisse des Dépôts, http://www.caissedesdepots.fr</string>
+    <string name="logo_ville">logo of city of Blois</string>
+    <string name="logo_of_caisse_des_depots">Logo of Caisse des Depots</string>
+    <string name="logo_of_the_association_odeur_de_la_couleur">logo of the association Odeur de la Couleur</string>
+    <string name="title_activity_thank_you">Thanks</string>
+    <string name="add_sound">Add Sound</string>
+    <string name="sound_description">sound description</string>
+    <string name="lets_share">Let\'s share</string>
+    <string name="add_sounds">add sound</string>
+    <string name="Initializing">Initializing</string>
+    <string name="logos_of_partner_organization">logos of partner organization</string>
+    <string name="exception">exception</string>
+    <string name="selected_place_name">Selected Place Name</string>
+    <string name="select_mail_application_title">Email to Share</string>
+    <string name="edit">edit</string>
+    <string name="rec_finished">Recording Completed</string>
+    <string name="number_of_places">Number of Places</string>
+    <string name="pick_from_google_map">pick_from_google_map</string>
+    <string name="connect_this_place_to_sound">connect this place to sound</string>
 
 </resources>

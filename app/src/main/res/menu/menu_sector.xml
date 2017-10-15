@@ -1,0 +1,58 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.aprille.bloissavoirecouter.SectorSoundsActivity">
+
+
+    <item
+        android:id="@+id/add_sound"
+        android:orderInCategory="200"
+        android:title="@string/add_sound"
+        android:textColor="@color/colorAccent"
+        android:icon="@drawable/ic_add_black_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_plan"
+        android:orderInCategory="200"
+        android:title="@string/project_map_of_blois"
+        android:icon="@drawable/ic_home_black_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/explore_keyword"
+        android:orderInCategory="300"
+        android:title="@string/search_by_keyword"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/explore_geocoding"
+        android:orderInCategory="400"
+        android:title="@string/explore_by_geocoding"
+        android:icon="@drawable/ic_place_black_24dp"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/explore_people"
+        android:orderInCategory="500"
+        android:title="@string/explore_by_people"
+        android:icon="@drawable/ic_people_black_24dp"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_walks"
+        android:orderInCategory="600"
+        android:title="@string/explore_walking_tous"
+        android:icon="@drawable/ic_directions_walk_black_24dp"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_privacy"
+        android:orderInCategory="700"
+        android:title="@string/privacy_setting"
+        android:icon="@drawable/ic_check_box_black_24dp"
+        app:showAsAction="never" />
+
+</menu>

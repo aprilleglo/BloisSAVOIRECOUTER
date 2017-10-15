@@ -73,7 +73,7 @@ public class SearchSoundsActivity extends AppCompatActivity {
 
         realmSearchView = (RealmSearchView) findViewById(R.id.sound_search_view);
 
-        adapter = new SoundSearchRecyclerViewAdapter(this, realm, "soundName");
+        adapter = new SoundSearchRecyclerViewAdapter(this, realm, "soundSearchText");
         realmSearchView.setAdapter(adapter);
 
 

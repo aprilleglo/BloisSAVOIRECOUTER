@@ -68,6 +68,8 @@ public class PeopleActivity extends AppCompatActivity {
     RealmList<Sound>  userSoundList;
     User primaryUser;
 
+    boolean isNotDebugging = true;
+
 
     public String DirectoryFinal;
     public File BloisUserDir;
@@ -91,6 +93,7 @@ public class PeopleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_people);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nUsers = (RealmRecyclerView) findViewById(R.id.sound_realm_recycler_view);
 
@@ -150,21 +153,21 @@ public class PeopleActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addUserFromFile();
-                addSoundsFromFile();
-                fixPhotoFilesSad();
-                Snackbar.make(view, "Replace with add users", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        if (isNotDebugging) {
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addUserFromFile();
+                    addSoundsFromFile();
+                    fixPhotoFilesSad();
+                    Snackbar.make(view, "Replace with add users", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
 
     }
     @Override

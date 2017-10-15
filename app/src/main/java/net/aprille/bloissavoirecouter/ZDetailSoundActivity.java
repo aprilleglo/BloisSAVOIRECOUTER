@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -63,7 +64,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
     boolean thisLocalizeMedia = true;
-    boolean thisCreatedByPrimaryUser = true;
+    boolean thisCreatedByPrimaryUser = false;
     int thisSoundLikes = 15;
 
     String thsPrimaryUserKey;
@@ -73,6 +74,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
     User thisUser;
 
     boolean isExhibition = true;
+
 
     ImageView SoundviewImage;
 
@@ -223,6 +225,12 @@ public class ZDetailSoundActivity extends AppCompatActivity {
         BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
         BloisSoundDirPath = BloisSoundDir.toString();
         BloisShareDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/share");
+        if (!BloisShareDir.exists()) {
+            if (!BloisShareDir.mkdirs()) {
+                Log.e("myApp:: ", "Problem creating Image folder");
+            }
+            Log.e("myApp:: ", "Creating Image folder");
+        }
         BloisShareDirPath = BloisShareDir.toString();
 
         BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
@@ -234,6 +242,8 @@ public class ZDetailSoundActivity extends AppCompatActivity {
             if ( !(thisSound.isCreatedByPrimaryUser() ) ) {
                 ImageButton changePictureButton = (ImageButton) findViewById(R.id.changeimageSoundButtonSoundDetail);
                 changePictureButton.setVisibility(View.INVISIBLE);
+            } else {
+                thisCreatedByPrimaryUser = true;
             }
 
             SoundviewImage = (ImageView) findViewById(R.id.soundImageViewSoundDetail);
@@ -371,9 +381,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (isExhibition) {
-            fab.setVisibility(View.INVISIBLE);
-        } else {
+        if (thisCreatedByPrimaryUser ) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -382,13 +390,19 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                         shareSoundContent();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Snackbar.make(view, "exception", Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, R.string.exception, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
-                    Snackbar.make(view, "Let's share", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, R.string.lets_share, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             });
+
+
+        } else {
+            fab.setVisibility(View.INVISIBLE);
+            ImageButton editImageButtom = (ImageButton) findViewById(R.id.editSoundDetail);
+            editImageButtom.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -399,6 +413,21 @@ public class ZDetailSoundActivity extends AppCompatActivity {
         super.onDestroy();
         realm.close();
         realm = null;
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
@@ -418,6 +447,12 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
     }
 
+    public void buttonClickEditSoundDetail (View v)
+    {
+
+
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -558,14 +593,6 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
     }
-
-//    public void buttonClickBackToSectorSound(View v) {
-//        Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
-//  //      intent.putExtra("userID", thisUser.getUserID());
-//        startActivity(intent);
-//
-//
-//    }
 
 
     public void buttonClickShowUserInfo(View v) {
@@ -753,6 +780,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                 String savedCameraFileDirPath = savedCameraFile.toString();
                 Picasso.with(this)
                         .load(new File(savedCameraFileDirPath))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .placeholder(R.drawable.people_placeholder)
                         .into(SoundviewImage);
 
@@ -812,8 +840,6 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                         tVPLaceNameDetail.setText(newLocation.getLocationName());
                         TextView tvAddressSoundDetail =(TextView) findViewById(R.id.tvPlaceAddressSoundDetail);
                         tvAddressSoundDetail.setText(newLocation.getLocationAddress());
-//                        TextView tvLongLatSoundDetail  =(TextView) findViewById(R.id.tvPlaceLongLatSoundDetail );
-//                        tvLongLatSoundDetail.setText("LongLat "+ newLocation.getLongitiude().toString() +", "+ newLocation.getLatitude());
 
                     }
 
@@ -959,20 +985,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
         }
 
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

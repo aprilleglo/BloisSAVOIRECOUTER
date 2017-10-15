@@ -1,12 +1,19 @@
 package helperfunctions;
 
+import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
+
+import net.aprille.bloissavoirecouter.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -19,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -92,6 +100,124 @@ public class Util {
 
 
     }
+
+    public static void sendEmail(final Context p_context, final String emailTo, final String emailCC, final String p_subject, final String p_body, final String zipMailFilePath) {
+        try
+        {
+            PackageManager pm = p_context.getPackageManager();
+            ResolveInfo selectedEmailActivity = null;
+
+            Intent emailDummyIntent = new Intent(Intent.ACTION_SENDTO);
+            emailDummyIntent.setData(Uri.parse("mailto:some@emaildomain.com"));
+
+            List<ResolveInfo> emailActivities = pm.queryIntentActivities(emailDummyIntent, 0);
+
+            if (null == emailActivities || emailActivities.size() == 0)
+            {
+                Intent emailDummyIntentRFC822 = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                emailDummyIntentRFC822.setType("message/rfc822");
+
+                emailActivities = pm.queryIntentActivities(emailDummyIntentRFC822, 0);
+            }
+
+            if (null != emailActivities)
+            {
+                if (emailActivities.size() == 1)
+                {
+                    selectedEmailActivity = emailActivities.get(0);
+                }
+                else
+                {
+                    for (ResolveInfo currAvailableEmailActivity : emailActivities)
+                    {
+                        if (true == currAvailableEmailActivity.isDefault)
+                        {
+                            selectedEmailActivity = currAvailableEmailActivity;
+                        }
+                    }
+                }
+
+                if (null != selectedEmailActivity)
+                {
+                    // Send email using the only/default email activity
+                    sendEmailUsingSelectedEmailApp(p_context, emailTo, emailCC, p_subject, p_body, zipMailFilePath, selectedEmailActivity);
+                }
+                else
+                {
+                    final List<ResolveInfo> emailActivitiesForDialog = emailActivities;
+
+                    String[] availableEmailAppsName = new String[emailActivitiesForDialog.size()];
+                    for (int i = 0; i < emailActivitiesForDialog.size(); i++)
+                    {
+                        availableEmailAppsName[i] = emailActivitiesForDialog.get(i).activityInfo.applicationInfo.loadLabel(pm).toString();
+                    }
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(p_context);
+                    builder.setTitle(R.string.select_mail_application_title);
+                    builder.setItems(availableEmailAppsName, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            sendEmailUsingSelectedEmailApp(p_context, emailTo, emailCC, p_subject, p_body, zipMailFilePath, emailActivitiesForDialog.get(which));
+                        }
+                    });
+
+                    builder.create().show();
+                }
+            }
+            else
+            {
+                sendEmailUsingSelectedEmailApp(p_context, emailTo, emailCC, p_subject, p_body, zipMailFilePath, null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e("my app", "Can't send email", ex);
+        }
+    }
+
+    protected static void sendEmailUsingSelectedEmailApp(Context p_context, String emailTo, String emailCC,
+                                                         String subject, String emailText, String zipMailFilePath, ResolveInfo p_selectedEmailApp)
+    {
+        try
+        {
+            File zippyFile = new File(zipMailFilePath);
+
+            Uri uriToZip = Uri.fromFile(zippyFile);
+
+            final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                    new String[]{emailTo});
+            emailIntent.putExtra(android.content.Intent.EXTRA_CC,
+                    new String[]{emailCC});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, emailText);
+            // emailIntent.setType("application/zip");
+            emailIntent.setType("*/*");
+            emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, uriToZip);
+
+            if (null != p_selectedEmailApp)
+            {
+                Log.e("my app", "Sending email using " + p_selectedEmailApp);
+                emailIntent.setComponent(new ComponentName(p_selectedEmailApp.activityInfo.packageName, p_selectedEmailApp.activityInfo.name));
+
+                p_context.startActivity(emailIntent);
+            }
+            else
+            {
+                Intent emailAppChooser = Intent.createChooser(emailIntent, "Select Email app");
+
+                p_context.startActivity(emailAppChooser);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e("my app", "Error sending email", ex);
+
+        }
+    }
+
 
 
     public static void email(Context context, String emailTo, String emailCC,

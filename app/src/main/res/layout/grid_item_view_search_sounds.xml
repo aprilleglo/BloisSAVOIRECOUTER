@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="780dp"
-    android:layout_height="120dp"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:layout_margin="3dp"
     android:orientation="horizontal">
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-    app:layout_constraintGuide_begin="120dp"/>
+    app:layout_constraintGuide_begin="70dp"/>
 
 
 
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="5dp"/>
+        app:layout_constraintGuide_percent="0.97"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineTopGridItemSoundSearch"
@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/sound_imageSoundSearch"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:contentDescription="@string/sound_image"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopGridItemSoundSearch"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftGridItemSoundSearch"
@@ -63,14 +63,15 @@
 
     <TextView
         android:id="@+id/sound_titleSoundSearch"
-        app:layout_constraintTop_toTopOf="@+id/sound_imageSoundSearch"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItemSoundSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/sound_imageSoundSearch"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineMiddleGridItemSoundSearch"
+        app:layout_constraintRight_toLeftOf="@+id/moreInfoSoundSearch"
         android:layout_marginTop="5dp"
         android:ellipsize="end"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightGridItemSoundSearch"
+        android:maxLines="2"
         app:layout_constraintHorizontal_bias="0.0" />
 
     <ImageButton
@@ -81,7 +82,7 @@
         android:background="@android:color/white"
         android:tint="@color/colorAccent"
         app:srcCompat="@drawable/ic_more_horiz_black_24dp"
-        android:scaleType="fitCenter"
+        android:scaleType="fitEnd"
         app:layout_constraintRight_toLeftOf="@+id/guidelineRightGridItemSoundSearch"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGridItemSoundSearch" />
 

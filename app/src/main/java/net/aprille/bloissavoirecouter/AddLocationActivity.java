@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +31,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -140,14 +138,9 @@ public class AddLocationActivity extends AppCompatActivity {
         tvLocLongLatTextView = (TextView) findViewById(R.id.tvLocationLongLat);
 
         vNumLocTextView = (TextView) findViewById(R.id.tvnumPlaces);
+        vNumLocTextView.setVisibility(View.INVISIBLE);
 
-        ImageView iVLocationImageView = (ImageView) findViewById(R.id.locationImageView);
 
-        Picasso.with(this)
-                .load(R.drawable.location_default)
-                .resize(150, 150)
-                .centerCrop()
-                .into(iVLocationImageView);
 
 
 
@@ -164,26 +157,27 @@ public class AddLocationActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-             Log.e("myApp", "b4 pressed - about to launch sub-activity");
-                // the results are called on widgetActivityCallback
-//                startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                builder.setLatLngBounds(bounds);
-                try {
-                    Intent intent = builder.build(AddLocationActivity.this);
-                    startActivityForResult(intent, PLACE_PICKER_REQUEST);
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
+        fab.setVisibility(View.INVISIBLE);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//             Log.e("myApp", "b4 pressed - about to launch sub-activity");
+//                // the results are called on widgetActivityCallback
+////                startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
+//                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//                builder.setLatLngBounds(bounds);
+//                try {
+//                    Intent intent = builder.build(AddLocationActivity.this);
+//                    startActivityForResult(intent, PLACE_PICKER_REQUEST);
+//                } catch (GooglePlayServicesRepairableException e) {
+//                    e.printStackTrace();
+//                } catch (GooglePlayServicesNotAvailableException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        });
     }
 
     @Override
@@ -323,6 +317,25 @@ public class AddLocationActivity extends AppCompatActivity {
 
             builder.show();
 
+        }
+
+
+    }
+
+    public void buttonClickPickLocation (View v) {
+
+        Log.e("myApp", "b4 pressed - about to launch sub-activity");
+        // the results are called on widgetActivityCallback
+//                startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        builder.setLatLngBounds(bounds);
+        try {
+            Intent intent = builder.build(AddLocationActivity.this);
+            startActivityForResult(intent, PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
         }
 
 

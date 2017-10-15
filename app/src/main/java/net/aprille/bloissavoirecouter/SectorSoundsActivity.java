@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -87,6 +88,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sector_sounds);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nSounds = (RealmRecyclerView) findViewById(R.id.sound_realm_recycler_view);
 
@@ -261,18 +263,35 @@ public class SectorSoundsActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         realm.close();
         realm = null;
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
         }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_sector, menu);
         return true;
     }
 
@@ -285,6 +304,14 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case android.R.id.home:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                finish();
+                return true;
+
             case R.id.action_plan:
                 // User chose the home icon...
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
@@ -293,6 +320,17 @@ public class SectorSoundsActivity extends AppCompatActivity {
                 }
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
                 startActivity(intentPlan);
+                return true;
+
+            case R.id.add_sound:
+                // User chose the plus icon...
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                Intent intentAddSound = new Intent(getApplicationContext(), AddSoundActivity.class);
+                intentAddSound.putExtra("sectorNum", sector);
+                startActivity(intentAddSound);
                 return true;
 
             case R.id.explore_keyword:
@@ -537,6 +575,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                         .load(new File(thisSoundImageFilePath))
                         .resize(120, 120)
                         .centerCrop()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .placeholder(R.drawable.sound_defaul_image)
                         .into(viewHolder.mImage);
 

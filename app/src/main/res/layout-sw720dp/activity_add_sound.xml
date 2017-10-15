@@ -89,6 +89,26 @@
         android:onClick="buttonClickRecord"
         />
 
+    <ImageButton
+        android:id="@+id/playButton1"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/record_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintTop_toTopOf="@+id/finshRecordButton"
+        app:layout_constraintBottom_toBottomOf="@+id/finshRecordButton"
+        app:layout_constraintLeft_toLeftOf="@+id/finshRecordButton"
+        app:layout_constraintRight_toRightOf="@+id/finshRecordButton"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        app:srcCompat="@drawable/ic_play_arrow_black_24dp"
+        android:scaleType="fitCenter"
+        android:drawableTint="@color/white"
+        android:text="@string/record"
+        android:onClick="buttonClickPlayAddSound"
+        />
+
+
 
 
     <android.support.design.widget.TextInputLayout

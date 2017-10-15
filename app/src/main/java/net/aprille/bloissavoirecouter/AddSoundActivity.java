@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -153,6 +154,9 @@ public class AddSoundActivity extends AppCompatActivity {
         bntSoundImage.setVisibility(View.INVISIBLE);
         ImageButton bntSavePhoto=(ImageButton)findViewById(R.id.addimageSoundButton);
         bntSavePhoto.setVisibility(View.INVISIBLE);
+
+        ImageButton bntSoundPlay = (ImageButton) findViewById(R.id.playButton1);
+        bntSoundPlay.setVisibility(View.INVISIBLE);
         // HIDE VIEWS
 
         BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
@@ -362,7 +366,7 @@ public class AddSoundActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(this, "Recording Completed",
+        Toast.makeText(this, R.string.rec_finished,
                 Toast.LENGTH_LONG).show();
 
         TextInputLayout bntEditSaveNameLayout = (TextInputLayout)findViewById(R.id.add_sound_name_input_layout);
@@ -380,8 +384,17 @@ public class AddSoundActivity extends AppCompatActivity {
         Button bntSaveREC=(Button)findViewById(R.id.saveSoundButton);
         bntSaveREC.setVisibility(View.VISIBLE);
 
+        ImageButton bntSoundPlay = (ImageButton) findViewById(R.id.playButton1);
+        bntSoundPlay.setVisibility(View.INVISIBLE);
+
         ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
         bntSoundImage.setVisibility(View.VISIBLE);
+        Picasso.with(this)
+                .load(R.drawable.people_placeholder)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .placeholder(R.drawable.people_placeholder)
+                .into(bntSoundImage);
+
 
         ImageButton bntSavePhoto=(ImageButton)findViewById(R.id.addimageSoundButton);
         bntSavePhoto.setVisibility(View.VISIBLE);
@@ -418,6 +431,12 @@ public class AddSoundActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void buttonClickPlayAddSound (View v) {
+        Intent intent = new Intent(getApplicationContext(), SectorSoundsActivity.class);
+        intent.putExtra("sectorNum", sector);
+        startActivity(intent);
+    }
+
     public void buttonClickSaveRecord(View v) {
         setupSound();
         Intent intent = new Intent(getApplicationContext(), SectorSoundsActivity.class);
@@ -443,6 +462,7 @@ public class AddSoundActivity extends AppCompatActivity {
             realm.beginTransaction();
 
             if ( (thisPrimaryUser != null ) && ( sectorQuadrant != null ) ){
+                String locationAddress = "";
 
                 Sound newSound1 = realm.createObject(Sound.class, thisSoundID);
                 newSound1.setSoundName(thisSoundName);
@@ -457,7 +477,14 @@ public class AddSoundActivity extends AppCompatActivity {
                 sectorQuadrant.getQuadSounds().add(newSound1);
                 if ((thisPlaceID != null) && (thisLocation != null)){
                     thisLocation.getLocationSounds().add(newSound1);
+                    locationAddress = thisLocation.getLocationName() + " " +  thisLocation.getLocationAddress();
+                } else {
+                    locationAddress = " ";
                 }
+
+                String textForSearch = thisSoundName + " " + thisSoundDesc + " " + thisPrimaryUser.getUserName() + " " + thisPrimaryUser.getUserDesc() + " " + locationAddress;
+                newSound1.setSoundSearchText(textForSearch);
+
 
             }
 
@@ -550,7 +577,7 @@ public class AddSoundActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 1) {
+            if (requestCode == 1 ) {
 
 
                 File f = new File(BloisSoundDir.toString());
@@ -563,12 +590,11 @@ public class AddSoundActivity extends AppCompatActivity {
                 }
                 File SavedFromCameraFile = new File(BloisSoundDir, thisSoundPhoto);
                 try {
-                    Bitmap bitmap;
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                    bitmap = BitmapFactory.decodeFile(SavedFromCameraFile.getAbsolutePath(),
-                            bitmapOptions);
-                    viewSoundImage = (ImageView)findViewById(R.id.addSoundImageView);
-                    viewSoundImage.setImageBitmap(bitmap);
+                    System.gc();
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(SavedFromCameraFile.getAbsolutePath());
+//                    viewSoundImage = (ImageView)findViewById(R.id.addSoundImageView);
+//                    viewSoundImage.setImageBitmap(bitmap);
 
                     OutputStream outFile = null;
                     File file = new File(BloisSoundDir, thisSoundPhoto);
@@ -593,12 +619,18 @@ public class AddSoundActivity extends AppCompatActivity {
 
                 File savedCameraFile = new File(BloisSoundDir, thisSoundPhoto);
                 String savedCameraFileDirPath = savedCameraFile.toString();
+                ImageView viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
                 Picasso.with(this)
                         .load(new File(savedCameraFileDirPath))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .placeholder(R.drawable.people_placeholder)
                         .into(viewSoundImage);
 
             } else if (requestCode == 2) {
+
+                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                bitmapOptions.inJustDecodeBounds = true;
+
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
                 Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
@@ -606,7 +638,10 @@ public class AddSoundActivity extends AppCompatActivity {
                 int columnIndex = c.getColumnIndex(filePath[0]);
                 String picturePath = c.getString(columnIndex);
                 c.close();
-                Bitmap SaveFromGalleryBitmap = (BitmapFactory.decodeFile(picturePath));
+
+                System.gc();
+                Bitmap SaveFromGalleryBitmap;
+                SaveFromGalleryBitmap = (BitmapFactory.decodeFile(picturePath));
 
                 File SavedFromGalleryFile = new File(BloisSoundDir, thisSoundPhoto);
 
@@ -625,15 +660,16 @@ public class AddSoundActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                String SavedFromGalleryFileDirPath = SavedFromGalleryFile.toString();
+
+                ImageView viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
+                Picasso.with(this)
+                        .load(new File(SavedFromGalleryFileDirPath))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .placeholder(R.drawable.people_placeholder)
+                        .into(viewSoundImage);
 
 
-
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.w("myApp", "path of image from gallery" + picturePath + "");
-                if (thumbnail != null) {
-                    viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
-                    viewSoundImage.setImageBitmap(thumbnail);
-                }
 
             } else if (requestCode == 101) {   // this is requestcode for subactivity AddPlaceActivity
                 Bundle res = data.getExtras();

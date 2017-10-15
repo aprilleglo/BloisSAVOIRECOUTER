@@ -53,7 +53,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartupActivity" />
+        <activity android:name=".StartupActivity"
+            android:label="@string/Initializing"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            />
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
@@ -94,17 +97,9 @@
             android:name=".SectorSoundsActivity"
             android:label="@string/title_activity_sector_sounds"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
             android:hardwareAccelerated="false"
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.aprille.bloissavoirecouter.PlanActivity" />
-        </activity>
-        <activity
-            android:name=".ThanksActivity"
-            android:label="@string/title_activity_thanks"
-            android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -112,7 +107,7 @@
         <activity
             android:name=".AddSoundActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="add sound"
+            android:label="@string/add_sounds"
             android:parentActivityName=".SectorSoundsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
@@ -140,6 +135,7 @@
         <activity
             android:name=".ZDetailSoundActivity"
             android:label="@string/title_activity_zdetail_sound"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddLocationActivity"
@@ -157,6 +153,7 @@
         </activity>
         <activity
             android:name=".UserSoundsActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlaceSoundsActivity"
@@ -173,6 +170,15 @@
             android:name=".SearchSoundsActivity"
             android:label="@string/title_activity_search_sounds"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ThankYouActivity"
+            android:label="@string/title_activity_thank_you"
+            android:parentActivityName=".PlanActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.PlanActivity" />
+        </activity>
     </application>
 
 </manifest>

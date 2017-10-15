@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.03"/>
 
 
     <android.support.constraint.Guideline
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
+        app:layout_constraintGuide_percent="0.97"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineBottomLeg"
@@ -62,33 +62,31 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/explorePlanButton"
         android:layout_width="0dp"
-        android:layout_height="89dp"
+        android:layout_height="65dp"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopLeg"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterLeg"
         android:drawableLeft="@drawable/map_icon3_512"
         android:text="@string/explore_by_geocoding"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:onClick="buttonClickGeoCodedPlan"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/exploreParcoursButton"
         android:layout_width="0dp"
-        android:layout_height="89dp"
+        android:layout_height="65dp"
         style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toTopOf="@+id/guidelineQuaterLeg"
+        app:layout_constraintTop_toBottomOf="@+id/explorePlanButton"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfLeg"
         android:drawableLeft="@drawable/parcours_512"
-        android:scaleType="centerCrop"
-        android:padding="8dp"
+        android:scaleType="fitStart"
+        android:layout_marginTop="8dp"
         android:text="@string/explore_walking_tous"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickExploreParcours"/>
@@ -96,19 +94,18 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/exploreKeyWordButton"
         android:layout_width="0dp"
-        android:layout_height="89dp"
+        android:layout_height="65dp"
         style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHalfLeg"
+        app:layout_constraintTop_toBottomOf="@+id/exploreParcoursButton"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline3QuaterLeg"
         android:drawableLeft="@drawable/keyword_icon2_512"
-        android:scaleType="centerCrop"
-        android:padding="8dp"
+        android:scaleType="fitStart"
+        android:layout_marginTop="8dp"
         android:text="@string/search_by_keyword"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:onClick="buttonClickExploreKeyword"/>
 
 

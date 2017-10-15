@@ -104,8 +104,10 @@
         app:layout_constraintLeft_toLeftOf="@+id/guidelineMiddleGridItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:maxLines="2"
         android:ellipsize="end"
-        android:textStyle="bold"
         app:layout_constraintRight_toLeftOf="@+id/guidelineRightGridItem" />
 
     <LinearLayout

@@ -1,240 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="net.aprille.bloissavoirecouter.AddSoundActivity">
+    android:layout_height="wrap_content"
+    tools:context="net.aprille.bloissavoirecouter.AddSoundActivity"
+     >
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftAddSound"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"
-         />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftMiddleAddSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"
-         />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineRightAddSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineBottomAddSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineBottomMiddleAddSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85"
-        />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineTopAddSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03"
-        />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/finshRecordButton"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/finish_recording"
-        android:textColor="@color/black"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:drawableStart="@drawable/ic_stop_black_24dp"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineTopAddSound"
-        app:layout_constraintBottom_toTopOf="@+id/add_sound_name_input_layout"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
-        android:onClick="buttonClickFinishRecord"
-        />
+        android:paddingBottom="26dp"
+        >
 
 
-
-    <ImageButton
-        android:id="@+id/recordButton1"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/record_button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toTopOf="@+id/finshRecordButton"
-        app:layout_constraintBottom_toBottomOf="@+id/finshRecordButton"
-        app:layout_constraintLeft_toLeftOf="@+id/finshRecordButton"
-        app:layout_constraintRight_toRightOf="@+id/finshRecordButton"
-        android:background="#f00"
-        android:textColor="@color/black"
-        android:drawableStart="@drawable/ic_mic_black_24dp"
-        android:drawableTint="@color/white"
-        android:text="@string/record"
-        android:onClick="buttonClickRecord"
-        />
-
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/add_sound_name_input_layout"
-        android:contentDescription="@string/aboutsoundlabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toBottomOf="@+id/finshRecordButton"
-        app:layout_constraintBottom_toTopOf="@+id/add_sound_desc_input_layout"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/sound_name_imput"
-            android:layout_width="match_parent"
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftAddSound"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="@string/namelabel" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"
+             />
 
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/add_sound_desc_input_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toBottomOf="@+id/add_sound_name_input_layout"
-        app:layout_constraintBottom_toTopOf="@+id/addSoundImageView"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/sound_desc_imput"
-            android:layout_width="match_parent"
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftMiddleAddSound"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="@string/namelabel" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"
+             />
 
-    </android.support.design.widget.TextInputLayout>
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineRightAddSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95"
+            />
 
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomAddSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95"
+            />
 
-    <ImageView
-        android:id="@+id/addSoundImageView"
-        android:contentDescription="@string/sound_image"
-        app:srcCompat="@drawable/sound_defaul_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        app:layout_constraintDimensionRatio="3:2"
-        app:layout_constraintTop_toBottomOf="@+id/add_sound_desc_input_layout"
-        app:layout_constraintBottom_toTopOf="@+id/addSoundPlaceButton"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomMiddleAddSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85"
+            />
 
-    <ImageButton
-        android:id="@+id/addimageSoundButton"
-        android:contentDescription="@string/addUserPhoto"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addSoundImageView"
-        app:layout_constraintRight_toRightOf="@+id/addSoundImageView"
-        app:layout_constraintLeft_toLeftOf="@+id/addSoundImageView"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-        android:tint="?colorAccent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="32dp"
-        android:onClick="buttonClickAddSoundPhoto"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineTopAddSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03"
+            />
 
-
-    <ImageButton
-        android:id="@+id/addSoundPlaceButton"
-        android:layout_width="124dp"
-        android:layout_height="124dp"
-        android:contentDescription="@string/add_place_information"
-        android:onClick="buttonClickAddPlaceInfo"
-        app:srcCompat="@drawable/map_add_icon3_512"
-        app:layout_constraintTop_toBottomOf="@+id/addSoundImageView"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomMiddleAddSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleAddSound"
-        />
-
-    <TextView
-        android:id="@+id/tvPlaceNameAddSound"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/place_name"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/addSoundPlaceButton"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
-
-    <TextView
-        android:id="@+id/tvPlaceAddressAddSound"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlaceNameAddSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
-        android:text="@string/place_address"
-        android:textSize="13sp"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
-
-
-    <TextView
-        android:id="@+id/tvPlaceLongLatAddSound"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressAddSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
-        android:text="@string/longitude_and_latitude"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/cancelAddSoundButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/cancel"
-        app:layout_constraintTop_toTopOf="@+id/guidelineBottomMiddleAddSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        android:onClick="buttonClickCancelRecord"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomAddSound" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/saveSoundButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/save"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@+id/guidelineBottomMiddleAddSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
-        android:onClick="buttonClickSaveRecord"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomAddSound" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/finshRecordButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/finish_recording"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            app:srcCompat="@drawable/ic_stop_black_24dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
+            android:onClick="buttonClickFinishRecord"
+            />
 
 
 
-</android.support.constraint.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/recordButton1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/record_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            app:layout_constraintTop_toTopOf="@+id/finshRecordButton"
+            app:layout_constraintBottom_toBottomOf="@+id/finshRecordButton"
+            app:layout_constraintLeft_toLeftOf="@+id/finshRecordButton"
+            app:layout_constraintRight_toRightOf="@+id/finshRecordButton"
+            android:background="#f00"
+            android:textColor="@color/white"
+            app:srcCompat="@drawable/ic_mic_black_24dp"
+            android:scaleType="fitCenter"
+            android:drawableTint="@color/white"
+            android:text="@string/record"
+            android:onClick="buttonClickRecord"
+            />
+
+        <ImageButton
+            android:id="@+id/playButton1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/record_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            app:layout_constraintTop_toTopOf="@+id/finshRecordButton"
+            app:layout_constraintBottom_toBottomOf="@+id/finshRecordButton"
+            app:layout_constraintLeft_toLeftOf="@+id/finshRecordButton"
+            app:layout_constraintRight_toRightOf="@+id/finshRecordButton"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            app:srcCompat="@drawable/ic_play_arrow_black_24dp"
+            android:scaleType="fitCenter"
+            android:drawableTint="@color/white"
+            android:text="@string/record"
+            android:onClick="buttonClickPlayAddSound"
+            />
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/add_sound_name_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintTop_toBottomOf="@+id/finshRecordButton"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/sound_name_imput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:hint="@string/namelabel" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/add_sound_desc_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintTop_toBottomOf="@+id/add_sound_name_input_layout"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/sound_desc_imput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:hint="@string/sound_description" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <ImageView
+            android:id="@+id/addSoundImageView"
+            android:contentDescription="@string/sound_image"
+            android:drawable="@drawable/sound_defaul_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:cropToPadding="false"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="8dp"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintTop_toBottomOf="@+id/add_sound_desc_input_layout"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
+
+        <ImageButton
+            android:id="@+id/addimageSoundButton"
+            android:contentDescription="@string/addUserPhoto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/addSoundImageView"
+            app:layout_constraintRight_toRightOf="@+id/addSoundImageView"
+            app:layout_constraintLeft_toLeftOf="@+id/addSoundImageView"
+            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+            android:tint="?colorAccent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="32dp"
+            android:onClick="buttonClickAddSoundPhoto"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+
+        <ImageButton
+            android:id="@+id/addSoundPlaceButton"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:contentDescription="@string/add_place_information"
+            android:scaleType="fitCenter"
+            android:onClick="buttonClickAddPlaceInfo"
+            app:srcCompat="@drawable/map_add_icon3_512"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/addSoundImageView"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineLeftMiddleAddSound"
+            />
+
+        <TextView
+            android:id="@+id/tvPlaceNameAddSound"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/place_name"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/addSoundPlaceButton"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
+
+        <TextView
+            android:id="@+id/tvPlaceAddressAddSound"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceNameAddSound"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
+            android:text="@string/place_address"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
+
+
+        <TextView
+            android:id="@+id/tvPlaceLongLatAddSound"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceAddressAddSound"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftMiddleAddSound"
+            android:text="@string/longitude_and_latitude"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/cancelAddSoundButton"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/cancel"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceLongLatAddSound"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            android:onClick="buttonClickCancelRecord"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
+             />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/saveSoundButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/save"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlaceLongLatAddSound"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddSound"
+            android:onClick="buttonClickSaveRecord"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

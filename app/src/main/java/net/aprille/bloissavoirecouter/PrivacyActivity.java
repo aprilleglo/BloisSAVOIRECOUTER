@@ -6,11 +6,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ToggleButton;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import models.AppSpecificDetails;
 
 public class PrivacyActivity extends AppCompatActivity {
+
+    ToggleButton tgbutton;
+    Realm realm;
+    boolean isNotDebugging = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +29,67 @@ public class PrivacyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_privacy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        try {
+            realm = Realm.getDefaultInstance();
+        } catch (IllegalStateException fuckYouTooAndroid) {
+            Realm.init(getApplicationContext());
+            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+            Realm.setDefaultConfiguration(config);
+            Log.e("myApp", "inside catch for realm " );
+            realm = Realm.getDefaultInstance();
+        }
+
+
+        tgbutton = (ToggleButton) findViewById(R.id.toggleButtonPrivacy);
+        tgbutton.setOnClickListener(new OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+
+                if (tgbutton.isChecked()) {
+                    AppSpecificDetails thisAppDetails = realm.where(AppSpecificDetails.class).findFirst();
+                    realm.beginTransaction();
+                    thisAppDetails.setReadPrivacyStatement(true);
+                    realm.commitTransaction();
+                    Log.e("myApp", "ReadPrivacyStatement is " + String.valueOf(thisAppDetails.isReadPrivacyStatement()));
+
+
+
+                } else {
+                    AppSpecificDetails thisAppDetails = realm.where(AppSpecificDetails.class).findFirst();
+                    realm.beginTransaction();
+                    thisAppDetails.setReadPrivacyStatement(false);
+                    realm.commitTransaction();
+                    Log.e("myApp", "ReadPrivacyStatement in else is " + String.valueOf(thisAppDetails.isReadPrivacyStatement()));
+
+
+                }
             }
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (isNotDebugging) {
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Snackbar.make(view, "Export  csv files complete !", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+        realm = null;
+
     }
 
     @Override
@@ -44,6 +107,10 @@ public class PrivacyActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
 
             case R.id.action_plan:
                 // User chose the home icon...

@@ -2,6 +2,7 @@ package net.aprille.bloissavoirecouter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -59,6 +61,7 @@ public class PlaceSoundsActivity extends AppCompatActivity {
     public String BloisUserDirPath;
     public String BloisSoundDirPath;
     public String thisSoundImageFilePath;
+    String BloisSoundWebUrl;
     public String thisIconThumbFilePath;
     boolean isLandscape;
     Context context = this;
@@ -95,7 +98,7 @@ public class PlaceSoundsActivity extends AppCompatActivity {
         BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
         BloisSoundDirPath = BloisSoundDir.toString();
         BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
-
+        BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
         // set up Loccation instanciation
 
         location_for_Sounds = realm.where(Location.class).equalTo("locationID", soundsLocationID).findFirst();
@@ -147,24 +150,43 @@ public class PlaceSoundsActivity extends AppCompatActivity {
             }
 
             TextView tvNumLocTextView = (TextView) findViewById(R.id.p_sound_numSound_TextView);
-            tvNumLocTextView.setText(String.valueOf(location_for_Sounds.getLocationNumSounds()));
+            String numberOfPlaceSounds = getString(R.string.place_sounds) + String.valueOf(location_for_Sounds.getLocationNumSounds());
 
-            // set up media player before inflating recycleview
+            tvNumLocTextView.setText(String.valueOf(numberOfPlaceSounds));
 
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    //Do the work after completion of audio
-                    mediaPlayer.reset();
-                }
-            });
+            // set up media player before inflating recycleview''
+
+            if (Location_Sound_Results != null) {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        //Do the work after completion of audio
+                        mediaPlayer.reset();
+                    }
+                });
+
+                lSounds = (RealmRecyclerView) findViewById(R.id.p_sound_realm_recycler_view);
+
+                LSoundRecyclerViewAdapter soundAdapter = new LSoundRecyclerViewAdapter(getBaseContext(), Location_Sound_Results, true, false);
+                lSounds.setAdapter(soundAdapter);
+            }
+
+//            mediaPlayer = new MediaPlayer();
+//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                @Override
+//                public void onCompletion(MediaPlayer mp) {
+//                    //Do the work after completion of audio
+//                    mediaPlayer.reset();
+//                }
+//            });
 
 
-            lSounds = (RealmRecyclerView) findViewById(R.id.p_sound_realm_recycler_view);
-
-            LSoundRecyclerViewAdapter soundAdapter = new LSoundRecyclerViewAdapter(getBaseContext(), Location_Sound_Results, true, false);
-            lSounds.setAdapter(soundAdapter);
+//            lSounds = (RealmRecyclerView) findViewById(R.id.p_sound_realm_recycler_view);
+//
+//            LSoundRecyclerViewAdapter soundAdapter = new LSoundRecyclerViewAdapter(getBaseContext(), Location_Sound_Results, true, false);
+//            lSounds.setAdapter(soundAdapter);
 
 
 
@@ -184,6 +206,19 @@ public class PlaceSoundsActivity extends AppCompatActivity {
         super.onDestroy();
         realm.close();
         realm = null;
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.reset();
@@ -328,25 +363,76 @@ public class PlaceSoundsActivity extends AppCompatActivity {
 
                     thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
 
-                    thisSoundUri = Uri.parse(thisSoundFileString);
+
                     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                         mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    }  else  {
-                        try {
-//                            mediaPlayer.reset();
-                            mediaPlayer.setDataSource(getContext(), thisSoundUri);
-                            mediaPlayer.prepare();
-                            mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } else {
+
+                        if (thisSound.isLocalizeMedia()) {
+                            Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
+
+                            thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                            thisSoundUri = Uri.parse(thisSoundFileString);
+                            try {
+                                mediaPlayer.setDataSource(getContext(), thisSoundUri);
+                                mediaPlayer.prepare();
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+
+                            }
+                            mediaPlayer.start();
+                        } else {     // not localized
+                            mediaPlayer.reset();
+                            Log.e("myApp", "onplay inside islocalized mediafalse " + thisSound.getSoundName()) ;
+                            Log.e("myApp", "onplay inside islocalized sounddesc " + thisSound.getSoundDesc()) ;
+                            Log.e("myApp", "onplay inside islocalized soundfile " + thisSound.getSoundFile()) ;
+                            thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
+                            Log.e("myApp", "theURl " + thisSoundFileString) ;
+                            //mp3 will be started after completion of preparing...
+
+                            try {
+                                mediaPlayer.setDataSource(thisSoundFileString);
+                                mediaPlayer.prepareAsync();
+                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                                    @Override
+                                    public void onPrepared(MediaPlayer mediaPlayer) {
+                                        mediaPlayer.start();
+                                    }
+
+                                });
+                                mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
 
                         }
 
-                        mediaPlayer.start();
-
                     }
+
+                    thisSoundUri = Uri.parse(thisSoundFileString);
+//                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+//                        mediaPlayer.stop();
+//                        mediaPlayer.reset();
+//                        mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+//                    }  else  {
+//                        try {
+////                            mediaPlayer.reset();
+//                            mediaPlayer.setDataSource(getContext(), thisSoundUri);
+//                            mediaPlayer.prepare();
+//                            mButton_plays.setImageResource(R.drawable.ic_pause_black_24dp);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//
+//                        }
+//
+//                        mediaPlayer.start();
+//
+//                    }
 
                 } else if (v.getClass().getName().equalsIgnoreCase("android.widget.ImageButton")) {
                     Log.e("myApp", "imagebutton " +v.toString()); // case for opening new ZDetailSound activity
@@ -404,14 +490,40 @@ public class PlaceSoundsActivity extends AppCompatActivity {
             Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
             Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
 
+            if (sound.isLocalizeMedia()) {
+                thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+                Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
+                Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(new File(thisSoundImageFilePath))
+                        .resize(120, 120)
+                        .centerCrop()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
 
 
-            Picasso.with(viewHolder.mImage.getContext())
-                    .load(new File(thisSoundImageFilePath))
-                    .resize(120, 120)
-                    .centerCrop()
-                    .placeholder(R.drawable.sound_defaul_image)
-                    .into(viewHolder.mImage);
+            } else {
+                thisSoundImageFilePath = BloisSoundWebUrl  + sound.getSoundPhoto();
+                Log.e("myApp :: ", "sound.getSoundPhoto() IN ONBIND " + thisSoundImageFilePath );
+                Picasso.with(viewHolder.mImage.getContext())
+                        .load(thisSoundImageFilePath)
+                        .resize(120, 120)
+                        .centerCrop()
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.mImage);
+
+            }
+
+
+
+//            Picasso.with(viewHolder.mImage.getContext())
+//                    .load(new File(thisSoundImageFilePath))
+//                    .resize(120, 120)
+//                    .centerCrop()
+//                    .placeholder(R.drawable.sound_defaul_image)
+//                    .into(viewHolder.mImage);
 
             viewHolder.mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             viewHolder.mTitle.setText(sound.getSoundName());

@@ -46,12 +46,16 @@ public class AppActivity extends AppCompatActivity {
     Context context = this;
     Realm realm;
 
+    boolean isNotDebugging = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         try {
             realm = Realm.getDefaultInstance();
@@ -72,16 +76,20 @@ public class AppActivity extends AppCompatActivity {
 
         BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cvsFilesExport();
-                Snackbar.make(view, "Export  csv files complete !", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        if (isNotDebugging) {
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cvsFilesExport();
+                    Snackbar.make(view, "Export  csv files complete !", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
+
 
     }
 
@@ -100,6 +108,10 @@ public class AppActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
 
             case R.id.action_plan:
                 // User chose the home icon...

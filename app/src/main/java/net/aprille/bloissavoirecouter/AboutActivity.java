@@ -17,9 +17,11 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +41,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 
@@ -51,6 +53,11 @@ public class AboutActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
+
             case R.id.action_plan:
                 // User chose the home icon...
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);

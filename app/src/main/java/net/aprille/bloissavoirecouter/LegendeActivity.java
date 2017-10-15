@@ -16,6 +16,8 @@ public class LegendeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_legende);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +45,11 @@ public class LegendeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
+
             case R.id.action_plan:
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
                 startActivity(intentPlan);

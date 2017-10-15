@@ -3,33 +3,35 @@ package net.aprille.bloissavoirecouter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-public class ThanksActivity extends AppCompatActivity {
+public class ThankYouActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thanks);
+        setContentView(R.layout.activity_thank_you);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView linksinPar3 = (TextView) findViewById(R.id.textViewP3);
+        Linkify.addLinks(linksinPar3, Linkify.ALL);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"aprile@aprille.net"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_SUBJECT,
-                        "Subjet"); // Email 's Subject
-                Email.putExtra(Intent.EXTRA_TEXT, "Bonjour Aprille Glover" + "");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -38,7 +40,7 @@ public class ThanksActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 
@@ -50,6 +52,10 @@ public class ThanksActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
 
             case R.id.action_plan:
                 // User chose the home icon...
@@ -63,7 +69,6 @@ public class ThanksActivity extends AppCompatActivity {
                 startActivity(intentSearch);
                 return true;
 
-
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
 
@@ -72,7 +77,6 @@ public class ThanksActivity extends AppCompatActivity {
                 startActivity(intentGeo);
 
                 return true;
-
 
             case R.id.explore_people:
                 // User chose the "Favorite" action, mark the current item
@@ -104,5 +108,8 @@ public class ThanksActivity extends AppCompatActivity {
         }
 
     }
+
+
+
 
 }

@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.03"/>
 
 
     <android.support.constraint.Guideline
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
+        app:layout_constraintGuide_percent="0.97"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineBottomApp"
@@ -67,10 +67,10 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineTopApp"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftApp"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightApp"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineQuaterApp"
         android:drawableLeft="@drawable/variation_icon4_512"
         android:text="@string/application_tour"
-        android:textSize="14sp"
+        android:scaleType="fitStart"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickTour"/>
@@ -80,14 +80,13 @@
         android:layout_width="0dp"
         android:layout_height="89dp"
         style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toTopOf="@+id/guidelineQuaterApp"
+        app:layout_constraintTop_toBottomOf="@+id/tourButton"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftApp"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightApp"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineHalfApp"
         android:drawableLeft="@drawable/privacy_settings_512"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="16dp"
         android:text="@string/setting_and_privacy"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:onClick="buttonClickPrivacy"/>

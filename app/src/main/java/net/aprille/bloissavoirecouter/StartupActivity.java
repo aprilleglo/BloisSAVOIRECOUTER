@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Calendar;
 
 import helperfunctions.CSVFile;
 import helperfunctions.Util;
@@ -213,6 +214,7 @@ public class StartupActivity extends AppCompatActivity {
                 newPrimaryUser.setUserName(myEditText.getText().toString());
                 newPrimaryUser.setUserDesc(myAboutEditText.getText().toString());
                 newPrimaryUser.setTimeJoined(newPrimaryKey);
+                newAppSpecificDetails.setLastUpdated(Calendar.getInstance().getTime());
                 newPrimaryUser.setUserPhoto(userImagefileName);
                 newPrimaryUser.setPrimaryUserBoolean(true);
                 realm.commitTransaction();
@@ -513,9 +515,7 @@ public class StartupActivity extends AppCompatActivity {
 
             realm.commitTransaction();
 
-
         }
-
 
     }
 
@@ -660,7 +660,7 @@ public class StartupActivity extends AppCompatActivity {
                     newSound1.setSoundPhoto(row[4]);
                     newSound1.setSoundPhotoDesc( row[5]);
                     newSound1.setTimeCreated(getCurrDateString());
-                    newSound1.setLocalizeMedia(true);
+                    newSound1.setLocalizeMedia(false);
                     newSound1.setCreatedByPrimaryUser(false);
                     newSound1.setSoundLikes( Integer.parseInt(row[8]) );
                     Location newlocation = realm.where(Location.class).equalTo("locationID", row[12]).findFirst();

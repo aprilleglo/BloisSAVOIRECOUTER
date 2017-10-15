@@ -30,6 +30,8 @@ public class AppSpecificDetails extends RealmObject {
 
     private Date firstOpenedApp;
 
+    private Date lastUpdated;
+
     private String email;
 
     private String loginNameWP;
@@ -108,6 +110,14 @@ public class AppSpecificDetails extends RealmObject {
 
     public void setFirstOpenedApp(Date firstOpenedApp) {
         this.firstOpenedApp = firstOpenedApp;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public String getEmail() {
