@@ -4,73 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.aprille.bloissavoirecouter.UserSoundsActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbarUserSounds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay" >
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.aprille.bloissavoirecouter.PrimaryUserActivity"
+    tools:showIn="@layout/activity_primary_user">
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftUSound"
+        android:id="@+id/guidelineLeftPSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="10dp"/>
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineRightUSound"
+        android:id="@+id/guidelineRightPSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="10dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineTopUSound"
+        android:id="@+id/guidelineTopPSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="10dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineMiddleVUSound"
+        android:id="@+id/guidelineMiddleVPSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="170dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineBottomUSound"
+        android:id="@+id/guidelineBottomPSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="10dp" />
 
     <ImageView
-        android:id="@+id/u_sound_ImageView"
+        android:id="@+id/p_sound_ImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintTop_toBottomOf="@+id/appbarUserSounds"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftUSound"
-        app:layout_constraintRight_toLeftOf="@+id/u_sound_UserName"
-        app:layout_constraintBottom_toTopOf="@+id/u_sound_realm_recycler_view"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTopPSound"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
+        app:layout_constraintRight_toLeftOf="@+id/p_sound_UserName"
+        app:layout_constraintBottom_toTopOf="@+id/p_sound_realm_recycler_view"
         app:srcCompat="@drawable/plan_title"
         tools:ignore="RtlHardcoded" />
 
     <TextView
-        android:id="@+id/u_sound_UserName"
+        android:id="@+id/p_sound_UserName"
         style="@android:style/TextAppearance.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -81,12 +68,12 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/u_sound_ImageView"
-        app:layout_constraintRight_toLeftOf="@+id/guidelineRightUSound"
-        app:layout_constraintTop_toTopOf="@+id/u_sound_ImageView" />
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineRightPSound"
+        app:layout_constraintTop_toTopOf="@+id/p_sound_ImageView" />
 
     <TextView
-        android:id="@+id/u_sound_UserDescr"
+        android:id="@+id/p_sound_UserDescr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -94,38 +81,37 @@
         android:textSize="12sp"
         android:layout_marginLeft="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintLeft_toRightOf="@+id/u_sound_ImageView"
-        app:layout_constraintBottom_toTopOf="@+id/u_sound_numSound_TextView"
-        app:layout_constraintRight_toRightOf="@+id/guidelineRightUSound"
-        app:layout_constraintTop_toBottomOf="@+id/u_sound_UserName"
-         />
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_UserName"
+        />
 
     <TextView
-        android:id="@+id/u_sound_numSound_TextView"
+        android:id="@+id/p_sound_numSound_TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="@color/colorAccent"
         android:text="@string/number_of_sounds"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineMiddleVUSound"
-        app:layout_constraintTop_toBottomOf="@+id/u_sound_UserDescr"
-        app:layout_constraintLeft_toRightOf="@+id/u_sound_ImageView"
-        app:layout_constraintRight_toRightOf="@+id/guidelineRightUSound"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_UserDescr"
+        app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
         />
 
     <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
-        android:id="@+id/u_sound_realm_recycler_view"
+        android:id="@+id/p_sound_realm_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="@+id/guidelineRightUSound"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftUSound"
-        app:layout_constraintTop_toBottomOf="@+id/u_sound_ImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomUSound"
+        app:layout_constraintRight_toRightOf="@+id/guidelineRightPSound"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
+        app:layout_constraintTop_toBottomOf="@+id/p_sound_ImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomPSound"
         app:rrvIsRefreshable="true"
+        app:rrvSwipeToDelete="true"
         app:rrvLayoutType="LinearLayout"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginTop="10dp" />
 
 
 </android.support.constraint.ConstraintLayout>

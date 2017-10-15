@@ -241,5 +241,14 @@
     <string name="number_of_places">Number of Places</string>
     <string name="pick_from_google_map">pick_from_google_map</string>
     <string name="connect_this_place_to_sound">connect this place to sound</string>
+    <string name="play">play</string>
+    <string name="edit_sound_text">Edit Sound Text</string>
+    <string name="edit_sound_name">Edit Sound Name</string>
+    <string name="edit_sound_desc">Edit sound description</string>
+    <string name="edit_sound_descript">Edit Sound Description</string>
+    <string name="edit_sound_name2">Edit Sound Name</string>
+    <string name="sounds">Sounds :</string>
+    <string name="see_your_sound_collection">See your sound collection</string>
+    <string name="title_activity_primary_user">PrimaryUserActivity</string>
 
 </resources>

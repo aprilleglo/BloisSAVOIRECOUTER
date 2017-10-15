@@ -23,9 +23,11 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -119,6 +121,11 @@ public class ZDetailSoundActivity extends AppCompatActivity {
     public String thisIconThumbFilePath;
     boolean isLandscape;
     Context context = this;
+
+    Sound editSoundName;
+
+    String name_Text;
+    String desc_Text;
 
 
 
@@ -447,12 +454,140 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
     }
 
-    public void buttonClickEditSoundDetail (View v)
-    {
+    public void buttonClickEditSoundDetail (View v) {
 
+        final String editDialogTitle = getString(R.string.edit_sound_text);
+        final String editSoundTitle = getString(R.string.edit_sound_name);
+        final String editSoundDescription = getString(R.string.edit_sound_desc);
+
+        final String cancelDialog = getString(R.string.cancel);
+
+
+        final CharSequence[] options = { editSoundTitle, editSoundDescription, cancelDialog };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(editDialogTitle);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals(editSoundTitle))
+                {
+                    editNameWithDialog();
+                }
+                else if (options[item].equals(editSoundDescription))
+                {
+                    editDescWithDialog();
+
+                }
+                else if (options[item].equals(cancelDialog)) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
 
 
     }
+
+    public void editNameWithDialog() {
+
+        editSoundName = realm.where(Sound.class).equalTo("soundID", thisSoundID).findFirst();
+        if (editSoundName != null) {
+
+            name_Text = null;
+            AlertDialog.Builder Namebuilder = new AlertDialog.Builder(this);
+            Namebuilder.setTitle(R.string.edit_sound_name2);
+            // I'm using fragment here so I'm using getView() to provide ViewGroup
+            // but you can provide here any other instance of ViewGroup from your FragmLayoutInflater inflater = this.getLayoutInflater();
+
+            View viewInflated = LayoutInflater.from(this).inflate(R.layout.text_input_place_name, null);
+            // Set up the input
+            final EditText input = (EditText) viewInflated.findViewById(R.id.place_name_imput);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            Namebuilder.setView(viewInflated);
+            input.setText(editSoundName.getSoundName());
+            // Set up the buttons
+            Namebuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    name_Text = input.getText().toString();
+                    if (name_Text != null) {
+                        Log.e("myApp:: ", "changing text for  " + name_Text);
+
+                        realm.beginTransaction();
+                        editSoundName.setSoundName(name_Text);
+                        realm.commitTransaction();
+                        TextView tvPlaceNameTV = (TextView) findViewById(R.id.tVsoundNameSoundDetail);
+                        tvPlaceNameTV.setText(editSoundName.getSoundName());
+
+                    }
+                    Log.e("myApp:: ", "changingclick  onclick " + editSoundName.getSoundName());
+                }
+            });
+            Namebuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            Namebuilder.show();
+
+        }
+
+    }
+
+    public void editDescWithDialog() {
+
+        editSoundName = realm.where(Sound.class).equalTo("soundID", thisSoundID).findFirst();
+        if (editSoundName != null) {
+
+            desc_Text = null;
+            AlertDialog.Builder Namebuilder = new AlertDialog.Builder(this);
+            Namebuilder.setTitle(R.string.edit_sound_descript);
+            // I'm using fragment here so I'm using getView() to provide ViewGroup
+            // but you can provide here any other instance of ViewGroup from your FragmLayoutInflater inflater = this.getLayoutInflater();
+
+            View viewInflated = LayoutInflater.from(this).inflate(R.layout.text_input_place_name, null);
+            // Set up the input
+            final EditText input = (EditText) viewInflated.findViewById(R.id.place_name_imput);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            Namebuilder.setView(viewInflated);
+            input.setText(editSoundName.getSoundDesc());
+            // Set up the buttons
+            Namebuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    desc_Text = input.getText().toString();
+                    if (desc_Text != null) {
+                        Log.e("myApp:: ", "changing desc_Text text for  " + desc_Text);
+
+                        realm.beginTransaction();
+                        editSoundName.setSoundDesc(desc_Text);
+                        realm.commitTransaction();
+                        TextView tvSoundDesc = (TextView) findViewById(R.id.tVsoundDiscSoundDetail);
+                        tvSoundDesc.setText(editSoundName.getSoundDesc());
+
+                    }
+                    Log.e("myApp:: ", "changingclick desc onclick " + editSoundName.getSoundDesc());
+                }
+            });
+            Namebuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            Namebuilder.show();
+
+        }
+
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

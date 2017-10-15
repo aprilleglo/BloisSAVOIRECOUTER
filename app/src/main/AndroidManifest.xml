@@ -53,10 +53,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartupActivity"
-            android:label="@string/Initializing"
+        <activity
+            android:name=".StartupActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            />
+            android:label="@string/Initializing" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
@@ -95,11 +95,11 @@
         </activity>
         <activity
             android:name=".SectorSoundsActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_sector_sounds"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:hardwareAccelerated="false"
-            android:configChanges="orientation|screenSize">
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -134,8 +134,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ZDetailSoundActivity"
-            android:label="@string/title_activity_zdetail_sound"
             android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_zdetail_sound"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddLocationActivity"
@@ -178,6 +178,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
+        </activity>
+        <activity
+            android:name=".PrimaryUserActivity"
+            android:label="@string/title_activity_primary_user"
+            android:parentActivityName=".PeopleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.PeopleActivity" />
         </activity>
     </application>
 

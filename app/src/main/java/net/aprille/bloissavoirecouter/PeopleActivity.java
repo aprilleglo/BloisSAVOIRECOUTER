@@ -35,6 +35,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
+import io.realm.Sort;
 import models.AppSpecificDetails;
 import models.Location;
 import models.Quadrant;
@@ -55,6 +56,8 @@ public class PeopleActivity extends AppCompatActivity {
     RealmRecyclerView nUsers;
     RealmConfiguration config;
 
+    RealmResults<Sound> user_Sound_Results;
+    RealmList<Sound> user_Sound_List;
 
     int num_of_Users;
 
@@ -133,12 +136,31 @@ public class PeopleActivity extends AppCompatActivity {
             TextView tvPrimdescTextView = (TextView) findViewById(R.id.primaryUserDescr);
             tvPrimdescTextView.setText(primaryUser.getUserDesc());
 
-            TextView numSoundsPrimaryTextView = (TextView) findViewById(R.id.numSoundPrimaryTextView);
+            user_Sound_List = primaryUser.getUserSounds();
 
-            String nString = getString(R.string.number_of_sounds);
+            user_Sound_Results =  user_Sound_List.where().findAllSorted("soundLikes", Sort.DESCENDING);
+
+
             if ((String.valueOf(primaryUser.getNumUserSounds()) == null)) {
+                realm.beginTransaction();
                 primaryUser.setNumUserSounds(0);
+                realm.commitTransaction();
             }
+
+            if (primaryUser.getNumUserSounds() != user_Sound_Results.size() ) {
+                int ResultSize = user_Sound_Results.size();
+                Log.e("myApp :: ", "User_for_Sounds.getNumUserSounds()" + String.valueOf(primaryUser.getNumUserSounds()) );
+                Log.e("myApp :: ", "user_Sound_Results.size() " + String.valueOf(user_Sound_Results.size()) );
+                realm.beginTransaction();
+                primaryUser.setNumUserSounds(ResultSize);
+                realm.commitTransaction();
+            }
+
+
+            TextView numSoundsPrimaryTextView = (TextView) findViewById(R.id.numSoundPrimaryTextView);
+            Log.e("myApp :: ", "BloisUerDirPath with primary " + thisSoundImageFilePath );
+
+            String nString = getString(R.string.sounds);
             String makeNumSoundsString = String.valueOf(primaryUser.getNumUserSounds());
             numSoundsPrimaryTextView.setText( nString + " " + makeNumSoundsString );
 
@@ -244,6 +266,14 @@ public class PeopleActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public void buttonClickPrimary(View v) {
+
+
+        Intent intent = new Intent(getApplicationContext(), PrimaryUserActivity.class);
+        intent.putExtra("userID", thisPrimaryId);
+        startActivity(intent);
 
     }
 

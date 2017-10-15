@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -82,6 +83,8 @@ public class AddSoundActivity extends AppCompatActivity {
     MediaRecorder mediaRecorder ;
     MediaPlayer mediaPlayer ;
 
+    File soundFilePath;
+
     int permissionCheckStorage;
     int permissionCheckCamera;
     int permissionCheckMicrophone;
@@ -141,14 +144,6 @@ public class AddSoundActivity extends AppCompatActivity {
         TextInputEditText bntEditEditDesc =(TextInputEditText)findViewById(R.id.sound_desc_imput);
         bntEditEditDesc.setVisibility(View.INVISIBLE);
 
-        TextView tvPlaceNameTV =(TextView) findViewById(R.id.tvPlaceNameAddSound);
-        tvPlaceNameTV.setVisibility(View.INVISIBLE);
-        TextView tvPlaceAddressTV =(TextView) findViewById(R.id.tvPlaceAddressAddSound);
-        tvPlaceAddressTV.setVisibility(View.INVISIBLE);
-        TextView tvPlaceLongLatTV  =(TextView) findViewById(R.id.tvPlaceLongLatAddSound);
-        tvPlaceLongLatTV.setVisibility(View.INVISIBLE);
-        ImageButton getPlaceButton = (ImageButton) findViewById(R.id.addSoundPlaceButton);
-        getPlaceButton.setVisibility(View.INVISIBLE);
 
         ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
         bntSoundImage.setVisibility(View.INVISIBLE);
@@ -269,11 +264,30 @@ public class AddSoundActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(realm != null) { // guard against weird low-budget phones
-            realm.close();
-            realm = null;
+        realm.close();
+        realm = null;
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+    }
+
+
 
     public void buttonClickRecord(View v) {
 
@@ -290,16 +304,32 @@ public class AddSoundActivity extends AppCompatActivity {
 
     }
 
-    public void buttonClickAddPlaceInfo(View v) {
-
-        Intent i = new Intent(context, AddPlaceActivity.class);
-
-        Log.w("myApp", "b4 pressed - about to launch sub-activity");
-
-        // the results are called on widgetActivityCallback
-        startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
-
-    }
+//    public void buttonClickAddPlaceInfo(View v) {
+//
+//        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+//            mediaPlayer.stop();
+//            mediaPlayer.reset();
+//        }
+//
+//        if (Util.placeInfoExists(thisSound) ) {
+//            Location thisPlace = thisSound.getSoundLocation().first();
+//            Intent intent = new Intent(context, AddLocationMapsActivity.class);
+//
+//            intent.putExtra("placeID", thisPlace.getLocationID());
+//            startActivity(intent);
+//
+//        } else {
+//            Intent i = new Intent(context, AddLocationActivity.class);
+//
+//            Log.w("myApp", "b4 pressed - about to launch sub-activity");
+//
+//            // the results are called on widgetActivityCallback
+//            startActivityForResult(i, ADD_PLACE_REQUEST_CODE);
+//
+//        }
+//
+//
+//    }
 
     public void MediaRecorderReady(){
         if(BloisSoundDir.exists() && BloisSoundDir.isDirectory()) {
@@ -309,7 +339,7 @@ public class AddSoundActivity extends AppCompatActivity {
             BloisSoundDir.mkdirs();
         }
 
-        File soundFilePath = new File(BloisSoundDir, thisSoundFile);
+        soundFilePath = new File(BloisSoundDir, thisSoundFile);
         if(soundFilePath.exists() ) {
             Log.w("myApp", "soundfile exist"  );
 
@@ -384,10 +414,7 @@ public class AddSoundActivity extends AppCompatActivity {
         Button bntSaveREC=(Button)findViewById(R.id.saveSoundButton);
         bntSaveREC.setVisibility(View.VISIBLE);
 
-        ImageButton bntSoundPlay = (ImageButton) findViewById(R.id.playButton1);
-        bntSoundPlay.setVisibility(View.INVISIBLE);
-
-        ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
+         ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
         bntSoundImage.setVisibility(View.VISIBLE);
         Picasso.with(this)
                 .load(R.drawable.people_placeholder)
@@ -399,17 +426,21 @@ public class AddSoundActivity extends AppCompatActivity {
         ImageButton bntSavePhoto=(ImageButton)findViewById(R.id.addimageSoundButton);
         bntSavePhoto.setVisibility(View.VISIBLE);
 
-        ImageButton getPlaceButton = (ImageButton) findViewById(R.id.addSoundPlaceButton);
-        getPlaceButton.setVisibility(View.INVISIBLE);
 
-        TextView tvPlaceNameTV = (TextView) findViewById(R.id.tvPlaceNameAddSound);
-        tvPlaceNameTV.setVisibility(View.INVISIBLE);
+        ImageButton bntSoundPlay = (ImageButton) findViewById(R.id.playButton1);
+        bntSoundPlay.setVisibility(View.VISIBLE);
 
-        TextView tvPlaceAddressTV =(TextView) findViewById(R.id.tvPlaceAddressAddSound);
-        tvPlaceAddressTV.setVisibility(View.INVISIBLE);
 
-        TextView tvPlaceLongLatTV  =(TextView) findViewById(R.id.tvPlaceLongLatAddSound);
-        tvPlaceLongLatTV.setVisibility(View.INVISIBLE);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                //Do the work after completion of audio
+                mediaPlayer.reset();
+            }
+        });
+
 
 
     }
@@ -431,10 +462,37 @@ public class AddSoundActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+
     public void buttonClickPlayAddSound (View v) {
-        Intent intent = new Intent(getApplicationContext(), SectorSoundsActivity.class);
-        intent.putExtra("sectorNum", sector);
-        startActivity(intent);
+
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
+            //        playButton.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
+            playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+
+        } else {
+
+
+            if ( soundFilePath.exists() )  {
+                Log.e("myApp", "onplay inside add sound Play " + soundFilePath.toString()) ;
+
+
+                Uri thisSoundUri = Uri.parse(soundFilePath.toString());
+                try {
+                    mediaPlayer.setDataSource(this, thisSoundUri);
+                    mediaPlayer.prepare();
+                    ImageButton playButton = (ImageButton) findViewById(R.id.playButton1);
+                    playButton .setImageResource(R.drawable.ic_pause_black_24dp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+                mediaPlayer.start();
+            }
+        }
     }
 
     public void buttonClickSaveRecord(View v) {
