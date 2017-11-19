@@ -31,7 +31,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/row1">
 
                 <ImageButton
@@ -43,7 +43,6 @@
                     android:nextFocusForward="@+id/imageButtonThanks"
                     android:nextFocusRight="@+id/imageButtonThanks"
                     android:nextFocusDown="@+id/imageButtonPeople"
-
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -53,7 +52,6 @@
                     android:layout_marginRight="0dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
-                    android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
@@ -157,6 +155,7 @@
                     android:id="@+id/imageButtonPeople"
 
                     android:contentDescription="@string/users_Description"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:nextFocusForward="@id/imageButtonCase1"
                     android:nextFocusRight="@id/imageButtonCase3"
                     android:nextFocusUp="@id/imageButtonTitle"
@@ -184,6 +183,7 @@
                     android:id="@+id/imageButtonCase3"
 
                     android:contentDescription="@string/case3_Description"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:nextFocusForward="@id/imageButtonCase4"
                     android:nextFocusLeft="@id/imageButtonPeople"
                     android:nextFocusRight="@id/imageButtonCase4"
@@ -212,6 +212,7 @@
                     android:id="@+id/imageButtonCase4"
 
                     android:contentDescription="@string/case4_Description"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:nextFocusForward="@id/imageButtonCase5"
                     android:nextFocusLeft="@id/imageButtonCase3"
                     android:nextFocusRight="@id/imageButtonCase5"
@@ -240,7 +241,7 @@
                     android:id="@+id/imageButtonCase5"
 
                     android:contentDescription="@string/case5_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -271,7 +272,7 @@
                     android:id="@+id/imageButtonCase6"
 
                     android:contentDescription="@string/case6_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -295,7 +296,7 @@
                     android:id="@+id/imageButtonCase7"
 
                     android:contentDescription="@string/case7_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -316,10 +317,10 @@
                 <ImageButton
                     android:layout_column="2"
                     app:srcCompat="@drawable/plan_8"
-                    android:id="@+id/imageButton12"
+                    android:id="@+id/imageButtonCase8"
 
                     android:contentDescription="@string/case8_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -343,7 +344,7 @@
                     android:id="@+id/imageButtonCase9"
 
                     android:contentDescription="@string/case9_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -376,7 +377,7 @@
                     android:id="@+id/imageButtonCase10"
 
                     android:contentDescription="@string/case10_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -401,7 +402,7 @@
 
                     android:contentDescription="@string/case11_Description"
 
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -425,7 +426,7 @@
                     android:id="@+id/imageButtonCase12"
 
                     android:contentDescription="@string/case12_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -446,10 +447,10 @@
                 <ImageButton
                     android:layout_column="3"
                     app:srcCompat="@drawable/plan_13"
-                    android:id="@+id/imageButton17"
+                    android:id="@+id/imageButtonCase13"
 
                     android:contentDescription="@string/case13_Description"
-
+                    app:layout_constraintDimensionRatio="1:1"
                     android:scaleType="fitStart"
                     android:layout_weight="0.25"
                     android:layout_margin="0dp"
@@ -476,7 +477,7 @@
                 <ImageButton
                     android:layout_column="0"
                     app:srcCompat="@drawable/plan_14"
-                    android:id="@+id/imageButton18"
+                    android:id="@+id/imageButtonCase14"
 
                     android:contentDescription="@string/case14_Description"
 
@@ -490,6 +491,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:paddingBottom="2dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"

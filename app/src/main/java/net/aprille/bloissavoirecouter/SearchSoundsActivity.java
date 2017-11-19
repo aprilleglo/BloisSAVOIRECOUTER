@@ -57,6 +57,7 @@ public class SearchSoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_sounds);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         resetRealm();
 
@@ -103,6 +104,10 @@ public class SearchSoundsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
 
             case R.id.action_plan:
                 // User chose the home icon...

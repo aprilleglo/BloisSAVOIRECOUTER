@@ -46,7 +46,7 @@ public class AppActivity extends AppCompatActivity {
     Context context = this;
     Realm realm;
 
-    boolean isNotDebugging = true;
+    boolean isNotDebugging = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

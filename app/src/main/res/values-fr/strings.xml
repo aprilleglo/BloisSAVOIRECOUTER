@@ -197,12 +197,11 @@
     <string name="logo_of_the_city_of_blois">logo de la ville de Blois</string>
     <string name="logo_ville">logo de ville de Blois</string>
     <string name="thanks_par3">Le site internet du projet www.blois.odeurdelacouleur.info.  Ce projet est rendu possible par le soutien de la Caisse des Dépôts, http://www.caissedesdepots.fr</string>
-    <string name="the_present_general_conditions_of_use_hereinafter_referred_to_as"></string>
     <string name="add_sound">ajouter du son</string>
     <string name="add_sounds">ajouter du son</string>
     <string name="title_activity_thank_you">Remerciements</string>
     <string name="sound_description">description sonore</string>
-    <string name="privacylist5e" translatable="false">- si, pour une raison quelconque, la connexion devait être interrompue.</string>
+    <string name="privacylist5e">- si, pour une raison quelconque, la connexion devait être interrompue.</string>
     <string name="Initializing">initialiser</string>
     <string name="lets_share">Partageons</string>
     <string name="logos_of_partner_organization">logos d\'organisations partenaires</string>
@@ -214,4 +213,14 @@
     <string name="edit">éditer</string>
     <string name="connect_this_place_to_sound">connecter le lieu au son</string>
     <string name="pick_from_google_map">choisir à partir de google map</string>
+    <string name="LongLat">LongLat</string>
+    <string name="edit_sound_desc">Modifier la description du son</string>
+    <string name="edit_sound_descript">Modifier la description du son</string>
+    <string name="edit_sound_name">Modifier la description du son</string>
+    <string name="edit_sound_name2">Modifier le nom du son</string>
+    <string name="edit_sound_text">Modifier le texte du son</string>
+    <string name="play">play</string>
+    <string name="see_your_sound_collection">Voir votre collection de sons</string>
+    <string name="sounds">"sons : "</string>
+    <string name="title_activity_primary_user">votre collection de sons</string>
 </resources>

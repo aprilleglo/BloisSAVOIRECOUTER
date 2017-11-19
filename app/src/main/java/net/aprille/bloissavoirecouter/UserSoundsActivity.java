@@ -73,8 +73,14 @@ public class UserSoundsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sounds);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_user_sounds);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        if(getActionBar() != null){
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 
         // get intent from People Activity
@@ -115,9 +121,10 @@ public class UserSoundsActivity extends AppCompatActivity {
             Log.w("myApp", "num_of_Sounds "+ String.valueOf(num_of_Sounds));
 
             ImageView iVprimaryUserImageView = (ImageView) findViewById(R.id.u_sound_ImageView);
+            String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
+            File checkUserFilePath = new File(thisUserImageFilePath);
+            if ( checkUserFilePath.exists() ) {
 
-            if (User_for_Sounds.isPrimaryUserBoolean() ) {
-                String thisUserImageFilePath = BloisUserDirPath + "/" + User_for_Sounds.getUserPhoto();
                 Log.e("myApp :: ", "BloisUerDirPath with primary " + thisUserImageFilePath );
                 Picasso.with(this)
                         .load(new File(thisUserImageFilePath))
@@ -127,7 +134,7 @@ public class UserSoundsActivity extends AppCompatActivity {
                         .into(iVprimaryUserImageView);
 
             } else {
-                String thisUserImageFilePath = BloisSoundWebUrl  + User_for_Sounds.getUserPhoto();
+                thisUserImageFilePath = BloisSoundWebUrl  + User_for_Sounds.getUserPhoto();
                 Picasso.with(this)
                         .load(thisUserImageFilePath)
                         .resize(150, 150)
@@ -231,7 +238,7 @@ public class UserSoundsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 
@@ -244,23 +251,50 @@ public class UserSoundsActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case android.R.id.home:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                finish();
+                return true;
+
             case R.id.action_plan:
                 // User chose the home icon...
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 startActivity(intentPlan);
                 return true;
 
+
             case R.id.explore_keyword:
                 // User chose search by keyword
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
+                intentSearch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentSearch);
                 return true;
 
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
+                intentGeo.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentGeo);
 
                 return true;
@@ -268,8 +302,12 @@ public class UserSoundsActivity extends AppCompatActivity {
 
             case R.id.explore_people:
                 // User chose the "Favorite" action, mark the current item
-
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
+                intentPeople.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPeople);
                 return true;
 
@@ -277,13 +315,18 @@ public class UserSoundsActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
+                intentWalks.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentWalks);
                 return true;
 
             case R.id.action_privacy:
                 // User chose the "Favorite" action, mark the current item
-
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
+                intentPrivacy.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPrivacy);
                 return true;
 
@@ -369,8 +412,10 @@ public class UserSoundsActivity extends AppCompatActivity {
                         mediaPlayer.reset();
                         mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     } else {
+                        thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                        File checkSoundFile = new File(thisSoundFileString);
 
-                        if (thisSound.isLocalizeMedia()) {
+                        if (checkSoundFile.exists()) {
                             Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
 
                             thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
@@ -469,8 +514,9 @@ public class UserSoundsActivity extends AppCompatActivity {
             Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
             Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
             Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );
-
-            if (sound.isLocalizeMedia()) {
+            thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+            File checkImageFile = new File(thisSoundImageFilePath);
+            if (checkImageFile.exists()) {
                 thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
                 Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
                 Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );

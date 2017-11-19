@@ -59,7 +59,7 @@
         app:layout_constraintGuide_percent="0.05"/>
 
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/explorePlanButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
@@ -74,15 +74,15 @@
         android:textColor="@color/black"
         android:onClick="buttonClickGeoCodedPlan"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/exploreParcoursButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@+id/explorePlanButton"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftLeg"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightLeg"
-        android:drawableLeft="@drawable/parcours_512"
+        android:drawableStart="@drawable/parcours_512"
         android:scaleType="fitStart"
         android:layout_marginTop="8dp"
         android:text="@string/explore_walking_tous"
@@ -91,7 +91,7 @@
         android:textColor="@color/black"
         android:onClick="buttonClickExploreParcours"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/exploreKeyWordButton"
         android:layout_width="0dp"
         android:layout_height="65dp"

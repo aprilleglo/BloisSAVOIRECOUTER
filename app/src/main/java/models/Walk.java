@@ -1,5 +1,6 @@
 package models;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
@@ -9,6 +10,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Walk extends RealmObject {
+
     @PrimaryKey
     private String walkID;
 
@@ -23,7 +25,7 @@ public class Walk extends RealmObject {
 
     private String walkTime;
 
-    private String walkDistance;
+    private Double walkDistance;
 
     private boolean accessiable;
 
@@ -32,6 +34,8 @@ public class Walk extends RealmObject {
     private boolean localizedMedia;
 
     private int numPlacesInWalk;
+
+    private RealmList<OrderedWalkSound> orderedWalkSounds;
 
 
 
@@ -84,16 +88,51 @@ public class Walk extends RealmObject {
         this.walkTime = walkTime;
     }
 
-    public String getWalkDistance() {
+    public Double getWalkDistance() {
         return walkDistance;
     }
 
-    public void setWalkDistance(String walkDistance) {
+    public void setWalkDistance(Double walkDistance) {
         this.walkDistance = walkDistance;
     }
 
+    public boolean isAccessiable() {
+        return accessiable;
+    }
 
+    public void setAccessiable(boolean accessiable) {
+        this.accessiable = accessiable;
+    }
 
+    public boolean isLoop() {
+        return loop;
+    }
 
+    public void setLoop(boolean loop) {
+        this.loop = loop;
+    }
 
+    public boolean isLocalizedMedia() {
+        return localizedMedia;
+    }
+
+    public void setLocalizedMedia(boolean localizedMedia) {
+        this.localizedMedia = localizedMedia;
+    }
+
+    public int getNumPlacesInWalk() {
+        return numPlacesInWalk;
+    }
+
+    public void setNumPlacesInWalk(int numPlacesInWalk) {
+        this.numPlacesInWalk = numPlacesInWalk;
+    }
+
+    public RealmList<OrderedWalkSound> getOrderedWalkSounds() {
+        return orderedWalkSounds;
+    }
+
+    public void setOrderedWalkSounds(RealmList<OrderedWalkSound> orderedWalkSounds) {
+        this.orderedWalkSounds = orderedWalkSounds;
+    }
 }

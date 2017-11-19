@@ -312,7 +312,7 @@
                 <ImageButton
                     android:layout_column="2"
                     app:srcCompat="@drawable/plan_8"
-                    android:id="@+id/imageButton12"
+                    android:id="@+id/imageButtonCase8"
 
                     android:contentDescription="@string/case8_Description"
 
@@ -442,7 +442,7 @@
                 <ImageButton
                     android:layout_column="3"
                     app:srcCompat="@drawable/plan_13"
-                    android:id="@+id/imageButton17"
+                    android:id="@+id/imageButtonCase13"
 
                     android:contentDescription="@string/case13_Description"
 
@@ -472,7 +472,7 @@
                 <ImageButton
                     android:layout_column="0"
                     app:srcCompat="@drawable/plan_14"
-                    android:id="@+id/imageButton18"
+                    android:id="@+id/imageButtonCase14"
 
                     android:contentDescription="@string/case14_Description"
 

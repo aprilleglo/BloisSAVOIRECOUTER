@@ -121,4 +121,5 @@ public class Location extends RealmObject {
     public void setLocationNumSounds(int locationNumSounds) {
         this.locationNumSounds = locationNumSounds;
     }
+
 }

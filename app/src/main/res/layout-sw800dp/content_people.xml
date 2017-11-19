@@ -54,7 +54,9 @@
         app:layout_constraintBottom_toTopOf="@+id/users_realm_recycler_view"
         android:layout_marginBottom="6dp"
         app:srcCompat="@drawable/plan_title"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:onClick="buttonClickPrimary"
+        />
 
     <TextView
         android:id="@+id/primaryUserName"

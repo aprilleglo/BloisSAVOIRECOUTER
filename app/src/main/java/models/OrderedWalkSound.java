@@ -16,7 +16,16 @@ public class OrderedWalkSound extends RealmObject {
     private String orderedWalkID;
 
     @Index
-    private String walkSoundID;
+    private String orderedWalkSoundID;
+
+    @Index
+    private String orderedWalkPlaceID;
+
+    private double distanceBeforeStage;
+
+    private double distanceThisStage;
+
+    private double distanceToFinish;
 
     @Index
     private int orderNumberInWalk;
@@ -26,5 +35,63 @@ public class OrderedWalkSound extends RealmObject {
 
 
 
+    public String getOrderedWalkID() {
+        return orderedWalkID;
+    }
 
+    public void setOrderedWalkID(String orderedWalkID) {
+        this.orderedWalkID = orderedWalkID;
+    }
+
+    public String getOrderedWalkSoundID() {
+        return orderedWalkSoundID;
+    }
+
+    public void setOrderedWalkSoundID(String orderedWalkSoundID) {
+        this.orderedWalkSoundID = orderedWalkSoundID;
+    }
+
+    public String getOrderedWalkPlaceID() {
+        return orderedWalkPlaceID;
+    }
+
+    public void setOrderedWalkPlaceID(String orderedWalkPlaceID) {
+        this.orderedWalkPlaceID = orderedWalkPlaceID;
+    }
+
+    public int getOrderNumberInWalk() {
+        return orderNumberInWalk;
+    }
+
+    public void setOrderNumberInWalk(int orderNumberInWalk) {
+        this.orderNumberInWalk = orderNumberInWalk;
+    }
+
+    public double getDistanceBeforeStage() {
+        return distanceBeforeStage;
+    }
+
+    public void setDistanceBeforeStage(double distanceBeforeStage) {
+        this.distanceBeforeStage = distanceBeforeStage;
+    }
+
+    public double getDistanceThisStage() {
+        return distanceThisStage;
+    }
+
+    public void setDistanceThisStage(double distanceThisStage) {
+        this.distanceThisStage = distanceThisStage;
+    }
+
+    public double getDistanceToFinish() {
+        return distanceToFinish;
+    }
+
+    public void setDistanceToFinish(double distanceToFinish) {
+        this.distanceToFinish = distanceToFinish;
+    }
+
+    public RealmResults<Sound> getSoundOrderedWalk() {
+        return soundOrderedWalk;
+    }
 }

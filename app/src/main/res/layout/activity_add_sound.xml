@@ -63,7 +63,7 @@
             app:layout_constraintGuide_percent="0.03"
             />
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/finshRecordButton"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -81,7 +81,7 @@
 
 
 
-        <ImageButton
+        <Button
             android:id="@+id/recordButton1"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -195,9 +195,9 @@
 
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/cancelAddSoundButton"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:background="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:text="@string/cancel"
@@ -208,9 +208,9 @@
             app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddSound"
              />
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/saveSoundButton"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:background="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:text="@string/save"

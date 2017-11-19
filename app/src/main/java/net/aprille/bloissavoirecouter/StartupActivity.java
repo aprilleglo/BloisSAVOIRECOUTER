@@ -2,6 +2,7 @@ package net.aprille.bloissavoirecouter;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -49,10 +51,17 @@ public class StartupActivity extends AppCompatActivity {
 
     final Context context = this;
     Realm realm;
+
     ImageView viewImage;
     int permissionCheckStorage;
     int permissionCheckCamera;
     int permissionCheckMicrophone;
+
+    int progressBarStatus = 0;
+    ProgressDialog progress;
+    Handler progressBarHandler;
+
+    String newPrimaryKey;
 
 
     public File BloisUserDir;
@@ -88,24 +97,24 @@ public class StartupActivity extends AppCompatActivity {
 
 //        not for production because deletes WHOLE REALM IF PROBLEM !!!!
 
-        try {
-            realm = Realm.getDefaultInstance();
-        } catch (IllegalStateException fuckYouTooAndroid) {
-            Realm.init(getApplicationContext());
-            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
-            Realm.setDefaultConfiguration(config);
-            realm = Realm.getDefaultInstance();
-        }
+//        try {
+//            realm = Realm.getDefaultInstance();
+//        } catch (IllegalStateException fuckYouTooAndroid) {
+//            Realm.init(getApplicationContext());
+//            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+//            Realm.setDefaultConfiguration(config);
+//            realm = Realm.getDefaultInstance();
+//        }
 
         // Setup Database
 
-        Toast.makeText(this, "@string/init", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "@string/init", Toast.LENGTH_LONG).show();
 
-        initializeSectors();
-        addUserFromFile();
-        addPlaceFromFile();
-        Toast.makeText(this, "@string/init", Toast.LENGTH_LONG).show();
-        addSoundsFromFile();
+//        initializeSectors();
+//        addUserFromFile();
+//        addPlaceFromFile();
+//        Toast.makeText(this, "@string/init", Toast.LENGTH_LONG).show();
+//        addSoundsFromFile();
 
 
 
@@ -153,13 +162,19 @@ public class StartupActivity extends AppCompatActivity {
 
 
 
-    public void buttonClickSave(View v)
-    {
-
+    public void buttonClickSave(View v) {
         setupPrimaryUser();
         Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
         startActivity(intent);
     }
+
+    public void buttonClickSave2(View v) {
+        Log.w("myApp", "inside click2" );
+        setupPrimaryUser();
+        Intent intent = new Intent(getApplicationContext(), PlanActivity.class);
+        startActivity(intent);
+    }
+
 
 
     public void buttonClickAddPhoto(View v)
@@ -185,7 +200,7 @@ public class StartupActivity extends AppCompatActivity {
 
         AppSpecificDetails newAppSpecificDetails;
         User newPrimaryUser;
-        String newPrimaryKey;
+
 
 
         EditText myEditText = (EditText) findViewById(R.id.signup_input_name);
@@ -199,39 +214,109 @@ public class StartupActivity extends AppCompatActivity {
             boolean didSaveUserFile = saveUserImageFile(newPrimaryKey);
 
             if ( didSaveUserFile ) {
+                // Setup Database
+                progress = new ProgressDialog(StartupActivity.this);
+                progress.setCancelable(true);
+                progress.setMessage(getString(R.string.initializing));
+                progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progress.setProgress(0);
+                progress.setMax(100);
+                progress.show();
+                Thread mThread = new Thread() {
+                    @Override
+                    public void run() {
 
-                // saveUserImageFile returned a true and save primary image file
-                String userImagefileName = newPrimaryKey +".jpg";
+                        try {
+                            realm = Realm.getDefaultInstance();
+                        } catch (IllegalStateException fuckYouTooAndroid) {
+                            Realm.init(getApplicationContext());
+                            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+                            Realm.setDefaultConfiguration(config);
+                            realm = Realm.getDefaultInstance();
+                        }
 
-                realm.beginTransaction();
-                newAppSpecificDetails = realm.createObject(AppSpecificDetails.class, newPrimaryKey);
-                newAppSpecificDetails.setPrimaryUserID(newPrimaryKey);
-                newAppSpecificDetails.setPrimaryUserName(myEditText.getText().toString());
-                newAppSpecificDetails.setPrimaryUserAbout(myAboutEditText.getText().toString());
-                newAppSpecificDetails.setPrimaryPhoto(userImagefileName);
 
-                newPrimaryUser = realm.createObject(User.class, newPrimaryKey);
-                newPrimaryUser.setUserName(myEditText.getText().toString());
-                newPrimaryUser.setUserDesc(myAboutEditText.getText().toString());
-                newPrimaryUser.setTimeJoined(newPrimaryKey);
-                newAppSpecificDetails.setLastUpdated(Calendar.getInstance().getTime());
-                newPrimaryUser.setUserPhoto(userImagefileName);
-                newPrimaryUser.setPrimaryUserBoolean(true);
-                realm.commitTransaction();
+                        progressBarStatus = initializePrimaryUsr();
+                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+                        progress.setProgress(progressBarStatus);
+                        // your computer is too fast, sleep 1 second
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        progressBarStatus = initializeSectors();
+                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+                        progress.setProgress(progressBarStatus);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        progressBarStatus = addUserFromFile();
+                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+                        progress.setProgress(progressBarStatus);
+
+                        progressBarStatus = addPlaceFromFile();
+                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        progress.setProgress(progressBarStatus);
+
+                        progressBarStatus = addSoundsFromFile();
+                        progress.setProgress(progressBarStatus);
+
+                        if (progressBarStatus >= 100) {
+
+                            // sleep 2 seconds, so that you can see the 100%
+                            try {
+                                Thread.sleep(7000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            // close the progress bar dialog
+                            progress.dismiss();
+                        }
+
+//                        progressBarStatus = addWalksFromFile() ;
+                        // close the progress bar dialog
+//                        progress.dismiss();
+
+
+                    }
+                };
+                mThread.start();
+
+
 
             } else {
                 Log.w("myApp", "newPrimaryKey didn't work" + newPrimaryKey);
 
             }
 
+
+            //reset progress bar status
+            progressBarStatus = 0;
+
+
         }
 
 
 
-        Log.w("myApp", "inside setup Primary User");
+
+
+
+        Log.e("myApp", "inside setup Primary User");
 
 
     }
+
+
 
     private void selectImage() {
 
@@ -412,7 +497,34 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     // Add Data
-    public void initializeSectors() {
+    public int initializePrimaryUsr() {
+        // saveUserImageFile returned a true and save primary image file
+        String userImagefileName = newPrimaryKey +".jpg";
+
+        EditText myEditText = (EditText) findViewById(R.id.signup_input_name);
+        EditText myAboutEditText = (EditText) findViewById(R.id.signup_input_about);
+
+        realm.beginTransaction();
+        AppSpecificDetails newAppSpecificDetails = realm.createObject(AppSpecificDetails.class, newPrimaryKey);
+        newAppSpecificDetails.setPrimaryUserID(newPrimaryKey);
+        newAppSpecificDetails.setPrimaryUserName(myEditText.getText().toString());
+        newAppSpecificDetails.setPrimaryUserAbout(myAboutEditText.getText().toString());
+        newAppSpecificDetails.setPrimaryPhoto(userImagefileName);
+
+        User newPrimaryUser = realm.createObject(User.class, newPrimaryKey);
+
+        newPrimaryUser.setUserName(myEditText.getText().toString());
+        newPrimaryUser.setUserDesc(myAboutEditText.getText().toString());
+        newPrimaryUser.setTimeJoined(newPrimaryKey);
+        newAppSpecificDetails.setLastUpdated(Calendar.getInstance().getTime());
+        newPrimaryUser.setUserPhoto(userImagefileName);
+        newPrimaryUser.setPrimaryUserBoolean(true);
+
+        realm.commitTransaction();
+        return 10;
+    }
+    // Add Data
+    public int initializeSectors() {
 
         Quadrant tryQuad  = realm.where(Quadrant.class).findFirst();
 
@@ -516,11 +628,12 @@ public class StartupActivity extends AppCompatActivity {
             realm.commitTransaction();
 
         }
+        return 20;
 
     }
 
 
-    private void addUserFromFile() {
+    private int addUserFromFile() {
 
         InputStream inputStream = getResources().openRawResource(R.raw.user);
         CSVFile csvFileSound = new CSVFile(inputStream);
@@ -570,10 +683,10 @@ public class StartupActivity extends AppCompatActivity {
                 throw new RuntimeException("Error while closing input stream: "+e);
             }
         }
-
+        return 30;
     }
 
-    private void addPlaceFromFile() {
+    private int addPlaceFromFile() {
 
         InputStream inputStream = getResources().openRawResource(R.raw.places);
         CSVFile csvFileSound = new CSVFile(inputStream);
@@ -620,13 +733,101 @@ public class StartupActivity extends AppCompatActivity {
                 throw new RuntimeException("Error while closing input stream: "+e);
             }
         }
+        return 50;
 
     }
 
 
-    private void addSoundsFromFile() {
+    private int addSoundsFromFile() {
 
         InputStream inputStreamSound = getResources().openRawResource(R.raw.sounds);
+        CSVFile csvFileSound = new CSVFile(inputStreamSound);
+
+        BufferedReader readerSound = new BufferedReader(new InputStreamReader(inputStreamSound));
+        try {
+            String csvLine;
+            int rowCount = 1;
+            while ((csvLine = readerSound.readLine()) != null) {
+                String[] row = csvLine.split("\\|");
+                String locationAddress = " ";
+                int len = row.length;
+                Log.e("myApp :: ", "Value  of csvLine " + csvLine );
+                Log.e("myApp :: ", "Value length of row " + len );
+                Sound newSound = realm.where(Sound.class).equalTo("soundID", row[0]).findFirst();
+
+                User newUser  = realm.where(User.class).equalTo("userID", row[9]).findFirst();
+
+                Quadrant newQuadrant = realm.where(Quadrant.class).equalTo("quadID", row[11]).findFirst();
+
+
+                if ((newQuadrant != null ) && (newUser != null ) && (newSound == null) ){
+
+//                   0 soundID| 1 soundName| 2 soundAbout| 3 soundFile| 4 soundPhoto|5 soundQuadrant| 6 soundUserID| 7 soundUserName| 8 soundUserBio| 9 soundUserPhoto
+//                   0 soundID| 1 soundName| 2 soundAbout | 3 soundFile| 4 soundPhoto|5 soundPhotoDesc|6 localizeMedia|7 createdByPrimaryUser| 8 soundLikes| 9 userID| 10 userName| 11 quadID| 12 locationID| 13 locationName
+
+
+                    realm.beginTransaction();
+                    Sound newSound1 = realm.createObject(Sound.class, row[0]);
+                    newSound1.setSoundName(row[1]);
+                    newSound1.setSoundDesc(row[2]);
+                    newSound1.setSoundFile(row[3]);
+                    newSound1.setSoundPhoto(row[4]);
+                    newSound1.setSoundPhotoDesc( row[5]);
+                    newSound1.setTimeCreated(getCurrDateString());
+                    newSound1.setLocalizeMedia(true);
+                    newSound1.setCreatedByPrimaryUser(false);
+                    newSound1.setSoundLikes( Integer.parseInt(row[8]) );
+                    Location newlocation = realm.where(Location.class).equalTo("locationID", row[12]).findFirst();
+                    if (newlocation  != null ) {
+                        newlocation.getLocationSounds().add(newSound1);
+                        locationAddress = newlocation.getLocationAddress();
+                    } else {
+                        locationAddress = " ";
+                    }
+                    newUser.getUserSounds().add(newSound1);
+
+                    newQuadrant.getQuadSounds().add(newSound1);
+                    String textForSearch = row[1] + " " + row[2] + " " + row[10] + " " + row[13] + " " + newUser.getUserDesc() + " " + locationAddress;
+                    newSound1.setSoundSearchText(textForSearch);
+                    realm.commitTransaction();
+                } else {
+                    Log.w("myApp :: ", "uproblem in sound  " + row[9] );
+                    if (newUser == null) {
+                        Log.e("myApp :: ", "user null!!  " + row[9] );
+
+                    }
+
+                    if (newQuadrant == null) {
+                        Log.e("myApp :: ", "Quad is null " + row[11] );
+                    }
+                    if (newSound != null) {
+                        Log.e("myApp :: ", "Sound is NOT null " + row[1] );
+
+                    }
+
+
+                }
+            }
+
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStreamSound.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
+
+        return 90;
+    }
+
+    private int addWalksFromFile() {
+
+        InputStream inputStreamSound = getResources().openRawResource(R.raw.walks);
         CSVFile csvFileSound = new CSVFile(inputStreamSound);
 
         BufferedReader readerSound = new BufferedReader(new InputStreamReader(inputStreamSound));
@@ -697,7 +898,7 @@ public class StartupActivity extends AppCompatActivity {
 
         }
         catch (IOException ex) {
-            throw new RuntimeException("Error in reading CSV file: "+ex);
+            throw new RuntimeException("Error in reading CSV file: "+ ex);
         }
         finally {
             try {
@@ -707,9 +908,9 @@ public class StartupActivity extends AppCompatActivity {
                 throw new RuntimeException("Error while closing input stream: "+e);
             }
         }
+        return 100;
 
     }
-
 
 
 

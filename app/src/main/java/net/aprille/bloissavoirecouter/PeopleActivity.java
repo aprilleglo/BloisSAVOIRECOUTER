@@ -71,7 +71,7 @@ public class PeopleActivity extends AppCompatActivity {
     RealmList<Sound>  userSoundList;
     User primaryUser;
 
-    boolean isNotDebugging = true;
+    boolean isNotDebugging = false;
 
 
     public String DirectoryFinal;
@@ -215,6 +215,11 @@ public class PeopleActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                // User chose back/UP button...
+                finish();
+                return true;
 
             case R.id.action_plan:
                 // User chose the home icon...
@@ -413,16 +418,29 @@ public class PeopleActivity extends AppCompatActivity {
                 Picasso.with(viewHolder.uImage.getContext())
                         .load(new File(thisSoundImageFilePath))
                         .centerCrop()
+                        .resize(150, 150)
                         .placeholder(R.drawable.sound_defaul_image)
                         .into(viewHolder.uImage);
             } else {
-                thisSoundImageFilePath = BloisSoundWebUrl + "/" + user.getUserPhoto();
-                Picasso.with(viewHolder.uImage.getContext())
-                        .load(thisSoundImageFilePath)
-                        .resize(150, 150)
-                        .centerCrop()
-                        .placeholder(R.drawable.user_default_image)
-                        .into(viewHolder.uImage);
+                thisSoundImageFilePath = BloisUserDirPath + "/" + user.getUserPhoto();
+                File checkImageFile = new File(thisSoundImageFilePath);
+                if (checkImageFile.exists() ){
+                    Picasso.with(viewHolder.uImage.getContext())
+                            .load(new File(thisSoundImageFilePath))
+                            .resize(150, 150)
+                            .centerCrop()
+                            .placeholder(R.drawable.sound_defaul_image)
+                            .into(viewHolder.uImage);
+
+                } else {
+                    thisSoundImageFilePath = BloisSoundWebUrl + "/" + user.getUserPhoto();
+                    Picasso.with(viewHolder.uImage.getContext())
+                            .load(thisSoundImageFilePath)
+                            .resize(150, 150)
+                            .centerCrop()
+                            .placeholder(R.drawable.user_default_image)
+                            .into(viewHolder.uImage);
+                }
 
             }
 
@@ -603,7 +621,12 @@ public class PeopleActivity extends AppCompatActivity {
                     newSound1.setSoundPhoto(row[4]);
                     newSound1.setSoundPhotoDesc( row[5]);
                     newSound1.setTimeCreated(getCurrDateString());
-                    newSound1.setLocalizeMedia(false);
+                    if (isNotDebugging) {
+                        newSound1.setLocalizeMedia(false);
+                    } else {
+                        newSound1.setLocalizeMedia(true);
+                    }
+
                     newSound1.setCreatedByPrimaryUser(false);
                     newSound1.setSoundLikes( Integer.parseInt(row[8]) );
                     Location newlocation = realm.where(Location.class).equalTo("locationID", row[12]).findFirst();

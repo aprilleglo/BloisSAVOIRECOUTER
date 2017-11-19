@@ -65,7 +65,7 @@
     <string name="number_of_sounds">- Practical information;</string>
     <string name="title_activity_add_location_maps">Add Location</string>
     <string name="title_activity_add_place">AddPlaceActivity</string>
-    <string name="title_activity_zdetail_sound">ZDetailSoundActivity</string>
+    <string name="title_activity_zdetail_sound">Blois : Learn to Listen</string>
     <string name="title_activity_add_location">AddLocationActivity</string>
     <string name="title_activity_people_detail">PeopleDetailActivity</string>
     <string name="sharing">Sharing</string>
@@ -73,7 +73,6 @@
     <string name="soundData">sound data</string>
     <string name="userData">User Data</string>
     <string name="locData">Location Data</string>
-
     <string name="search_hint">search…</string>
     <string name="record">Record</string>
     <string name="add_place_information">Add Place Information</string>
@@ -83,7 +82,7 @@
     <string name="longitude_and_latitude">Longitude and Latitude</string>
     <string name="title_activity_add_sound2">Add Sound</string>
     <string name="describe_the_sound">describe the sound…</string>
-    <string name="title_activity_privacy">PrivacyActivity</string>
+    <string name="title_activity_privacy">privacy settings</string>
     <string name="title_activity_search_sounds">SearchSoundsActivity</string>
     <string name="title_activity_walks">WalksActivity</string>
     <string name="project_map_of_blois">Project Map of Blois</string>
@@ -104,7 +103,7 @@
     <string name="application_tour">Application Tour</string>
     <string name="click_for_more_details_about_sound">click for more details about sound</string>
     <string name="setting_and_privacy">Setting and Privacy</string>
-    <string name="LongLat" translatable="false">LongLat</string>
+    <string name="LongLat">LongLat</string>
     <string name="more_about_this_user">more about this user</string>
     <string name="get_new_place_from_map">Get New Place From Map</string>
     <string name="place_id">Place ID</string>
@@ -116,7 +115,6 @@
     <string name="people_using_the_application">people using the application</string>
     <string name="mobile_application_terms_and_conditions">Mobile Application Terms and Conditions</string>
     <string name="i_have_read_and_understand_the_condition_of_use">I have read and understand the condition of use</string>
-    <string name="the_present_general_conditions_of_use_hereinafter_referred_to_as" translatable="false">The present general conditions of use (hereinafter referred to as</string>
     <string name="privacyparagraph2">By installing the Application on your terminal and / or by accessing the Application, as a visitor and / or user, you accept unconditionally and without reservation the entire UGS defined hereafter. If you do not wish to accept these Terms, we request that you do not access the Application. Any visit and / or use of the Application must be done in compliance with these GTC.</string>
     <string name="subhead1">Article 1. DEFINITIONS</string>
     <string name="paragraph3">Terms beginning with a capital letter within these Terms, whether used singly or in the plural, shall have the meanings given to them below:</string>
@@ -144,7 +142,6 @@
     <string name="privacysubhead4">Article 4. GEOLOCATION</string>
     <string name="privacyparagraph3">Terms beginning with a capital letter within these Terms, whether used singly or in the plural, shall have the meanings given to them below:</string>
     <string name="privacysubhead1">Article 1. DEFINITIONS</string>
-    <string name="privacypar1" translatable="false">privacyPar1</string>
     <string name="privacyparagraph13">To access and use the Application, you must have a compatible phone or a mobile terminal and access to the Internet.</string>
     <string name="privacyparagraph14">The application can be downloaded free of charge from the \"Apple Store\" and \"Google Play Store\" platforms on the following mobile devices:</string>
     <string name="privacylist2b">- mobile phone with Android® OS 4.4 operating system up to OS 4.4.</string>
@@ -249,6 +246,20 @@
     <string name="edit_sound_name2">Edit Sound Name</string>
     <string name="sounds">Sounds :</string>
     <string name="see_your_sound_collection">See your sound collection</string>
-    <string name="title_activity_primary_user">PrimaryUserActivity</string>
+    <string name="title_activity_primary_user">Your Sound Collection</string>
+    <string name="title_activity_maps_walk">Map</string>
+    <string name="title_activity_walk_detail">WalkDetailActivity</string>
+    <string name="distance">distance :</string>
+    <string name="walk_name">Walk Name</string>
+    <string name="walk_description">Walk description</string>
+    <string name="title_activity_walk_maps">Map</string>
+    <string name="initializing">Intializing DataBase May take some time</string>
+    <string name="forward">Forward</string>
+    <string name="parcours">Parcours :</string>
+    <string name="start">start</string>
+    <string name="finish">finish</string>
+    <string name="kilometers">kilomètres</string>
+    <string name="distance_plus">Distance :</string>
+    <string name="stage">Stage</string>
 
 </resources>

@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageButton;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -32,12 +32,25 @@ public class PlanActivity extends AppCompatActivity {
     RealmResults<Sound> allSounds;
     RealmResults<Location> allPlaces;
     RealmResults<User> allUsers;
+    float plansquaresfloat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        if ((float)displayMetrics.widthPixels < (float)displayMetrics.heightPixels ) {
+//            plansquaresfloat = ( (float)displayMetrics.widthPixels / 4 ) - 4;
+//        } else {
+//            plansquaresfloat = ( (float)displayMetrics.heightPixels / 4 ) - 4;
+//        }
+        plansquaresfloat = ( (float)displayMetrics.widthPixels / 4 ) - 4;
+        int widthsquares =(int)plansquaresfloat;
+        Log.e("myApp", "widthsquares "+ widthsquares);
+        Log.e("myApp", "(float)displayMetrics.widthPixels "+ String.valueOf((float)displayMetrics.widthPixels));
+        Log.e("myApp", "(float)displayMetrics.heightPixels "+ String.valueOf((float)displayMetrics.heightPixels));
+
+
         float ratio = ((float)displayMetrics.heightPixels / (float)displayMetrics.widthPixels
         );
         if (ratio < 1.34 ) {
@@ -66,6 +79,7 @@ public class PlanActivity extends AppCompatActivity {
 
 
 
+
 //        just to get rid of primary user for testing !!!!
 
 //        realm.beginTransaction();
@@ -91,12 +105,7 @@ public class PlanActivity extends AppCompatActivity {
 
 
         if (thisAppDetails == null) {
-            LayoutInflater inflater = getLayoutInflater();
-            View toastLayout = inflater.inflate(R.layout.content_custom_toast, (ViewGroup) findViewById(R.id.llCustom));
-            Toast toast = new Toast(getApplicationContext());
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(toastLayout);
-            toast.show();
+
             initializeSectors();
             startActivity(new Intent(PlanActivity.this, StartupActivity.class));
 
@@ -120,6 +129,7 @@ public class PlanActivity extends AppCompatActivity {
                 if (days > 1) {
                     UpdateDataBase upDateBase = new UpdateDataBase(this);
                     upDateBase.execute();
+                    Log.w("myApp", "upDateBase.execute()! " );
                 }
 
             } else {
@@ -133,6 +143,149 @@ public class PlanActivity extends AppCompatActivity {
 
 
         }
+
+        ImageButton planTitle = (ImageButton) findViewById(R.id.imageButtonTitle);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_title)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(planTitle);
+
+        ImageButton planThanks = (ImageButton) findViewById(R.id.imageButtonThanks);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_left_top)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(planThanks);
+        ImageButton planPeople =(ImageButton) findViewById(R.id.imageButtonPeople);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_secondrow_left)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(planPeople);
+
+        ImageButton plan1 =(ImageButton) findViewById(R.id.imageButtonCase1);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_1)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan1);
+        ImageButton plan2 =(ImageButton) findViewById(R.id.imageButtonCase2);
+
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_2)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan2);
+
+        ImageButton plan3 =(ImageButton) findViewById(R.id.imageButtonCase3);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_3)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan3);
+
+        ImageButton plan4 =(ImageButton) findViewById(R.id.imageButtonCase4);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_4)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan4);
+
+        ImageButton plan5 =(ImageButton) findViewById(R.id.imageButtonCase5);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_5)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan5);
+
+        ImageButton plan6 =(ImageButton) findViewById(R.id.imageButtonCase6);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_6)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan6);
+
+        ImageButton plan7 =(ImageButton) findViewById(R.id.imageButtonCase7);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_7)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan7);
+
+
+        ImageButton plan8 =(ImageButton) findViewById(R.id.imageButtonCase8);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_8)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan8);
+
+        ImageButton plan9 =(ImageButton) findViewById(R.id.imageButtonCase9);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_9)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan9);
+
+        ImageButton plan10 =(ImageButton) findViewById(R.id.imageButtonCase10);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_10)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan10);
+
+        ImageButton plan11 =(ImageButton) findViewById(R.id.imageButtonCase11);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_11)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan11);
+
+        ImageButton plan12 =(ImageButton) findViewById(R.id.imageButtonCase12);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_12)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan12);
+
+        ImageButton plan13 =(ImageButton) findViewById(R.id.imageButtonCase13);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_13)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan13);
+
+        ImageButton plan14 =(ImageButton) findViewById(R.id.imageButtonCase14);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_14)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan14);
+
+        ImageButton plan15 =(ImageButton) findViewById(R.id.imageButtonCase15);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_15)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(plan15);
+
+        ImageButton planLegende =(ImageButton) findViewById(R.id.imageButtonlegende);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_quote)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(planLegende);
+
+        ImageButton planApp =(ImageButton) findViewById(R.id.imageButtonAppImage);
+        Picasso.with(getApplicationContext())
+                .load(R.drawable.plan_ipad_square)
+                .resize (widthsquares, widthsquares)
+                .placeholder(R.drawable.sound_defaul_image)
+                .into(planApp);
+
+
+
         allSounds = realm.where(Sound.class).findAll();
         Log.e("myApp", "sound total " + String.valueOf(allSounds.size()));
 
@@ -184,6 +337,7 @@ public class PlanActivity extends AppCompatActivity {
             case R.id.explore_keyword:
                 // User chose search by keyword
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
+                intentSearch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentSearch);
                 return true;
 
@@ -191,9 +345,9 @@ public class PlanActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
+                intentGeo.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
                 startActivity(intentGeo);
-
                 return true;
 
 
@@ -201,6 +355,7 @@ public class PlanActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
+                intentPeople.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPeople);
                 return true;
 
@@ -208,6 +363,7 @@ public class PlanActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
+                intentWalks.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentWalks);
                 return true;
 
@@ -215,6 +371,7 @@ public class PlanActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
+                intentPrivacy.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPrivacy);
                 return true;
 
@@ -463,8 +620,6 @@ public class PlanActivity extends AppCompatActivity {
 
             realm.commitTransaction();
 
-            Toast.makeText(PlanActivity.this, "Initalize Quads", Toast.LENGTH_LONG)
-                    .show();
         }
 
 

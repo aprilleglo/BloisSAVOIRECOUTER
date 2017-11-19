@@ -33,7 +33,7 @@ import models.Sound;
 
 import static net.aprille.bloissavoirecouter.R.id.map;
 
-public class AddLocationMapsActivity extends AppCompatActivity implements OnMarkerClickListener,
+public class AddLocationMapsOldActivity extends AppCompatActivity implements OnMarkerClickListener,
         OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -85,15 +85,10 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
         setContentView(R.layout.activity_add_location_maps);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        if (toolbar == null) {
-            throw new Error("Can't find tool bar, did you forget to add it in Activity layout file?");
-        }
-
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
 
 
         try {
@@ -156,7 +151,7 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
             Log.w("myApp", "permissionCheckMicrophone value after request " + permissionCheckLocation );
         }
 
-//        setContentView(R.layout.activity_add_location_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
@@ -247,7 +242,7 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
                 } else if ( clickLocation.getLocationSounds().size() == 1 ) {
                     Log.w("myApp", "Size Equals 1  " + clickLocation.getLocationSounds().size());
                     Sound clickSound = clickLocation.getLocationSounds().first();
-                    Intent intent = new Intent(AddLocationMapsActivity.this, ZDetailSoundActivity.class);
+                    Intent intent = new Intent(AddLocationMapsOldActivity.this, ZDetailSoundActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("callingtype", "PLAN");
                     extras.putString("callingId", marker.getTag().toString());
@@ -263,8 +258,19 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
         });
 
 
+
+
+
+
+
+
     }
 
+
+
+
+
+    /** setup for options menu */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,18 +287,9 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-
-            case android.R.id.home:
-                // User chose back/UP button...
-                finish();
-                return true;
-
             case R.id.action_plan:
                 // User chose the home icon...
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
-                intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intentPlan.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intentPlan.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentPlan);
                 return true;
 
@@ -305,7 +302,7 @@ public class AddLocationMapsActivity extends AppCompatActivity implements OnMark
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
 
-                Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
+                Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsOldActivity.class);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
                 startActivity(intentGeo);
 

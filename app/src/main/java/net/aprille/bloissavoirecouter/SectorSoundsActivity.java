@@ -123,6 +123,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
 
 
+
         sectorQuadSoundList = sectorQuadrant.getQuadSounds();
 
         sectoQuadSound =  sectorQuadSoundList.where().findAllSorted("soundLikes", Sort.DESCENDING);
@@ -310,6 +311,13 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
                 finish();
+
+                Intent intentHome = new Intent(getApplicationContext(), PlanActivity.class);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentHome);
+
                 return true;
 
             case R.id.action_plan:
@@ -319,6 +327,10 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 startActivity(intentPlan);
                 return true;
 
@@ -340,6 +352,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
+                intentSearch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentSearch);
                 return true;
 
@@ -352,6 +365,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
 
                 Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
+                intentGeo.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentGeo);
 
                 return true;
@@ -364,6 +378,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
                 Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
+                intentPeople.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPeople);
                 return true;
 
@@ -371,6 +386,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
+                intentWalks.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentWalks);
                 return true;
 
@@ -381,6 +397,7 @@ public class SectorSoundsActivity extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
                 Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
+                intentPrivacy.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPrivacy);
                 return true;
 
@@ -472,11 +489,12 @@ public class SectorSoundsActivity extends AppCompatActivity {
                         mediaPlayer.reset();
                         mButton_plays.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     } else {
+                        thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+                        File checkSoundFile = new File(thisSoundFileString);
 
-                        if (thisSound.isLocalizeMedia()) {
+                        if (checkSoundFile.exists()) {
                             Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
 
-                            thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
                             thisSoundUri = Uri.parse(thisSoundFileString);
                             try {
                                 mediaPlayer.setDataSource(getContext(), thisSoundUri);
@@ -566,8 +584,10 @@ public class SectorSoundsActivity extends AppCompatActivity {
         @Override
         public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
             final Sound sound = realmResults.get(position);
-            if (sound.isLocalizeMedia()) {
-                thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+            thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
+            File checkImageFile = new File(thisSoundImageFilePath);
+            if (checkImageFile.exists()) {
+
                 Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
                 Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
                 Log.e("myApp :: ", "sound.getSound IN ONBIND " + sound.getSoundFile() );

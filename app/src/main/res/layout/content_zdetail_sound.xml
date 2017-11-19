@@ -16,6 +16,13 @@
              >
 
             <android.support.constraint.Guideline
+                android:id="@+id/guidelineTopSoundDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <android.support.constraint.Guideline
                 android:id="@+id/guidelineLeftSoundDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,10 +44,11 @@
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="2:1"
                 android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineTopSoundDetail"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="2dp"
+                android:paddingTop="20dp"
+                android:layout_marginTop="40dp"
                 />
 
 
@@ -61,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:contentDescription="@string/play_sound"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:background="@color/colorAccent"
                 android:tint="@color/white"
                 android:elevation="4dp"
                 app:layout_constraintTop_toBottomOf="@+id/tVQuadPhotoSoundInfo"

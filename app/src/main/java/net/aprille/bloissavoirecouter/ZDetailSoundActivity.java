@@ -133,10 +133,19 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zdetail_sound);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            throw new Error("Can't find tool bar, did you forget to add it in Activity layout file?");
+        }
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         // get intent for soundID and callback activity
 
@@ -591,7 +600,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plan, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 
@@ -604,20 +613,48 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case android.R.id.home:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                finish();
+
+                Intent intentHome = new Intent(getApplicationContext(), PlanActivity.class);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentHome);
+
+
+                return true;
+
             case R.id.action_plan:
                 // User chose the home icon...
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
                 startActivity(intentPlan);
                 return true;
 
             case R.id.explore_keyword:
                 // User chose search by keyword
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
                 startActivity(intentSearch);
                 return true;
 
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
@@ -628,6 +665,10 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
             case R.id.explore_people:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
                 startActivity(intentPeople);
@@ -635,6 +676,10 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
             case R.id.action_walks:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
                 startActivity(intentWalks);
@@ -642,6 +687,10 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
             case R.id.action_privacy:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
                 startActivity(intentPrivacy);
@@ -649,6 +698,10 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
             default:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
@@ -659,28 +712,31 @@ public class ZDetailSoundActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return true;
+//    }
 
 
 
     public void buttonClickPlaySoundDetail(View v) {
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            Log.e("myApp", "(mediaPlayer != null && mediaPlayer.isPlaying()) " + thisSound.getSoundName()) ;
+
             mediaPlayer.pause();
             ImageButton playButton = (ImageButton) findViewById(R.id.playButtonSoundDetail);
             //        playButton.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
             playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
 
         } else {
-
-            if ( thisSound.isLocalizeMedia() )  {
+            String thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+            File checkSoundFilePath = new File(thisSoundFileString);
+            if ( checkSoundFilePath.exists())  {
                 Log.e("myApp", "onplay inside islocalized mediatrue " + thisSound.getSoundName()) ;
 
-                String thisSoundFileString = BloisSoundDirPath + "/" + thisSound.getSoundFile();
+
                 Uri thisSoundUri = Uri.parse(thisSoundFileString);
                 try {
                     mediaPlayer.setDataSource(this, thisSoundUri);
@@ -698,7 +754,7 @@ public class ZDetailSoundActivity extends AppCompatActivity {
                 Log.e("myApp", "onplay inside islocalized sounddesc " + thisSound.getSoundDesc()) ;
                 Log.e("myApp", "onplay inside islocalized soundfile " + thisSound.getSoundFile()) ;
                 String BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
-                String thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
+                thisSoundFileString = BloisSoundWebUrl + "/" + thisSound.getSoundFile();
                 Log.e("myApp", "theURl " + thisSoundFileString) ;
                 //mp3 will be started after completion of preparing...
 

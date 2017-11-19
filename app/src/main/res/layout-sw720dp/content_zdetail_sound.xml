@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.02" />
+                app:layout_constraintGuide_percent="0.03" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guidelineRightSoundDetail"
@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="2dp"
+
                 />
 
 
@@ -48,10 +48,11 @@
                 android:id="@+id/tVQuadPhotoSoundInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
                 android:text="photo du projet"
                 android:textAlignment="viewEnd"
-                android:textSize="10sp"
+                android:textSize="11sp"
+                android:layout_marginRight="4dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/soundImageViewSoundDetail"
                 />
@@ -59,7 +60,7 @@
             <ImageButton
                 android:id="@+id/playButtonSoundDetail"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="55dp"
                 android:contentDescription="@string/play_sound"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:tint="@color/white"
@@ -83,7 +84,7 @@
                 android:tint="?colorAccent"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
                 android:onClick="buttonClickAddSoundPhoto"
                 />
@@ -94,10 +95,11 @@
                 android:id="@+id/tVsoundNameSoundDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="some  sound name"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintTop_toBottomOf="@+id/playButtonSoundDetail"
                 app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
                 app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
@@ -107,8 +109,9 @@
                 android:id="@+id/tVsoundDiscSoundDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="some  sound desc"
+                android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/tVsoundNameSoundDetail"
                 app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
                 app:layout_constraintRight_toRightOf="@+id/guidelineRightSoundDetail"
@@ -117,8 +120,8 @@
 
             <ImageButton
                 android:id="@+id/showUserButtonSoundDetail"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/see_more_about_this_user"
                 android:elevation="4dp"
@@ -160,12 +163,12 @@
 
             <ImageButton
                 android:id="@+id/addPlaceButtonSoundDetail"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:elevation="4dp"
                 android:contentDescription="@string/add_place_information"
                 app:srcCompat="@drawable/map_add_icon3_512"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:scaleType="fitCenter"
                 android:background="#00000000"
                 app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftSoundDetail"
@@ -212,7 +215,6 @@
             app:srcCompat="@drawable/ic_edit_black_24dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="30dp"
             android:scaleType="fitCenter"
             android:onClick="buttonClickEditSoundDetail"
             />

@@ -42,12 +42,29 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="10dp" />
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/actionbar_place_sounds"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_place_sounds"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
     <ImageView
         android:id="@+id/p_sound_ImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:contentDescription="@string/sound_image"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopPSound"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/actionbar_place_sounds"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftPSound"
         app:layout_constraintRight_toLeftOf="@+id/p_sound_PlaceName"
         app:layout_constraintBottom_toTopOf="@+id/p_sound_realm_recycler_view"
@@ -68,7 +85,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/p_sound_ImageView"
         app:layout_constraintRight_toLeftOf="@+id/guidelineRightPSound"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopPSound" />
+        app:layout_constraintTop_toTopOf="@+id/p_sound_ImageView" />
 
 
     <TextView

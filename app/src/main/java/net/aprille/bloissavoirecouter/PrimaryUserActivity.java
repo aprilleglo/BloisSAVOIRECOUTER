@@ -240,23 +240,50 @@ public class PrimaryUserActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case android.R.id.home:
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                finish();
+                return true;
+
             case R.id.action_plan:
                 // User chose the home icon...
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPlan = new Intent(getApplicationContext(), PlanActivity.class);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 startActivity(intentPlan);
                 return true;
 
+
             case R.id.explore_keyword:
                 // User chose search by keyword
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentSearch = new Intent(getApplicationContext(), SearchSoundsActivity.class);
+                intentSearch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentSearch);
                 return true;
 
             case R.id.explore_geocoding:
                 // User chose the "Favorite" action, mark the current item
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
 
                 Intent intentGeo = new Intent(getApplicationContext(), AddLocationMapsActivity.class);
                 intentGeo.putExtra("placeID", "8FV3H8QQ+7V33");
+                intentGeo.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentGeo);
 
                 return true;
@@ -264,8 +291,12 @@ public class PrimaryUserActivity extends AppCompatActivity {
 
             case R.id.explore_people:
                 // User chose the "Favorite" action, mark the current item
-
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPeople = new Intent(getApplicationContext(), PeopleActivity.class);
+                intentPeople.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPeople);
                 return true;
 
@@ -273,13 +304,18 @@ public class PrimaryUserActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
 
                 Intent intentWalks = new Intent(getApplicationContext(), WalksActivity.class);
+                intentWalks.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentWalks);
                 return true;
 
             case R.id.action_privacy:
                 // User chose the "Favorite" action, mark the current item
-
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
                 Intent intentPrivacy = new Intent(getApplicationContext(), PrivacyActivity.class);
+                intentPrivacy.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intentPrivacy);
                 return true;
 

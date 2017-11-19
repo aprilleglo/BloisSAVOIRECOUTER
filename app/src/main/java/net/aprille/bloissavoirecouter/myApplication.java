@@ -1,12 +1,8 @@
 package net.aprille.bloissavoirecouter;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
-
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Method;
 
@@ -20,12 +16,12 @@ import io.realm.RealmConfiguration;
 public class myApplication extends Application {
 
 
-    public static RefWatcher getRefWatcher(Context context) {
-        myApplication application = (myApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//    public static RefWatcher getRefWatcher(Context context) {
+//        myApplication application = (myApplication) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
     public void onCreate() {
         super.onCreate();
@@ -34,12 +30,12 @@ public class myApplication extends Application {
         RealmConfiguration config = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(config);
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
 
         if(Build.VERSION.SDK_INT>=24){
             try{

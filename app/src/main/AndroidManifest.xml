@@ -40,13 +40,14 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/provider_paths"
+                />
         </provider>
 
         <activity
             android:name=".PlanActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,7 +62,7 @@
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/myNoActionBar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -70,7 +71,8 @@
             android:name=".AppActivity"
             android:label="@string/title_activity_app"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -79,7 +81,8 @@
             android:name=".LegendeActivity"
             android:label="@string/title_activity_legende"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -88,7 +91,8 @@
             android:name=".PeopleActivity"
             android:label="@string/title_activity_people"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -99,7 +103,7 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_sector_sounds"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -109,7 +113,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/add_sounds"
             android:parentActivityName=".SectorSoundsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -128,53 +132,54 @@
         <activity
             android:name=".AddLocationMapsActivity"
             android:label="@string/title_activity_add_location_maps"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AddPlaceActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ZDetailSoundActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_zdetail_sound"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AddLocationActivity"
             android:label="@string/title_activity_add_location"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".PeopleDetailActivity"
             android:label="@string/title_activity_people_detail"
             android:parentActivityName=".PeopleActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:theme="@style/AppTheme.NoActionBar"
+                android:theme="@style/AppTheme"
                 android:value="net.aprille.bloissavoirecouter.PeopleActivity" />
         </activity>
         <activity
             android:name=".UserSoundsActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".PlaceSoundsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".PrivacyActivity"
             android:label="@string/title_activity_privacy"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".WalksActivity"
             android:label="@string/title_activity_walks"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".SearchSoundsActivity"
             android:label="@string/title_activity_search_sounds"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ThankYouActivity"
             android:label="@string/title_activity_thank_you"
             android:parentActivityName=".PlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PlanActivity" />
@@ -183,11 +188,23 @@
             android:name=".PrimaryUserActivity"
             android:label="@string/title_activity_primary_user"
             android:parentActivityName=".PeopleActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.aprille.bloissavoirecouter.PeopleActivity" />
         </activity>
+        <activity
+            android:name=".WalkDetailActivity"
+            android:label="@string/title_activity_walk_detail"
+            android:parentActivityName=".WalksActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.WalksActivity" />
+        </activity>
+        <activity
+            android:name=".WalkMapsActivity"
+            android:label="@string/title_activity_walk_maps"></activity>
     </application>
 
 </manifest>

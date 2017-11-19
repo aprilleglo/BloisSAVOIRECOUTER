@@ -59,11 +59,11 @@
         app:layout_constraintGuide_percent="0.05"/>
 
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/tourButton"
         android:layout_width="0dp"
         android:layout_height="89dp"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorAccent"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopApp"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftApp"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightApp"
@@ -75,11 +75,11 @@
         android:textColor="@color/black"
         android:onClick="buttonClickTour"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/privacyButton"
         android:layout_width="0dp"
         android:layout_height="89dp"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@+id/tourButton"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftApp"
         app:layout_constraintRight_toRightOf="@+id/guidelineRightApp"

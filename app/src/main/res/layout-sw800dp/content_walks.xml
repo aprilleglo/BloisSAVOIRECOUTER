@@ -8,4 +8,13 @@
     tools:context="net.aprille.bloissavoirecouter.WalksActivity"
     tools:showIn="@layout/activity_walks">
 
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:onClick="buttoncClickGoMap"
+        />
+
+
+
 </android.support.constraint.ConstraintLayout>
+

@@ -2,6 +2,7 @@ package net.aprille.bloissavoirecouter;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +21,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +28,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.MemoryPolicy;
@@ -84,6 +83,7 @@ public class AddSoundActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer ;
 
     File soundFilePath;
+    Uri photoURI;
 
     int permissionCheckStorage;
     int permissionCheckCamera;
@@ -287,6 +287,22 @@ public class AddSoundActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (photoURI != null) {
+            outState.putString("cameraImageUri", photoURI.toString());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.containsKey("cameraImageUri")) {
+            photoURI = Uri.parse(savedInstanceState.getString("cameraImageUri"));
+        }
+    }
+
 
 
     public void buttonClickRecord(View v) {
@@ -295,7 +311,7 @@ public class AddSoundActivity extends AppCompatActivity {
         Toast.makeText(this, "Recording started",
                 Toast.LENGTH_LONG).show();
 
-        ImageButton btnREC = (ImageButton) findViewById(R.id.recordButton1);
+        Button btnREC = (Button) findViewById(R.id.recordButton1);
         btnREC.setVisibility(View.GONE);
         Button btnStopREC=(Button)findViewById(R.id.finshRecordButton);
         btnStopREC.setVisibility(View.VISIBLE);
@@ -573,14 +589,23 @@ public class AddSoundActivity extends AppCompatActivity {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals(takePhotoDialog ))
+                if (options[item].equals(takePhotoDialog))
                 {
+//                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                    ContentValues values = new ContentValues();
+//                    values.put(MediaStore.Images.Media.TITLE, m_username);
+//                    mImageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+//                    startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
 
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     File f = new File(BloisSoundDir, thisSoundPhoto);
-                    Uri photoURI = FileProvider.getUriForFile(context,
-                            BuildConfig.APPLICATION_ID + ".provider",
-                            f);
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, thisSoundPhoto);
+//                    Uri photoURI = FileProvider.getUriForFile(context,
+//                            BuildConfig.APPLICATION_ID + ".provider",
+//                            f);
+                    photoURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(intent, 1);
                 }
@@ -636,21 +661,22 @@ public class AddSoundActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1 ) {
-
-
-                File f = new File(BloisSoundDir.toString());
-                for (File temp : f.listFiles()) {
-                    if (temp.getName().equals(thisSoundPhoto)) {
-                        f = temp;
-                        Log.w("myApp", "found temp file"  );
-                        break;
-                    }
-                }
                 File SavedFromCameraFile = new File(BloisSoundDir, thisSoundPhoto);
+                File f = new File(BloisSoundDir.toString());
+                  for (File temp : f.listFiles()) {
+                        if (temp.getName().equals(thisSoundPhoto)) {
+                            f = temp;
+                            Log.w("myApp", "found temp file"  );
+                            break;
+                        }
+                    }
+//                File SavedFromCameraFile = new File(BloisSoundDir, thisSoundPhoto);
                 try {
                     System.gc();
 
-                    Bitmap bitmap = BitmapFactory.decodeFile(SavedFromCameraFile.getAbsolutePath());
+                    photoURI = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+//                    Bitmap bitmap = BitmapFactory.decodeFile(SavedFromCameraFile.getAbsolutePath());
 //                    viewSoundImage = (ImageView)findViewById(R.id.addSoundImageView);
 //                    viewSoundImage.setImageBitmap(bitmap);
 
@@ -675,7 +701,7 @@ public class AddSoundActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                File savedCameraFile = new File(BloisSoundDir, thisSoundPhoto);
+              File savedCameraFile = new File(BloisSoundDir, thisSoundPhoto);
                 String savedCameraFileDirPath = savedCameraFile.toString();
                 ImageView viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
                 Picasso.with(this)
@@ -739,12 +765,6 @@ public class AddSoundActivity extends AppCompatActivity {
                     if (thisLocation != null) {
 
                         Log.e("myApp", "thisLocation.getLocationName() " + thisLocation.getLocationName());
-                        TextView tvPlaceNameTV =(TextView) findViewById(R.id.tvPlaceNameAddSound);
-                        tvPlaceNameTV.setText(thisLocation.getLocationAddress());
-                        TextView tvPlaceAddressTV =(TextView) findViewById(R.id.tvPlaceAddressAddSound);
-                        tvPlaceAddressTV.setText(thisLocation.getLocationAddress());
-                        TextView tvPlaceLongLatTV  =(TextView) findViewById(R.id.tvPlaceLongLatAddSound);
-                        tvPlaceLongLatTV.setText("LongLat "+thisLocation.getLongitiude().toString() +", "+ thisLocation.getLatitude());
 
                     }
 
