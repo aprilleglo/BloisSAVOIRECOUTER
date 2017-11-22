@@ -508,8 +508,6 @@ public class UserSoundsActivity extends AppCompatActivity {
         public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
             final Sound sound = realmResults.get(position);
 
-
-
             thisSoundImageFilePath = BloisSoundDirPath + "/" + sound.getSoundPhoto();
             Log.e("myApp :: ", "BloisSoundDirPath IN ONBIND " + thisSoundImageFilePath );
             Log.e("myApp :: ", "soundPhotofile name IN ONBIND " + thisSoundImageFilePath );
@@ -528,7 +526,6 @@ public class UserSoundsActivity extends AppCompatActivity {
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .placeholder(R.drawable.sound_defaul_image)
                         .into(viewHolder.mImage);
-
 
             } else {
                 thisSoundImageFilePath = BloisSoundWebUrl  + sound.getSoundPhoto();

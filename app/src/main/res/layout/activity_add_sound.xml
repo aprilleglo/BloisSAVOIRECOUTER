@@ -93,6 +93,8 @@
             app:layout_constraintRight_toRightOf="@+id/playButton1"
             android:background="#f00"
             android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
             app:srcCompat="@drawable/ic_mic_black_24dp"
             android:scaleType="fitCenter"
             android:drawableTint="@color/white"
@@ -197,7 +199,6 @@
 
         <Button
             android:id="@+id/cancelAddSoundButton"
-            android:background="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:text="@string/cancel"

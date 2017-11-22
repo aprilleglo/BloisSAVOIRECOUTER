@@ -1,8 +1,8 @@
 package net.aprille.bloissavoirecouter;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ import models.Sound;
 import models.User;
 
 import static helperfunctions.Util.getCurrDateString;
+import static net.aprille.bloissavoirecouter.R.id.addSoundImageView;
 
 
 public class AddSoundActivity extends AppCompatActivity {
@@ -114,6 +116,23 @@ public class AddSoundActivity extends AppCompatActivity {
 
     public File BloisSoundDir;
 
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static final int PICK_FROM_GALLERY = 2;
+    int CAMERA_PIC_REQUEST = 1337;
+    Bitmap thumbnail = null;
+    private static final int OG = 4;
+
+    private static final int CAMERA_IMAGE_CAPTURE = 0;
+    Uri u;
+    ImageView imgview;
+    // int z=0;
+    String z = null;
+    byte b[];
+    String largeImagePath = "";
+    Uri uriLargeImage;
+    Uri uriThumbnailImage;
+    Cursor myCursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +164,7 @@ public class AddSoundActivity extends AppCompatActivity {
         bntEditEditDesc.setVisibility(View.INVISIBLE);
 
 
-        ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
+        ImageView bntSoundImage= (ImageView)findViewById(addSoundImageView);
         bntSoundImage.setVisibility(View.INVISIBLE);
         ImageButton bntSavePhoto=(ImageButton)findViewById(R.id.addimageSoundButton);
         bntSavePhoto.setVisibility(View.INVISIBLE);
@@ -288,21 +307,10 @@ public class AddSoundActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (photoURI != null) {
-            outState.putString("cameraImageUri", photoURI.toString());
-        }
+        outState.putString("message",largeImagePath );
     }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState.containsKey("cameraImageUri")) {
-            photoURI = Uri.parse(savedInstanceState.getString("cameraImageUri"));
-        }
-    }
-
 
 
     public void buttonClickRecord(View v) {
@@ -430,7 +438,7 @@ public class AddSoundActivity extends AppCompatActivity {
         Button bntSaveREC=(Button)findViewById(R.id.saveSoundButton);
         bntSaveREC.setVisibility(View.VISIBLE);
 
-         ImageView bntSoundImage= (ImageView)findViewById(R.id.addSoundImageView);
+        ImageView bntSoundImage= (ImageView)findViewById(addSoundImageView);
         bntSoundImage.setVisibility(View.VISIBLE);
         Picasso.with(this)
                 .load(R.drawable.people_placeholder)
@@ -591,23 +599,26 @@ public class AddSoundActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(takePhotoDialog))
                 {
-//                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                    ContentValues values = new ContentValues();
-//                    values.put(MediaStore.Images.Media.TITLE, m_username);
-//                    mImageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-//                    startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+                    String BX1 =  android.os.Build.MANUFACTURER;
+                    Log.e("myApp", "inside samsung exception " + "Device man "+ BX1);
 
-                    Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(BloisSoundDir, thisSoundPhoto);
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.TITLE, thisSoundPhoto);
-//                    Uri photoURI = FileProvider.getUriForFile(context,
-//                            BuildConfig.APPLICATION_ID + ".provider",
-//                            f);
-                    photoURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    startActivityForResult(intent, 1);
+                    if(BX1.equalsIgnoreCase("samsung")) {
+                        Log.e("myApp", "inside samsung exception " + "Device man "+ BX1);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, CAMERA_IMAGE_CAPTURE);
+
+                    } else {
+                        Log.e("myApp", "inside OTHER " + "Device man " + BX1);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
+                        Uri photoURI = FileProvider.getUriForFile(context,
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                f);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoURI));
+                        startActivityForResult(intent, 1);
+                    }
                 }
                 else if (options[item].equals(choosePhotoDialog))
                 {
@@ -703,7 +714,7 @@ public class AddSoundActivity extends AppCompatActivity {
 
               File savedCameraFile = new File(BloisSoundDir, thisSoundPhoto);
                 String savedCameraFileDirPath = savedCameraFile.toString();
-                ImageView viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
+                ImageView viewSoundImage = (ImageView) findViewById(addSoundImageView);
                 Picasso.with(this)
                         .load(new File(savedCameraFileDirPath))
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -746,7 +757,7 @@ public class AddSoundActivity extends AppCompatActivity {
                 }
                 String SavedFromGalleryFileDirPath = SavedFromGalleryFile.toString();
 
-                ImageView viewSoundImage = (ImageView) findViewById(R.id.addSoundImageView);
+                ImageView viewSoundImage = (ImageView) findViewById(addSoundImageView);
                 Picasso.with(this)
                         .load(new File(SavedFromGalleryFileDirPath))
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -769,6 +780,121 @@ public class AddSoundActivity extends AppCompatActivity {
                     }
 
                 }
+
+
+            } else if ((requestCode == CAMERA_IMAGE_CAPTURE) && (resultCode== Activity.RESULT_OK) ) {  // this is requestcode for samsung phone
+                // Describe the columns you'd like to have returned. Selecting from the Thumbnails location gives you both the Thumbnail Image ID, as well as the original image ID
+                Log.e("myApp", "requestCode == CAMERA_IMAGE_CAPTURE" );
+
+                String[] projection = {
+                        MediaStore.Images.Thumbnails._ID,  // The columns we want
+                        MediaStore.Images.Thumbnails.IMAGE_ID,
+                        MediaStore.Images.Thumbnails.KIND,
+                        MediaStore.Images.Thumbnails.DATA};
+                String selection = MediaStore.Images.Thumbnails.KIND + "="  + // Select only mini's
+                        MediaStore.Images.Thumbnails.MINI_KIND;
+
+                String sort = MediaStore.Images.Thumbnails._ID + " DESC";
+
+//At the moment, this is a bit of a hack, as I'm returning ALL images, and just taking the latest one. There is a better way to narrow this down I think with a WHERE clause which is currently the selection variable
+                Cursor myCursor = this.getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, projection, selection, null, sort);
+
+                long imageId = 0l;
+                long thumbnailImageId = 0l;
+                String thumbnailPath = "";
+
+                try {
+                    myCursor.moveToFirst();
+                    imageId = myCursor.getLong(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.IMAGE_ID));
+                    thumbnailImageId = myCursor.getLong(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID));
+                    thumbnailPath = myCursor.getString(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA));
+                } finally {
+                    myCursor.close();
+                }
+
+                //Create new Cursor to obtain the file Path for the large image
+
+                String[] largeFileProjection = {
+                        MediaStore.Images.ImageColumns._ID,
+                        MediaStore.Images.ImageColumns.DATA
+                };
+
+                String largeFileSort = MediaStore.Images.ImageColumns._ID + " DESC";
+                myCursor = this.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, largeFileProjection, null, null, largeFileSort);
+                largeImagePath = "";
+
+                try {
+                    myCursor.moveToFirst();
+
+                    //This will actually give yo uthe file path location of the image.
+                    largeImagePath = myCursor.getString(myCursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA));
+                } finally {
+                    myCursor.close();
+                }
+                // These are the two URI's you'll be interested in. They give you a handle to the actual images
+                uriLargeImage = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, String.valueOf(imageId));
+                uriThumbnailImage = Uri.withAppendedPath(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, String.valueOf(thumbnailImageId));
+
+                // I've left out the remaining code, as all I do is assign the URI's to my own objects anyways...
+                // Toast.makeText(this, ""+largeImagePath, Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, ""+uriLargeImage, Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, ""+uriThumbnailImage, Toast.LENGTH_LONG).show();
+
+
+                if (largeImagePath != null) {
+                    Toast.makeText(this, "LARGE YES"+largeImagePath, Toast.LENGTH_LONG).show();
+                    Log.e("myApp", "LARGE YES in  largeImagePath != null " +largeImagePath );
+
+                    Bitmap bitmap;
+                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    bitmap = BitmapFactory.decodeFile(largeImagePath,
+                            bitmapOptions);
+
+
+                    OutputStream outFile = null;
+                    File file = new File(BloisSoundDir, thisSoundPhoto);
+
+                    try {
+                        outFile = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+                        outFile.flush();
+                        outFile.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+//                    BitmapFactory.Options opts = new BitmapFactory.Options();
+//                    opts.inSampleSize = OG;
+//                    thumbnail = BitmapFactory.decodeFile((largeImagePath), opts);
+                    System.gc();
+                    if (thumbnail != null) {
+                        Toast.makeText(this, "Try Without Saved Instance", Toast.LENGTH_LONG).show();
+                        Log.e("myApp", "Try Without Saved Instance in  thumbnail != null" );
+                        //imageCam(thumbnail);
+                    }
+                }
+                if (uriLargeImage != null) {
+                    Toast.makeText(this, ""+uriLargeImage, Toast.LENGTH_LONG).show();
+                }
+                if (uriThumbnailImage != null) {
+                    Toast.makeText(this, ""+uriThumbnailImage, Toast.LENGTH_LONG).show();
+                }
+                File savedCameraFile = new File(BloisSoundDir, thisSoundPhoto);
+                String savedCameraFileDirPath = savedCameraFile.toString();
+
+
+                ImageView bntSoundImage= (ImageView)findViewById(addSoundImageView);
+                Picasso.with(this)
+                        .load(new File(savedCameraFileDirPath))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(bntSoundImage);
 
 
             }

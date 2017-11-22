@@ -1,6 +1,7 @@
 package net.aprille.bloissavoirecouter;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -23,6 +25,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,6 +50,7 @@ import models.Sound;
 import models.User;
 
 import static helperfunctions.Util.getCurrDateString;
+import static net.aprille.bloissavoirecouter.R.id.addSoundImageView;
 
 public class StartupActivity extends AppCompatActivity {
 
@@ -85,6 +91,23 @@ public class StartupActivity extends AppCompatActivity {
      * Id to identify a contacts permission request.
      */
     private static final int REQUEST_MICROPHONE = 2;
+
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static final int PICK_FROM_GALLERY = 2;
+    int CAMERA_PIC_REQUEST = 1337;
+    Bitmap thumbnail = null;
+    private static final int OG = 4;
+
+    private static final int CAMERA_IMAGE_CAPTURE = 0;
+    Uri u;
+    ImageView imgview;
+    // int z=0;
+    String z = null;
+    byte b[];
+    String largeImagePath = "";
+    Uri uriLargeImage;
+    Uri uriThumbnailImage;
+    Cursor myCursor;
 
 
     @Override
@@ -215,17 +238,23 @@ public class StartupActivity extends AppCompatActivity {
 
             if ( didSaveUserFile ) {
                 // Setup Database
-                progress = new ProgressDialog(StartupActivity.this);
-                progress.setCancelable(true);
-                progress.setMessage(getString(R.string.initializing));
-                progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                progress.setProgress(0);
-                progress.setMax(100);
-                progress.show();
-                Thread mThread = new Thread() {
-                    @Override
-                    public void run() {
 
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+//                        progressDialog = ProgressDialog.show(Activity.this, "", "Please wait");
+                        progress = new ProgressDialog(StartupActivity.this);
+                        progress.setCancelable(true);
+                        progress.setMessage(getString(R.string.initializing));
+                        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        progress.setProgress(0);
+                        progress.setMax(100);
+                        progress.show();
+                    }
+
+                    @Override
+                    protected  Void doInBackground(Void... params) {
                         try {
                             realm = Realm.getDefaultInstance();
                         } catch (IllegalStateException fuckYouTooAndroid) {
@@ -234,63 +263,100 @@ public class StartupActivity extends AppCompatActivity {
                             Realm.setDefaultConfiguration(config);
                             realm = Realm.getDefaultInstance();
                         }
+                        initializePrimaryUsr();
+                        initializeSectors();
+                        addUserFromFile();
+                        addPlaceFromFile();
+                        addSoundsFromFile();
 
 
-                        progressBarStatus = initializePrimaryUsr();
-                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
-                        progress.setProgress(progressBarStatus);
-                        // your computer is too fast, sleep 1 second
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
 
-                        progressBarStatus = initializeSectors();
-                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
-                        progress.setProgress(progressBarStatus);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        progressBarStatus = addUserFromFile();
-                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
-                        progress.setProgress(progressBarStatus);
 
-                        progressBarStatus = addPlaceFromFile();
-                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        progress.setProgress(progressBarStatus);
 
-                        progressBarStatus = addSoundsFromFile();
-                        progress.setProgress(progressBarStatus);
 
-                        if (progressBarStatus >= 100) {
 
-                            // sleep 2 seconds, so that you can see the 100%
-                            try {
-                                Thread.sleep(7000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            // close the progress bar dialog
-                            progress.dismiss();
-                        }
 
 //                        progressBarStatus = addWalksFromFile() ;
-                        // close the progress bar dialog
-//                        progress.dismiss();
-
-
+                        return null;
                     }
-                };
-                mThread.start();
+
+                    @Override
+                    protected void onPostExecute(Void args) {
+                        progress.dismiss();
+                    }
+                }.execute();
+
+
+
+//                Thread mThread = new Thread() {
+//                    @Override
+//                    public void run() {
+//
+//                        try {
+//                            realm = Realm.getDefaultInstance();
+//                        } catch (IllegalStateException fuckYouTooAndroid) {
+//                            Realm.init(getApplicationContext());
+//                            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+//                            Realm.setDefaultConfiguration(config);
+//                            realm = Realm.getDefaultInstance();
+//                        }
+//
+//
+//                        progressBarStatus = initializePrimaryUsr();
+//                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+//                        progress.setProgress(progressBarStatus);
+//                        // your computer is too fast, sleep 1 second
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        progressBarStatus = initializeSectors();
+//                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+//                        progress.setProgress(progressBarStatus);
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        progressBarStatus = addUserFromFile();
+//                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+//                        progress.setProgress(progressBarStatus);
+//
+//                        progressBarStatus = addPlaceFromFile();
+//                        Log.e("myApp", "progressBarStatus" + String.valueOf(progressBarStatus) );
+//                        try {
+//                            Thread.sleep(2000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        progress.setProgress(progressBarStatus);
+//
+//                        progressBarStatus = addSoundsFromFile();
+//                        progress.setProgress(progressBarStatus);
+//
+//                        if (progressBarStatus >= 100) {
+//
+//                            // sleep 2 seconds, so that you can see the 100%
+//                            try {
+//                                Thread.sleep(7000);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            // close the progress bar dialog
+//                            progress.dismiss();
+//                        }
+//
+////                        progressBarStatus = addWalksFromFile() ;
+//                        // close the progress bar dialog
+////                        progress.dismiss();
+//
+//
+//                    }
+//                };
+//                mThread.start();
 
 
 
@@ -334,15 +400,26 @@ public class StartupActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(takePhotoDialog ))
                 {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
-                    Uri photoURI = FileProvider.getUriForFile(context,
-                            BuildConfig.APPLICATION_ID + ".provider",
-                            f);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    String BX1 =  android.os.Build.MANUFACTURER;
+                    Log.e("myApp", "inside samsung exception " + "Device man "+ BX1);
+
+                    if(BX1.equalsIgnoreCase("samsung")) {
+                        Log.e("myApp", "inside samsung exception " + "Device man "+ BX1);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, CAMERA_IMAGE_CAPTURE);
+
+                    } else {
+                        Log.e("myApp", "inside OTHER " + "Device man " + BX1);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
+                        Uri photoURI = FileProvider.getUriForFile(context,
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                f);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
 //                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoURI));
-                    startActivityForResult(intent, 1);
+                        startActivityForResult(intent, 1);
+                    }
                 }
                 else if (options[item].equals(choosePhotoDialog))
                 {
@@ -441,7 +518,123 @@ public class StartupActivity extends AppCompatActivity {
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.w("myApp", "path of image from gallery" + picturePath + "");
                 viewImage.setImageBitmap(thumbnail);
+            } else if ((requestCode == CAMERA_IMAGE_CAPTURE) && (resultCode== Activity.RESULT_OK) ) {  // this is requestcode for samsung phone
+                // Describe the columns you'd like to have returned. Selecting from the Thumbnails location gives you both the Thumbnail Image ID, as well as the original image ID
+                Log.e("myApp", "requestCode == CAMERA_IMAGE_CAPTURE" );
+
+                String[] projection = {
+                        MediaStore.Images.Thumbnails._ID,  // The columns we want
+                        MediaStore.Images.Thumbnails.IMAGE_ID,
+                        MediaStore.Images.Thumbnails.KIND,
+                        MediaStore.Images.Thumbnails.DATA};
+                String selection = MediaStore.Images.Thumbnails.KIND + "="  + // Select only mini's
+                        MediaStore.Images.Thumbnails.MINI_KIND;
+
+                String sort = MediaStore.Images.Thumbnails._ID + " DESC";
+
+//At the moment, this is a bit of a hack, as I'm returning ALL images, and just taking the latest one. There is a better way to narrow this down I think with a WHERE clause which is currently the selection variable
+                Cursor myCursor = this.getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, projection, selection, null, sort);
+
+                long imageId = 0l;
+                long thumbnailImageId = 0l;
+                String thumbnailPath = "";
+
+                try {
+                    myCursor.moveToFirst();
+                    imageId = myCursor.getLong(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.IMAGE_ID));
+                    thumbnailImageId = myCursor.getLong(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID));
+                    thumbnailPath = myCursor.getString(myCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA));
+                } finally {
+                    myCursor.close();
+                }
+
+                //Create new Cursor to obtain the file Path for the large image
+
+                String[] largeFileProjection = {
+                        MediaStore.Images.ImageColumns._ID,
+                        MediaStore.Images.ImageColumns.DATA
+                };
+
+                String largeFileSort = MediaStore.Images.ImageColumns._ID + " DESC";
+                myCursor = this.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, largeFileProjection, null, null, largeFileSort);
+                largeImagePath = "";
+
+                try {
+                    myCursor.moveToFirst();
+
+                    //This will actually give yo uthe file path location of the image.
+                    largeImagePath = myCursor.getString(myCursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA));
+                } finally {
+                    myCursor.close();
+                }
+                // These are the two URI's you'll be interested in. They give you a handle to the actual images
+                uriLargeImage = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, String.valueOf(imageId));
+                uriThumbnailImage = Uri.withAppendedPath(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, String.valueOf(thumbnailImageId));
+
+                // I've left out the remaining code, as all I do is assign the URI's to my own objects anyways...
+                // Toast.makeText(this, ""+largeImagePath, Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, ""+uriLargeImage, Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, ""+uriThumbnailImage, Toast.LENGTH_LONG).show();
+
+
+                if (largeImagePath != null) {
+                    Toast.makeText(this, "LARGE YES"+largeImagePath, Toast.LENGTH_LONG).show();
+                    Log.e("myApp", "LARGE YES in  largeImagePath != null " +largeImagePath );
+
+                    Bitmap bitmap;
+                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    bitmap = BitmapFactory.decodeFile(largeImagePath,
+                            bitmapOptions);
+
+
+                    OutputStream outFile = null;
+                    File file = new File(BloisSoundDir, newPrimaryKey);
+
+                    try {
+                        outFile = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+                        outFile.flush();
+                        outFile.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+//                    BitmapFactory.Options opts = new BitmapFactory.Options();
+//                    opts.inSampleSize = OG;
+//                    thumbnail = BitmapFactory.decodeFile((largeImagePath), opts);
+                    System.gc();
+                    if (thumbnail != null) {
+                        Toast.makeText(this, "Try Without Saved Instance", Toast.LENGTH_LONG).show();
+                        Log.e("myApp", "Try Without Saved Instance in  thumbnail != null" );
+                        //imageCam(thumbnail);
+                    }
+                }
+                if (uriLargeImage != null) {
+                    Toast.makeText(this, ""+uriLargeImage, Toast.LENGTH_LONG).show();
+                }
+                if (uriThumbnailImage != null) {
+                    Toast.makeText(this, ""+uriThumbnailImage, Toast.LENGTH_LONG).show();
+                }
+                File savedCameraFile = new File(BloisUserDir, newPrimaryKey);
+                String savedCameraFileDirPath = savedCameraFile.toString();
+
+
+                ImageView bntSoundImage= (ImageView)findViewById(addSoundImageView);
+                Picasso.with(this)
+                        .load(new File(savedCameraFileDirPath))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .placeholder(R.drawable.people_placeholder)
+                        .into(bntSoundImage);
+
+
             }
+
         }
     }
 

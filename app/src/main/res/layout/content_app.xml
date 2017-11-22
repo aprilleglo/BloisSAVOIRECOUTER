@@ -59,7 +59,7 @@
         app:layout_constraintGuide_percent="0.05"/>
 
 
-    <ImageButton
+    <Button
         android:id="@+id/tourButton"
         android:layout_width="0dp"
         android:layout_height="89dp"
@@ -75,7 +75,7 @@
         android:textColor="@color/black"
         android:onClick="buttonClickTour"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/privacyButton"
         android:layout_width="0dp"
         android:layout_height="89dp"

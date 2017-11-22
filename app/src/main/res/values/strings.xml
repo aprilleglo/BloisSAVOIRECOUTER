@@ -255,11 +255,19 @@
     <string name="title_activity_walk_maps">Map</string>
     <string name="initializing">Intializing DataBase May take some time</string>
     <string name="forward">Forward</string>
-    <string name="parcours">Parcours :</string>
+    <string name="parcours">Walk :</string>
     <string name="start">start</string>
     <string name="finish">finish</string>
-    <string name="kilometers">kilomètres</string>
+    <string name="kilometers">kilometres</string>
     <string name="distance_plus">Distance :</string>
     <string name="stage">Stage</string>
+    <string name="title_activity_walk_add">WalkAddActivity</string>
+    <string name="accessible">Accessible ?</string>
+    <string name="loop">Loop ?</string>
+    <string name="calculate_distances">Calculate Distances</string>
+    <string name="caculate">caculate</string>
+    <string name="textview_walk_info">TextView Walk Info</string>
+    <string name="place_na">Place Name</string>
+    <string name="empty_walk_add_at_least_2_places">Empty Walk ! Add at least 2 places !</string>
 
 </resources>

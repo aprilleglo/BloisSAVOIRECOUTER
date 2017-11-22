@@ -74,7 +74,7 @@
         android:textColor="@color/black"
         android:onClick="buttonClickGeoCodedPlan"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/exploreParcoursButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
@@ -91,7 +91,7 @@
         android:textColor="@color/black"
         android:onClick="buttonClickExploreParcours"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/exploreKeyWordButton"
         android:layout_width="0dp"
         android:layout_height="65dp"

@@ -35,6 +35,8 @@ public class Walk extends RealmObject {
 
     private int numPlacesInWalk;
 
+    private String walkCreatorID;
+
     private RealmList<OrderedWalkSound> orderedWalkSounds;
 
 
@@ -126,6 +128,14 @@ public class Walk extends RealmObject {
 
     public void setNumPlacesInWalk(int numPlacesInWalk) {
         this.numPlacesInWalk = numPlacesInWalk;
+    }
+
+    public String getWalkCreatorID() {
+        return walkCreatorID;
+    }
+
+    public void setWalkCreatorID(String walkCreatorID) {
+        this.walkCreatorID = walkCreatorID;
     }
 
     public RealmList<OrderedWalkSound> getOrderedWalkSounds() {

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="net.aprille.bloissavoirecouter.WalkAddActivity"
+        >
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"
+            />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineLeftMiddleAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"
+            />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineRightAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95"
+           />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95"
+           />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBottomMiddleAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85"
+          />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineTopAddWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05"
+         />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/add_Walk_name_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopAddWalk">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/walk_name_imput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:hint="@string/namelabel"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/add_Walk_desc_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintTop_toBottomOf="@+id/add_Walk_name_input_layout"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/walk_desc_imput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:hint="@string/sound_description" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView_walk_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/add_Walk_desc_input_layout"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk"
+            android:text="@string/textview_walk_info" />
+
+        <LinearLayout
+            android:id="@+id/addWalkLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/textView_walk_info"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk"
+            >
+
+            <ImageView
+                android:id="@+id/walk_add_icon_access"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_accessible_black_24dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxAcess"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/accessible"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxLoop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/loop"
+                />
+
+            <Button
+                android:id="@+id/button_calculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/caculate"
+                android:onClick="buttonCalculateDistances"/>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/addWalkImageView"
+            android:contentDescription="@string/sound_image"
+            android:drawable="@drawable/sound_defaul_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:cropToPadding="false"
+            app:layout_constraintDimensionRatio="3:1"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/addWalkLinearLayout"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/addimageWalkButton"
+            android:contentDescription="@string/addUserPhoto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/addWalkImageView"
+            app:layout_constraintRight_toRightOf="@+id/addWalkImageView"
+            app:layout_constraintLeft_toLeftOf="@+id/addWalkImageView"
+            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+            android:tint="?colorAccent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="32dp"
+            android:onClick="buttonClickAddWalkPhoto"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+            android:id="@+id/walk_stage_add_realm_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/saveWalkButton"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomAddWalk"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:rrvIsRefreshable="true"
+            app:rrvEmptyLayoutId="@layout/empty_layout"
+            app:rrvLayoutType="LinearLayout"
+            app:rrvSwipeToDelete="true"
+            />
+
+
+
+        <Button
+            android:id="@+id/saveWalkButton"
+            android:background="@color/colorAccent"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/save"
+            android:textColor="@color/black"
+            android:layout_marginTop="9dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeftAddWalk"
+            app:layout_constraintTop_toBottomOf="@+id/addWalkImageView"
+            android:onClick="buttonClickSaveWalk"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRightAddWalk"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

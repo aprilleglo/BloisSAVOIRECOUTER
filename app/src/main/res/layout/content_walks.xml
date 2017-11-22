@@ -8,10 +8,32 @@
     tools:context="net.aprille.bloissavoirecouter.WalksActivity"
     tools:showIn="@layout/activity_walks">
 
-    <android.support.design.widget.CheckableImageButton
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:onClick="buttoncClickGoMap"
-        />
+    <!--<Button-->
+        <!--android:layout_width="304dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:id="@+id/goMap2"-->
+        <!--android:onClick="buttoncClickGoMap"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--/>-->
+
+
+
+    <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+        android:id="@+id/walks_realm_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:rrvSwipeToDelete="true"
+        app:rrvIsRefreshable="true"
+        app:rrvLayoutType="LinearLayout"
+
+         />
+
 
 </android.support.constraint.ConstraintLayout>

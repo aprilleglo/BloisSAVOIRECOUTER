@@ -393,8 +393,6 @@ public class PeopleActivity extends AppCompatActivity {
                 }
             }
 
-
-
         }
 
         // The Viewholder which we inflate here the layout for items in recycleview here note_item
@@ -456,27 +454,16 @@ public class PeopleActivity extends AppCompatActivity {
             int thisUserNumSoundComputed = userSoundList.size();
             int thisUserNumSoundRetreived = user.getNumUserSounds();
             if (thisUserNumSoundRetreived != thisUserNumSoundComputed) {
-//                String numSoundString = Integer.toString( thisUserNumSoundComputed );
-//                realm.beginTransaction();
-//                user.setNumUserSounds(thisUserNumSoundComputed);
-//                realm.commitTransaction();
-//                Log.w("myApp :: ", "Huston we have a problem commputed " + thisUserNumSoundComputed );
-                Log.w("myApp :: ", "Huston we have a problem retrieved " + thisUserNumSoundComputed );
+                Log.w("myApp :: ", "Huston we have a problem retrieved " + String.valueOf(thisUserNumSoundComputed) );
                 Log.w("myApp :: ", "Huston we have a problem string " + thisis14 );
-//                Log.w("myApp :: ", "Huston we have a problem string " + ?numSoundString );
 
             } else {
                 String numSoundString = Integer.toString( thisUserNumSoundComputed  );
-//                Log.w("myApp :: ", "Huston we don't have a problem commputed " + thisUserNumSoundComputed );
-//                Log.w("myApp :: ", "Huston we don't have a problem retrieved " + thisUserNumSoundComputed );
-//                Log.w("myApp :: ", "Huston don'twe have a problem string " + numSoundString );
-
 
             }
 
             String numSoundString = Integer.toString( thisUserNumSoundComputed );
             viewHolder.uSounds.setText( numSoundString );
-
 
         }
     }

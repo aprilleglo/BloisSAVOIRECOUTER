@@ -59,7 +59,7 @@
         app:layout_constraintGuide_percent="0.05"/>
 
 
-    <ImageButton
+    <Button
         android:id="@+id/explorePlanButton"
         android:layout_width="0dp"
         android:layout_height="124dp"
@@ -76,7 +76,7 @@
         android:textColor="@color/colorPrimaryLight"
         android:onClick="buttonClickGeoCodedPlan"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/exploreParcoursButton"
         android:layout_width="0dp"
         android:layout_height="124dp"
@@ -94,7 +94,7 @@
         android:textColor="@color/colorPrimaryLight"
         android:onClick="buttonClickExploreParcours"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/exploreKeyWordButton"
         android:layout_width="0dp"
         android:layout_height="124dp"

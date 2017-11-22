@@ -216,11 +216,25 @@
     <string name="LongLat">LongLat</string>
     <string name="edit_sound_desc">Modifier la description du son</string>
     <string name="edit_sound_descript">Modifier la description du son</string>
-    <string name="edit_sound_name">Modifier la description du son</string>
+    <string name="edit_sound_name">Modifier le nom du son</string>
     <string name="edit_sound_name2">Modifier le nom du son</string>
     <string name="edit_sound_text">Modifier le texte du son</string>
     <string name="play">play</string>
     <string name="see_your_sound_collection">Voir votre collection de sons</string>
     <string name="sounds">"sons : "</string>
     <string name="title_activity_primary_user">votre collection de sons</string>
+    <string name="kilometers">kilomètres</string>
+    <string name="finish">fin</string>
+    <string name="parcours">Parcours :</string>
+    <string name="title_activity_maps_walk">Plan</string>
+    <string name="start">début</string>
+    <string name="stage">"stage "</string>
+    <string name="walk_description">à propos parcours</string>
+    <string name="walk_name">nom du parcours</string>
+    <string name="title_activity_walk_maps">Plan</string>
+    <string name="initializing">Initialisation de DataBase ! Peut prendre un certain temps !</string>
+    <string name="distance">"distance : "</string>
+    <string name="distance_plus">"Distance : "</string>
+    <string name="forward">avant</string>
+    <string name="title_activity_walk_detail">détail du parcours</string>
 </resources>

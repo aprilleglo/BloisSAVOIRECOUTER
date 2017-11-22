@@ -47,8 +47,6 @@
                 app:layout_constraintTop_toTopOf="@+id/guidelineTopSoundDetail"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:paddingTop="20dp"
-                android:layout_marginTop="40dp"
                 />
 
 

@@ -40,8 +40,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"
-                />
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity
@@ -70,8 +69,8 @@
         <activity
             android:name=".AppActivity"
             android:label="@string/title_activity_app"
-            android:parentActivityName=".PlanActivity"
             android:launchMode="singleTask"
+            android:parentActivityName=".PlanActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -80,8 +79,8 @@
         <activity
             android:name=".LegendeActivity"
             android:label="@string/title_activity_legende"
-            android:parentActivityName=".PlanActivity"
             android:launchMode="singleTask"
+            android:parentActivityName=".PlanActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -90,8 +89,8 @@
         <activity
             android:name=".PeopleActivity"
             android:label="@string/title_activity_people"
-            android:parentActivityName=".PlanActivity"
             android:launchMode="singleTask"
+            android:parentActivityName=".PlanActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -148,8 +147,8 @@
         <activity
             android:name=".PeopleDetailActivity"
             android:label="@string/title_activity_people_detail"
-            android:parentActivityName=".PeopleActivity"
             android:launchMode="singleTask"
+            android:parentActivityName=".PeopleActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -204,7 +203,16 @@
         </activity>
         <activity
             android:name=".WalkMapsActivity"
-            android:label="@string/title_activity_walk_maps"></activity>
+            android:label="@string/title_activity_walk_maps" />
+        <activity
+            android:name=".WalkAddActivity"
+            android:label="@string/title_activity_walk_add"
+            android:parentActivityName=".WalksActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.aprille.bloissavoirecouter.WalksActivity" />
+        </activity>
     </application>
 
 </manifest>

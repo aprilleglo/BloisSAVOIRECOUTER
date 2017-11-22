@@ -1,33 +1,50 @@
 package net.aprille.bloissavoirecouter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
+import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import io.realm.RealmResults;
+import io.realm.RealmViewHolder;
 import models.OrderedWalkSound;
 import models.Sound;
 import models.Walk;
+
+import static helperfunctions.Util.getCurrDateString;
 
 public class WalksActivity extends AppCompatActivity {
 
     String DirectoryFinal;
     File BloisUserDir;
     File BloisSoundDir;
+    File BloisWalkDir;
     File BloisDir;
     String BloisUserDirPath;
     String BloisSoundDirPath;
+    String BloisWalkDirPath;
     String thisSoundImageFilePath;
     String BloisSoundWebUrl;
 
@@ -36,6 +53,10 @@ public class WalksActivity extends AppCompatActivity {
     Realm realm;
     RealmConfiguration nRealmConfig;
 
+
+    Context context = this;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +64,15 @@ public class WalksActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // get metrics
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        Log.e("myApp", "(float)displayMetrics.widthPixels "+ String.valueOf((float)displayMetrics.widthPixels));
+        Log.e("myApp", "(float)displayMetrics.heightPixels "+ String.valueOf((float)displayMetrics.heightPixels));
+
+
 
         try {
             realm = Realm.getDefaultInstance();
@@ -53,10 +83,12 @@ public class WalksActivity extends AppCompatActivity {
             realm = Realm.getDefaultInstance();
         }
 
+        BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
         BloisUserDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/users");
         BloisSoundDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/sounds");
+        BloisWalkDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData/walks");
         BloisSoundDirPath = BloisSoundDir.toString();
-        BloisDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "BloisData");
+        BloisWalkDirPath = BloisWalkDir.toString();
 
         BloisSoundWebUrl = "http://savoir-ecouter.aprille.net/wp-content/uploads/";
 
@@ -66,11 +98,27 @@ public class WalksActivity extends AppCompatActivity {
 
         if (thisFirstWalk == null) {
 
-       // setupWALK();
+      //  setupWALK();
 
         } else {
             Log.e("myApp :: ", "else thisFirstWalk == null " + String.valueOf(thisFirstWalk.getOrderedWalkSounds().size()) );
         }
+
+        RealmResults<Walk> walkClassResults = realm.where(Walk.class).findAll();
+
+        RealmRecyclerView nWalks = (RealmRecyclerView) findViewById(R.id.walks_realm_recycler_view);
+
+
+        WalkRecyclerViewAdapter walkAdapter = new WalkRecyclerViewAdapter(getBaseContext(), walkClassResults, true, false);
+
+        Log.e("myApp :: ", "walkClassResultssize " + String.valueOf(walkClassResults.size()) );
+        if (walkAdapter == null) {
+            Log.e("myApp :: ", "walkAdapter == null" );
+        } else {
+            Log.e("myApp :: ", "walkAdapter != null" );
+            nWalks.setAdapter(walkAdapter);
+        }
+
 
 
 
@@ -79,8 +127,12 @@ public class WalksActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intentWalkAdd = new Intent(getApplicationContext(), WalkAddActivity.class);
+                thisWalkID = getCurrDateString();
+                intentWalkAdd.putExtra("walkID", thisWalkID);
+                startActivity(intentWalkAdd);
+
+
             }
         });
     }
@@ -307,6 +359,153 @@ public class WalksActivity extends AppCompatActivity {
 
 
     }
+
+    public interface IMyViewHolderWalkClicks {
+
+    }
+
+    public class WalkRecyclerViewAdapter extends RealmBasedRecyclerViewAdapter<
+                Walk, WalkRecyclerViewAdapter.ViewHolder> {
+
+        Walk thisWalk;
+
+
+        public WalkRecyclerViewAdapter(
+                Context context,
+                RealmResults<Walk> realmResults,
+                boolean automaticUpdate,
+                boolean animateIdType ) {
+            super(context, realmResults, automaticUpdate, animateIdType);
+        }
+
+        public class ViewHolder extends RealmViewHolder implements View.OnClickListener {
+            //implements View.OnClickListener
+            private ImageView wImage;
+            private ImageView wIconAcess;
+            private ImageButton wMore;
+            private TextView wTitle;
+            private TextView wStages;
+            private TextView wPractical;
+            private LinearLayout wLinearLayoutAccess;
+            //          IMyViewHolderWalkClicks mListener;
+
+
+            public ViewHolder(LinearLayout container) {
+                super(container);
+
+                Log.e("myApp ", "ViewHolder ");
+                wImage = (ImageView) container.findViewById(R.id.walk_grid_image);
+                wIconAcess = (ImageView) container.findViewById(R.id.walk_grid_icon_accessibility);
+                wMore = (ImageButton) container.findViewById(R.id.walk_grid_moreInfo);
+                wTitle = (TextView) container.findViewById(R.id.walk_grid_title);
+                wStages = (TextView) container.findViewById(R.id.walk_accessibility);
+                wLinearLayoutAccess = (LinearLayout) container.findViewById(R.id.walk_linearlayout);
+                wPractical = (TextView) container.findViewById(R.id.walk_info_practique);
+                wImage.setOnClickListener(this);
+
+            }
+
+
+            @Override
+            public void onClick(View v) {
+                thisWalk = realmResults.get(getAdapterPosition());
+                Log.e("myApp :: ", " onclick " + getAdapterPosition());
+                RealmList<OrderedWalkSound> stagesList = thisWalk.getOrderedWalkSounds();
+                if ( (stagesList !=null ) && (stagesList.size()> 1) ) {
+                    Intent intent = new Intent(getApplicationContext(), WalkMapsActivity.class);
+                    intent.putExtra("walkID", thisWalk.getWalkID());
+                    startActivity(intent);
+
+                }
+
+
+
+                if (v instanceof ImageView) {
+                    Log.e("myApp ", "onplay inside onclick getAdapterPosition " + getAdapterPosition());
+
+
+                    Log.e("myApp", "onplay inside onclick " + thisWalk.getWalkName());
+                    //           mListener.onPlay((ImageView)v);
+                } else {
+                    Log.e("myApp: ", "onlike inside onclick " + "");
+
+                }
+
+            }
+        }
+
+        // The Viewholder which we inflate here the layout for items in recycleview here note_item
+
+        @Override
+        public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int viewType) {
+            Log.e("myApp:: ", "onCreateRealmViewHolder " );
+            View v = inflater.inflate(R.layout.grid_item_view_walks, viewGroup, false);
+            return new ViewHolder((LinearLayout) v);
+        }
+
+        @Override
+        public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
+
+            final Walk walk = realmResults.get(position);
+            String thisWalkFileName = BloisWalkDirPath + "/" + walk.getWalkPhoto();
+            File thisWalkFileNamePath = new File(thisWalkFileName);
+            // get metrics
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+            Log.e("myApp", "(float)displayMetrics.widthPixels "+ String.valueOf((float)displayMetrics.widthPixels));
+            Log.e("myApp", "(float)displayMetrics.heightPixels "+ String.valueOf((float)displayMetrics.heightPixels));
+            int currentWidth = displayMetrics.widthPixels;
+            int currentHeight = displayMetrics.widthPixels / 3;
+
+            if (thisWalkFileNamePath.exists()) {
+                Log.e("myApp :: ", "thisWalkFileName " + thisWalkFileName );
+                Picasso.with(viewHolder.wImage.getContext())
+                        .load(new File(thisWalkFileName))
+                        .resize(currentWidth, currentHeight)
+                        .placeholder(R.drawable.sound_defaul_image)
+                        .into(viewHolder.wImage);
+
+            } else {
+                thisWalkFileName = BloisSoundWebUrl + "/" + walk.getWalkPhoto();
+                Picasso.with(viewHolder.wImage.getContext())
+                        .load(thisWalkFileName)
+                        .resize(currentWidth, currentHeight)
+                        .placeholder(R.drawable.user_default_image)
+                        .into(viewHolder.wImage);
+
+            }
+
+            viewHolder.wTitle.setText(walk.getWalkName());
+
+            if (walk.isAccessiable()) {
+                viewHolder.wIconAcess.setImageResource(R.drawable.ic_accessible_black_24dp);
+            } else {
+                viewHolder.wIconAcess.setImageResource(R.drawable.ic_terrain_black_24dp);
+            }
+            if ((walk.getWalkTime()!= null ) && (walk.getWalkDistance() !=  null)){
+                String infoPratical = "Distance : " + String.valueOf(walk.getWalkDistance()) + " Durée : " + walk.getWalkTime();
+                viewHolder.wPractical.setText( infoPratical);
+            } if ((walk.getWalkTime()== null ) && (walk.getWalkDistance() !=  null)){
+                Log.e("myApp:: ", "calculate walking time " );
+                Double calculateTime = walk.getWalkDistance() * .002;
+                String infoPratical = "Distance : " + String.format("%.2f",walk.getWalkDistance()) + " Durée : " + String.format("%.2f", calculateTime) +" hr";
+                viewHolder.wPractical.setText( infoPratical );
+            } else {
+                viewHolder.wPractical.setText( "error - null values");
+            }
+            viewHolder.wMore.setImageResource(R.drawable.ic_more_horiz_black_24dp);
+
+            RealmList<OrderedWalkSound> walkStagesList = walk.getOrderedWalkSounds();
+
+            int thisWalkSStageComputed = walkStagesList.size();
+
+            String numSoundString = Integer.toString( thisWalkSStageComputed ) + " lieux";
+            viewHolder.wStages.setText( numSoundString );
+
+        }
+    }
+
 
 
 }

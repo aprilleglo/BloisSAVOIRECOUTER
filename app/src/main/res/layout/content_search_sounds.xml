@@ -12,10 +12,11 @@
 
     <co.moonmonkeylabs.realmsearchview.RealmSearchView
         android:id="@+id/sound_search_view"
-        android:layout_width="match_parent"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         SearchSounds:rsvHint="@string/search_hint"
-        />
+        tools:layout_editor_absoluteY="43dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 </android.support.constraint.ConstraintLayout>
